@@ -31,9 +31,7 @@
             </div>
         </div>
         <?php if (isset($feedback)):?>
-            <script>
-                callModal('#modal-feedback');
-            </script>
+            <script> callModal('#modal-feedback'); </script>
         <?php endif;?>
     </div>
 </div>

@@ -16,11 +16,17 @@ class loginController extends Controller {
             $u = new Users();
 
             if ($u->doLogin($email, $password)) {
-                header('location:'.BASE_URL.'/home');
+                header('location:'.BASE_URL.'home');
             } else {
                 $data['feedback'] = 'Usuário não encontrado!';
             }
         }
         $this->loadView('login', $data);
+    }
+
+    public function logout() {
+       $u = new Users();
+       $u->logout();
+       header('location: '.BASE_URL);
     }
 }

@@ -10,7 +10,7 @@ const validLogin = function() {
     return true;
 }
 
-var delUser = function(url1) {
+var callDelUser = function(url1) { // função responsável por deletar usuário
     $.ajax({
         url: url1,
         type: 'POST',
@@ -20,12 +20,15 @@ var delUser = function(url1) {
     });
 }
 
-var del = function(event,url,parent) {
+var deleteUser = function(event,url,parent) {
     event.preventDefault();
-    parent.fadeOut(1000,function(){
-        parent.remove();
-    });
-    delUser(url);
+    if (window.confirm("Deseja realmente excluir esse usuário?")) {
+        parent.fadeOut(1000,function(){
+            parent.remove();
+        });
+        callDelUser(url);
+    }
+
 }
 
 function callModal(modalName) {

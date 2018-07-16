@@ -1,5 +1,6 @@
 <a href="<?=BASE_URL?>users/add" class="btn button-all"> Cadastrar Novo Usuário </a>
 <h3>Usuários Cadastrados</h3>
+<?=date('d-m-Y H:i:s ');  ?>
 <div class="table-responsive-lg">
     <table class="table table-light tabela-listagem">
         <tr>
@@ -11,10 +12,10 @@
         <tr>
             <td><?=$rs['usuario']?></td>
             <td><?=$rs['email']?></td>
-            <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all">Editar</a>
+            <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all" title="Editar"><i class="fas fa-pencil-alt"></i></a>
                 <a  href="<?=BASE_URL?>users/del/<?=$rs['id']?>" id="btt"
-                    onclick="del(event, $(this).attr('href'), $(this).parents('tr'))"
-                   class="btn-del btn button-all">Excluir
+                    onclick="deleteUser(event, $(this).attr('href'), $(this).parents('tr'))"
+                   title="Excluir" class="btn-del btn button-all"><i class="fas fa-trash-alt"></i>
                 </a>
             </td>
         </tr>

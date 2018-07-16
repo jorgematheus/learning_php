@@ -20,7 +20,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Song Myung', serif !important; margin: 20
 
 /* Botões */
 .button-all { background: #4CAF50; color: #fff; }
-.button-all:hover { background: #fff; color: #2196F3; border: 1px solid #4CAF50 }
+.button-all:hover { color:#fff; box-shadow:5px 10px 18px #888888; }
 .btn-home { height: 200px;  background-color: #FF8C00; position:relative; border-radius:5px;
             width: 60%; transform: scale(1.0); box-shadow: 0 0 20px rgba(0,0,0,.5); margin-bottom:20px; } /* Botões página inicial */
 .btn-home a, .btn-home i { width:100%; color: #fff; }
@@ -34,6 +34,7 @@ table.tabela-listagem th:last-child { width: 20%; }
 /*Navbar*/
 .navbar-toggler .bar-icon { color: #fff ; }
 .navbar-brand { color: #fff; } /*ícone Navbar*/
+.navbar-brand:hover { color: #fff; }
 .navbar { background-color: /*#1a1a1a;*/ #2f2f2f; }
 .navbar span, .navbar li a:not(.dropdown-item, [class*="menu-"]) { color: #fff; }
 #name-user-top { position: relative; }
@@ -41,16 +42,30 @@ li.dropdown a::after { display:none; }
 
 /*Dropdowns Menu*/
 li[class*="menu-"] { font-weight: 600; }
-li.menu-admin i, li.menu-admin a { color: #FF8C00; } /* Administração */
+li.menu-admin i, li.menu-admin a { color: #FF8C00; } /* Admin */
 li.menu-content i, li.menu-content a { color: #339AF0; } /* Content */
 li.menu-users i, li.menu-users a { color: #4CAF50; } /* Users */
 li.menu-report i, li.menu-report a { color: #E91E63; } /* Report */
+/*.menu-user-perfil { position: relative; left:100%; } /* Perfil user */
+.menu-user-perfil i, .menu-user-perfil a { color: #fff; } /* Perfil user */
+.dropdown-perfil-user { background-color: #2f2f2f !important;  } /* Perfil user - dropdown */
 
-/* Feedback Login */
-#feedback-login { color: #dc3545; }
+/* Dropdowns Menu - Resetando o Hover */
+.dropdown-item:focus, .dropdown-item:hover:not(.item-perfil-user) { background-color: #fff !important; }
+.menu-admin .dropdown-item:hover { color: #FF8C00 !important; } /* Hover Admin */
+.menu-content .dropdown-item:hover { color: #339AF0 !important; } /* Hover Content */
+.menu-users .dropdown-item:hover { color: #4CAF50 !important; } /* Hover Users */
+.menu-report .dropdown-item:hover { color: #E91E63 !important; } /* Hover Report */
+.dropdown-perfil-user .item-perfil-user:hover { color: #fff; background-color: #2f2f2f !important; } /* Perfil user */
+
+/* Mensagens de Feedbacks  */
+.feedback-invalid { color: #dc3545; }
+.feedback-valid { color: #4caf50; }
 
 /* Página Home */
 .home-main { padding:50px 0px; margin-left: 15%; }
+
+/* Página usuários */
 
 /* Rodapé */
 footer {  position:relative; margin-top: 100px; height: 50px; background-color: #2f2f2f; }
@@ -58,6 +73,6 @@ footer {  position:relative; margin-top: 100px; height: 50px; background-color: 
 
 @media screen and (max-width: 990px) {
     .btn-home  { width: 80%; }
-
+    table tr td:nth-child(3) a:first-child { margin-bottom:5px; } /* Página usuários */
 }
 

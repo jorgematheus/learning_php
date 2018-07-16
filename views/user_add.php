@@ -11,7 +11,7 @@
             <div class="form-group">
                 <input type="password" class="form-control" name="password" placeholder="Senha*">
             </div>
-            <input type="submit" class="btn btn-outline-primary" value="Cadastrar">
+            <input type="submit" class="btn button-all" value="Cadastrar">
         </form>
         <?php if (isset($feedback)):?>
         <span> <?=$feedback; ?> </span>

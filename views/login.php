@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg">
+    <a class="navbar-brand" href="<?=BASE_URL?>">E-Learning</a>
+</nav>
 <div class="container">
     <!-- Button trigger modal -->
     <input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-login">
@@ -14,10 +17,9 @@
     <div class="modal fade"  id="modal-login" tabindex="-1" role="dialog" aria-labelledby="modal-login" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Acesse!</h5>
-                </div>
                 <div class="modal-body">
+                    <h5><img src="<?=BASE_URL?>assets/img/icons/graduation-cap-solid.svg"
+                             width="30" height="30" alt="E-learning Cap"> E-learning</h5>
                     <div id="bloco-login">
                         <form method="POST" id="form-login" name="form-login" >
                             <div class="form-group">
@@ -26,10 +28,10 @@
                             <div class="form-group">
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
                             </div>
-                            <input type="submit" class="btn btn-outline-primary" id="enviar" value="Entrar">
+                            <input type="submit" class="btn button-all" id="login" value="Entrar">
                         </form>
                         <?php if (isset($feedback) && !empty($feedback)):?>
-                        <small id="feedback-login"><?=$feedback?></small>
+                        <small class="feedback-invalid"><?=$feedback?></small>
                         <?php endif;?>
                     </div>
                 </div>

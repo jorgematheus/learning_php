@@ -19,7 +19,9 @@
     <body>
         <div id="geral">
             <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap"></i> E-Learning</a>
+                <?php if(1 === 1): ?>
+                <a class="navbar-brand" href="<?=BASE_URL?>"><i class="fas fa-graduation-cap"></i> E-Learning</a>
+                <?php endif; ?>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -35,8 +37,6 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#"><i class="fas fa-users"></i> Grupos de Usuários</a>
                                 <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a>
                             </div>
                         </li> <!-- dropdown admin-->
                         <li class="nav-item dropdown menu-content">
@@ -56,7 +56,7 @@
                                 <i class="fas fa-user-edit"></i> Usuários
                             </a>
                         </li> <!-- dropdown users-->
-                        <li class="nav-item dropdown menu-report">
+                        <li style="padding-right: 400px;" class="nav-item dropdown menu-report">
                             <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-file-export"></i> Relatórios
@@ -67,8 +67,18 @@
                                 <a class="dropdown-item" href="#">Usuários</a>
                             </div>
                         </li> <!-- dropdown report-->
+                        <li class="nav-item dropdown menu-user-perfil">
+                            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <?php  $user = "Jorge Matheus Nunes Da Silva"; ?>
+                                <i class="fas fa-user"></i> Olá, Jorge Matheus! <?php if(isset($nomeUser)) echo $nomeUser;?>
+                            </a>
+                            <div class="dropdown-menu dropdown-perfil-user" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item item-perfil-user" href="#"><i class="fas fa-cog"></i> Meu Perfil</a>
+                            </div>
+                        </li> <!-- dropdown perfil-user-->
+                        <li class="nav-item dropdown menu-report"> <a class="nav-link" href="<?php BASE_URL?>login/logout" title="Logout"><i class="fas fa-sign-out-alt"></i></a> </li>
                     </ul>
-                    <span id="name-user-top" class="navbar-text text-center">Olá, <?php if(isset($nomeUser)) echo $nomeUser;?></span>
                 </div>
             </nav>
         </div>

@@ -10,6 +10,14 @@ class Users extends Model {
 
     private $userInfo;
 
+    public function isLogged() {
+        if (isset($_SESSION['ssUser']) && !empty($_SESSION['ssUser'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function doLogin($email, $pass) {
         $sql = $this->db->prepare('SELECT * FROM users WHERE email = :email');
         $sql->bindValue(':email', $email);
@@ -37,8 +45,11 @@ class Users extends Model {
             if($sql->rowCount() > 0) {
                 $this->userInfo = $sql->fetch();
             }
-
         }
+    }
+
+    public function logout() {
+        unset($_SESSION['ssUser']);
     }
 
     public function add($user, $email, $password) {
