@@ -52,7 +52,7 @@ li.menu-admin i, li.menu-admin a { color: #FF8C00; } /* Admin */
 li.menu-content i, li.menu-content a { color: #339AF0; } /* Content */
 li.menu-users i, li.menu-users a { color: #4CAF50; } /* Users */
 li.menu-report i, li.menu-report a { color: #E91E63; } /* Report */
-/*.menu-user-perfil { position: relative; left:100%; } /* Perfil user */
+.menu-user-perfil {  } /* Perfil user */
 .menu-user-perfil i, .menu-user-perfil a { color: #fff; } /* Perfil user */
 .dropdown-perfil-user { background-color: #2f2f2f !important;  } /* Perfil user - dropdown */
 
@@ -62,6 +62,7 @@ li.menu-report i, li.menu-report a { color: #E91E63; } /* Report */
 .menu-content .dropdown-item:hover { color: #339AF0 !important; } /* Hover Content */
 .menu-users .dropdown-item:hover { color: #4CAF50 !important; } /* Hover Users */
 .menu-report .dropdown-item:hover { color: #E91E63 !important; } /* Hover Report */
+.menu-user-perfil a:hover { color: #fff; } /*Hover perfil user*/
 .dropdown-perfil-user .item-perfil-user:hover { color: #fff; background-color: #2f2f2f !important; } /* Perfil user */
 
 /* Mensagens de Feedbacks  */
@@ -81,6 +82,11 @@ footer {  position:relative; margin-top: 100px; height: 50px; background-color: 
 
 @media screen and (max-width: 990px) {
     .btn-home  { width: 80%; }
-    table tr td:nth-child(3) a:first-child { margin-bottom:5px; } /* Página usuários */
+    #tabela-usuarios tr td:last-child a:first-child { margin-bottom:5px; } /* Página usuários */
+    .navbar-collapse li:nth-child(4) + li:nth-child(5) { margin-left: 0px !important; } /*zera a margin do menu*/
+    .navbar-collapse li:nth-child(5) + li:nth-child(6) { margin-left: 0px !important; } /*zera a margin do menu*/
 }
+
+.navbar-collapse li:nth-child(4) + li:nth-child(5) {  margin-left: 300px;}
+.navbar-collapse li:nth-child(5) + li:nth-child(6) { margin-left: 50px; }
 

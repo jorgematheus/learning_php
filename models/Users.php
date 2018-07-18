@@ -84,6 +84,18 @@ class Users extends Model {
         }
     }
 
+    public function editMyProfile($id, $name, $password, $dt_nascimento, $celular) {
+        $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, 
+                           celular = ?, ultima_modificacao = ?, ultimo_editor = ? WHERE id = ?');
+        $sql->execute(array($name, $dt_nascimento, $celular,
+            date('Y-m-d H:i:s'), $this->userInfo['usuario'], $id));
+
+        if(!empty($password)) {
+            $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');
+            $sql->execute(array($password, $id));
+        }
+    }
+
     public function delete($id) {
         $sql = $this->db->prepare('SELECT COUNT(id) as qt FROM users WHERE id = ?');
         $sql->execute(array($id));
@@ -125,6 +137,12 @@ class Users extends Model {
     public function getName() {
         if(isset($this->userInfo['usuario'])) {
             return $this->userInfo['usuario'];
+        }
+    }
+
+    public function getId() {
+        if(isset($this->userInfo['id'])) {
+            return $this->userInfo['id'];
         }
     }
 }

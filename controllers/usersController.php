@@ -94,4 +94,34 @@ class usersController extends Controller {
             }
         }
     }
+
+    public function myprofile() {
+        $data = array();
+        $u = new Users();
+        $u->setLoggedUser();
+        $data['nameUser'] = $u->getName();
+        $data['userData'] = $u->getUserEdit($u->getId());
+
+        if (isset($_POST['name']) && !empty($_POST['name'])) {
+            $name = addslashes($_POST['name']);
+            $pass = addslashes($_POST['password']);
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+            if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
+                $dt_nascimento = addslashes(date('Y-m-d',
+                    strtotime(str_replace('/', '-', $_POST['nascimento']))));
+            } else {
+                $dt_nascimento = null;
+            }
+            if(isset($_POST['celular']) && !empty($_POST['celular'])) {
+                $celular = addslashes($_POST['celular']);
+            } else {
+                $celular = null;
+            }
+            $data['feedback'] = 'Dados Salvos!';
+            $u->editMyProfile($u->getId(), $name, $pass, $dt_nascimento, $celular);
+        }
+        $this->loadTemplate('my_profile', $data);
+
+    }
 }

@@ -19,20 +19,18 @@
     <body>
         <div id="geral">
             <nav class="navbar navbar-expand-lg">
-                <?php if(1 === 1): ?>
-                <a class="navbar-brand" href="<?=BASE_URL?>"><i class="fas fa-graduation-cap"></i> E-Learning</a>
-                <?php endif; ?>
+                <a class="navbar-brand" href="<?=BASE_URL?>"><i class="fas fa-graduation-cap fa-fw"></i> E-Learning</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="bar-icon fas fa-bars"></span>
+                    <span class="bar-icon fas fa-bars fa-fw"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item dropdown menu-admin">
                             <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cog"></i> Administração
+                                <i class="fas fa-cog fa-fw"></i> Administração
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#"><i class="fas fa-users"></i> Grupos de Usuários</a>
@@ -42,7 +40,7 @@
                         <li class="nav-item dropdown menu-content">
                             <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-book"></i> Conteúdos
+                                <i class="fas fa-book fa-fw"></i> Conteúdos
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher"></i> Turmas</a>
@@ -53,10 +51,10 @@
                         </li> <!-- dropdown content-->
                         <li class="nav-item dropdown menu-users">
                             <a class="nav-link dropdown-toggle" href="<?=BASE_URL?>users">
-                                <i class="fas fa-user-edit"></i> Usuários
+                                <i class="fas fa-user-edit fa-fw"></i> Usuários
                             </a>
                         </li> <!-- dropdown users-->
-                        <li style="padding-right: 400px;" class="nav-item dropdown menu-report">
+                        <li style="" class="nav-item dropdown menu-report">
                             <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-file-export"></i> Relatórios
@@ -68,17 +66,18 @@
                             </div>
                         </li> <!-- dropdown report-->
                         <li class="nav-item dropdown menu-user-perfil">
-                            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="#" id="" title="Editar Perfil" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-user"></i> Olá, <?=$viewData['nameUser']?> !
+                                <i class="fas fa-user fa-fw"></i> Olá, <?=$viewData['nameUser']?>!
                             </a>
                             <div class="dropdown-menu dropdown-perfil-user" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item item-perfil-user" href="#"><i class="fas fa-cog"></i> Meu Perfil</a>
+                                <a class="dropdown-item item-perfil-user" href="<?=BASE_URL?>users/myprofile">
+                                    <i class="fas fa-cog"></i> Meu Perfil</a>
                             </div>
                         </li> <!-- dropdown perfil-user-->
                         <li class="nav-item dropdown btn-logout">
-                            <a class="nav-link" href="<?=BASE_URL?>login/logout" title="Logout">
-                                <i class="fas fa-sign-out-alt"></i>
+                            <a class="nav-link" href="<?=BASE_URL?>login/logout" title="Logout" style="color:#fff">
+                                <i class="fas fa-sign-out-alt fa-fw"></i> Sair
                             </a>
                         </li>
                     </ul>

@@ -1,7 +1,7 @@
 <a href="<?=BASE_URL?>users/add" class="btn button-all" title="Cadastrar Novo Usuário"><i class="fas fa-user-plus"></i> Novo Usuário </a>
 <h3>Usuários Cadastrados</h3>
 <div class="table-responsive-lg">
-    <table class="table  tabela-listagem">
+    <table id="tabela-usuarios" class="table tabela-listagem">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -18,10 +18,11 @@
                 <td><?=$rs['email']?></td>
                 <td><?=$rs['celular']?></td>
                 <td><?php $status = $rs['ativo'] == '1' ? 'check' : 'ban'?> <i class="fas fa-<?=$status?>"></i> </td>
-                <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all" title="Editar"><i class="fas fa-pencil-alt"></i></a>
+                <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all"
+                       title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>
                     <a  href="<?=BASE_URL?>users/del/<?=$rs['id']?>" id="btt"
                         onclick="deleteUser(event, $(this).attr('href'), $(this).parents('tr'))"
-                       title="Excluir" class="btn-del btn button-all"><i class="fas fa-trash-alt"></i>
+                       title="Excluir" class="btn-del btn button-all"><i class="fas fa-trash-alt fa-fw"></i>
                     </a>
                 </td>
             </tr>
