@@ -30,7 +30,7 @@
                             </div>
                             <input type="submit" class="btn button-all" id="login" value="Entrar">
                         </form>
-                        <?php if (isset($feedback) && !empty($feedback)):?>
+                        <?php echo password_hash('teste', PASSWORD_DEFAULT);  if (isset($feedback) && !empty($feedback)):?>
                         <small class="feedback-invalid"><?=$feedback?></small>
                         <?php endif;?>
                     </div>

@@ -62,8 +62,14 @@ class usersController extends Controller {
 
         if (isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
-            $pass = addslashes($_POST['password']);
-            $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+            if(isset($_POST['password']) && !empty($_POST['password'])) {
+                $pass = addslashes($_POST['password']);
+                $pass = password_hash($pass, PASSWORD_DEFAULT);
+            } else {
+                $pass = null;
+            }
+            
             $tipo_user = addslashes($_POST['tipo']);
             $status = addslashes($_POST['status']);
 
@@ -104,8 +110,13 @@ class usersController extends Controller {
 
         if (isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
-            $pass = addslashes($_POST['password']);
-            $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+            if(isset($_POST['password']) && !empty($_POST['password'])) {
+                $pass = addslashes($_POST['password']);
+                $pass = password_hash($pass, PASSWORD_DEFAULT);
+            } else {
+                $pass = null;
+            }
 
             if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
                 $dt_nascimento = addslashes(date('Y-m-d',

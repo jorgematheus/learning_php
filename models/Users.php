@@ -78,7 +78,7 @@ class Users extends Model {
         $sql->execute(array($name, $dt_nascimento, $status, $tipo_user, $celular,
                       date('Y-m-d H:i:s'), $this->userInfo['usuario'], $id));
 
-        if(!empty($password)) {
+        if($password != null) {
             $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');
             $sql->execute(array($password, $id));
         }
@@ -90,7 +90,7 @@ class Users extends Model {
         $sql->execute(array($name, $dt_nascimento, $celular,
             date('Y-m-d H:i:s'), $this->userInfo['usuario'], $id));
 
-        if(!empty($password)) {
+        if($password != null) {
             $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');
             $sql->execute(array($password, $id));
         }
