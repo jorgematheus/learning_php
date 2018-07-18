@@ -13,12 +13,12 @@ class homeController extends Controller {
             header('location: '.BASE_URL.'login');
         }
     }
+
     public function index() {
-        $dados = array(
-            'quantidade' => 5,
-            'logados' => 581,
-            'nomeUser' => 'Jorge'
-        );
-        $this->loadTemplate('home', $dados);
+        $data = array();
+        $u = new Users();
+        $u->setLoggedUser();
+        $data['nameUser'] = $u->getName();
+        $this->loadTemplate('home', $data);
     }
 }

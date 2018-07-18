@@ -42,7 +42,7 @@
                         <li class="nav-item dropdown menu-content">
                             <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-book"></i> Conteúdo
+                                <i class="fas fa-book"></i> Conteúdos
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher"></i> Turmas</a>
@@ -70,21 +70,24 @@
                         <li class="nav-item dropdown menu-user-perfil">
                             <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <?php  $user = "Jorge Matheus Nunes Da Silva"; ?>
-                                <i class="fas fa-user"></i> Olá, Jorge Matheus! <?php if(isset($nomeUser)) echo $nomeUser;?>
+                                <i class="fas fa-user"></i> Olá, <?=$viewData['nameUser']?> !
                             </a>
                             <div class="dropdown-menu dropdown-perfil-user" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item item-perfil-user" href="#"><i class="fas fa-cog"></i> Meu Perfil</a>
                             </div>
                         </li> <!-- dropdown perfil-user-->
-                        <li class="nav-item dropdown menu-report"> <a class="nav-link" href="<?php BASE_URL?>login/logout" title="Logout"><i class="fas fa-sign-out-alt"></i></a> </li>
+                        <li class="nav-item dropdown btn-logout">
+                            <a class="nav-link" href="<?=BASE_URL?>login/logout" title="Logout">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
         </div>
             <main id="main" class="container">
                 <div id="main-content" class="col-12">
-                    <?php $this->loadViewInTemplate($viewNames, $viewDatas); ?>
+                    <?php $this->loadViewInTemplate($viewName, $viewData); ?>
                 </div>
             </main>
         <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados</small>  </p></footer>

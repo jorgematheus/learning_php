@@ -13,7 +13,7 @@ class Controller {
         require 'views/'.$viewName.'.php';
     }
 
-    public function loadTemplate($viewNames, $viewDatas = array()) {
+    public function loadTemplate($viewName, $viewData = array()) {
         require 'views/template.php';
     }
 

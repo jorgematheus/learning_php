@@ -41,3 +41,14 @@ function callModal(modalName) {
     });
     $(modalName).modal();
 }
+
+/*Datepicker*/
+let callDatePicker = () => {
+    $('.input-date input').datepicker({
+        format: "dd/mm/yyyy",
+        startView: 2,
+        language: "pt-BR",
+        autoclose: true,
+        datesDisabled: ['07/06/2018', '07/21/2018']
+    });
+}
