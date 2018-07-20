@@ -16,13 +16,6 @@ class Core {
        if(!empty($url) && $url != '/') {
             $url = explode('/', $url);
             array_shift($url);
-            /*$file = BASE_URL.'controllers/'.$url[0];
-            if(!file_exists($file)) {
-                header('location: '.BASE_URL);
-                echo $file;
-
-            }*/
-
             $currentController = $url[0].'Controller';
             array_shift($url);
 

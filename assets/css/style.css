@@ -20,8 +20,8 @@ html, body { height: auto; background-color: #F8F9FA !important; }
 h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 
 /* Botões */
-.button-all { color: #fff; font-weight: 600 !important; }
-.button-all { background: #4CAF50;/*#5067A4; */}
+.button-all { font-weight: 600 !important; }
+.btn-main { margin: 10px 0px; }
 .button-all:hover { color:#fff; box-shadow:5px 10px 18px #888888; }
 .btn-home { height: 200px;  background-color: #FF8C00; position:relative; border-radius:5px;
             width: 60%; transform: scale(1.0); box-shadow: 0 0 20px rgba(0,0,0,.5); margin-bottom:20px; } /* Botões página inicial */
@@ -46,24 +46,13 @@ h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 #name-user-top { position: relative; }
 li.dropdown a::after { display:none; }
 
-/*Dropdowns Menu*/
+/*Dropdowns Menu e títulos (h3)*/
 li[class*="menu-"] { font-weight: 600; }
-li.menu-admin i, li.menu-admin a { color: #FF8C00; } /* Admin */
-li.menu-content i, li.menu-content a { color: #339AF0; } /* Content */
-li.menu-users i, li.menu-users a { color: #4CAF50; } /* Users */
-li.menu-report i, li.menu-report a { color: #E91E63; } /* Report */
-.menu-user-perfil {  } /* Perfil user */
-.menu-user-perfil i, .menu-user-perfil a { color: #fff; } /* Perfil user */
-.dropdown-perfil-user { background-color: #2f2f2f !important;  } /* Perfil user - dropdown */
+
 
 /* Dropdowns Menu - Resetando o Hover */
 .dropdown-item:focus, .dropdown-item:hover:not(.item-perfil-user) { background-color: #fff !important; }
-.menu-admin .dropdown-item:hover { color: #FF8C00 !important; } /* Hover Admin */
-.menu-content .dropdown-item:hover { color: #339AF0 !important; } /* Hover Content */
-.menu-users .dropdown-item:hover { color: #4CAF50 !important; } /* Hover Users */
 .menu-report .dropdown-item:hover { color: #E91E63 !important; } /* Hover Report */
-.menu-user-perfil a:hover { color: #fff; } /*Hover perfil user*/
-.dropdown-perfil-user .item-perfil-user:hover { color: #fff; background-color: #2f2f2f !important; } /* Perfil user */
 
 /* Mensagens de Feedbacks  */
 .feedback-invalid { color: #dc3545; }
@@ -82,7 +71,7 @@ footer {  position:relative; margin-top: 100px; height: 50px; background-color: 
 
 @media screen and (max-width: 990px) {
     .btn-home  { width: 80%; }
-    #tabela-usuarios tr td:last-child a:first-child { margin-bottom:5px; } /* Página usuários */
+    .tabela-listagem tr td:last-child a:first-child { margin-bottom:5px; } /* Página usuários */
     .navbar-collapse li:nth-child(4) + li:nth-child(5) { margin-left: 0px !important; } /*zera a margin do menu*/
     .navbar-collapse li:nth-child(5) + li:nth-child(6) { margin-left: 0px !important; } /*zera a margin do menu*/
 }

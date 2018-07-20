@@ -18,7 +18,7 @@ class loginController extends Controller {
             if ($u->doLogin($email, $password)) {
                 header('location:'.BASE_URL.'home');
             } else {
-                $data['feedback'] = 'Usuário não encontrado!';
+                $data['feedback'] = 'Usuário não cadastrado ou está inativo!';
             }
         }
         $this->loadView('login', $data);

@@ -60,6 +60,10 @@ class usersController extends Controller {
         $data['nameUser'] = $u->getName();
         $data['userData'] = $u->getUserEdit($id); // obtém os dados do usuário a ser editado
 
+        if(empty($id) || $data['userData'] == null) {
+            header('location: '.BASE_URL.'users');
+        }
+
         if (isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
 

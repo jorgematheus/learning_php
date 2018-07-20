@@ -21,7 +21,7 @@
                     <h5><img src="<?=BASE_URL?>assets/img/icons/graduation-cap-solid.svg"
                              width="30" height="30" alt="E-learning Cap"> E-learning</h5>
                     <div id="bloco-login">
-                        <form method="POST" id="form-login" name="form-login" >
+                        <form method="POST" id="form-login" name="form-login" onsubmit="return validLogin();">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="email" id="email" placeholder="E-mail">
                             </div>
@@ -30,7 +30,8 @@
                             </div>
                             <input type="submit" class="btn button-all" id="login" value="Entrar">
                         </form>
-                        <?php echo password_hash('teste', PASSWORD_DEFAULT);  if (isset($feedback) && !empty($feedback)):?>
+                        <small class="feedback-invalid"></small>
+                        <?php if (isset($feedback) && !empty($feedback)):?>
                         <small class="feedback-invalid"><?=$feedback?></small>
                         <?php endif;?>
                     </div>

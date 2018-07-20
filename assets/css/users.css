@@ -1,0 +1,10 @@
+li.menu-users i, li.menu-users a, .users-color { color: #4CAF50; } /* Users */
+.menu-users .dropdown-item:hover { color: #4CAF50 !important; } /* Hover Users */
+.menu-user-perfil a:hover { color: #fff; } /*Hover perfil user*/
+.dropdown-perfil-user .item-perfil-user:hover { color: #fff; background-color: #2f2f2f !important; } /* Perfil user */
+.menu-user-perfil i, .menu-user-perfil a { color: #fff; } /* Perfil user */
+.dropdown-perfil-user { background-color: #2f2f2f !important;  } /* Perfil user - dropdown */
+
+/*Buttons User*/
+.btn-user { color: #fff; background: #4CAF50; }
+

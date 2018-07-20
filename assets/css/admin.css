@@ -1,0 +1,10 @@
+li.menu-admin i, li.menu-admin a, .admin-color { color: #FF8C00; } /* Admin */
+.menu-admin .dropdown-item:hover { color: #FF8C00 !important; } /* Hover Admin */
+
+/*Buttons Admin*/
+.btn-admin { color: #fff; background: #FF8C00; }
+
+#pills-tab { background-color: #F8F9FA !important; border-radius: 5px; }
+
+
+

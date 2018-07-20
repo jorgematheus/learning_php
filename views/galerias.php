@@ -1,1 +1,0 @@
-<h1> Galerias </h1>

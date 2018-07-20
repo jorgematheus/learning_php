@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/datepicker3.less">
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker3.min.css">
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker.standalone.min.css">
-<h3 class="text-center"> Editar Usuário </h3>
+<h3 class="users-color"><i class="fas fa-pen fa-fw"></i> Edição de Usuário </h3>
 <form id="edit-user" method="POST">
     <div class="row">
         <div class="form-group col-md-6">
@@ -40,7 +40,7 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
         </div>
     </div>
-    <button type="submit" class="btn button-all"><i class="fas fa-save"></i>  Salvar</button>
+    <button type="submit" class="btn button-all btn-user"><i class="fas fa-save fa-fw"></i>  Salvar</button>
 </form>
 <br>
 <div class="alert alert-info">
@@ -57,7 +57,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <span><i class="fas fa-check"></i> <?=$feedback; ?></span>
+                <span><i class="fas fa-check"></i> <?=$feedback;?></span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -66,7 +66,7 @@
     </div>
 </div>
 <?php if (isset($feedback)):?>
-    <script> callModal('#modal-feedback');</script>
+    <script> callModalEdit('#modal-feedback', 'users');</script>
 <?php endif;?>
 <script src="<?=BASE_URL?>vendor/datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<?=BASE_URL?>vendor/datepicker/js/bootstrap-datepicker.pt-BR.min.js"></script>

@@ -24,9 +24,13 @@ class Users extends Model {
         $sql->execute();
         if ($sql->rowCount() > 0) {
             $data = $sql->fetch(PDO::FETCH_ASSOC);
-            if (password_verify($pass, $data['senha'])) {
-                $_SESSION['ssUser'] = $data['id'];
-                return true;
+            if($data['ativo'] == '1') {
+                if (password_verify($pass, $data['senha'])) {
+                    $_SESSION['ssUser'] = $data['id'];
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
@@ -123,9 +127,8 @@ class Users extends Model {
     public function getListUsers() {
         $sql = $this->db->query('SELECT * FROM users');
         if($sql->rowCount() > 0) {
-            $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
-        return $data;
     }
 
     public function getEmail() {

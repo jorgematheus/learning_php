@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/datepicker3.less">
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker3.min.css">
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker.standalone.min.css">
-<h3 class="text-center"> Meu Perfil</h3>
+<h3 class="users-color"><i class="fas fa-cog"></i> Meu Perfil</h3>
 <form id="form-my-profile" method="POST">
     <div class="row">
         <div class="form-group col-md-6">
@@ -27,7 +27,7 @@
             <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
         </div>
     </div>
-    <input type="submit" class="btn button-all" value="Cadastrar">
+    <button type="submit" class="btn button-all btn-user" ><i class="fas fa-save fa-fw"></i> Salvar</button>
 </form>
 
 <?php if (isset($feedback)):?>

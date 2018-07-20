@@ -3,6 +3,10 @@
     <head>
         <title> Learning </title>
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/style.css">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/users.css">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/report.css">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/content.css">
         <link rel="stylesheet" href="<?=BASE_URL?>node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
               integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -33,8 +37,8 @@
                                 <i class="fas fa-cog fa-fw"></i> Administração
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"><i class="fas fa-users"></i> Grupos de Usuários</a>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-users fa-fw"></i> Grupos de Usuários</a>
+                                <a class="dropdown-item" href="<?=BASE_URL?>trash"><i class="fas fa-trash-alt fa-fw"></i> Lixeira</a>
                             </div>
                         </li> <!-- dropdown admin-->
                         <li class="nav-item dropdown menu-content">
@@ -43,10 +47,10 @@
                                 <i class="fas fa-book fa-fw"></i> Conteúdos
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher"></i> Turmas</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher"></i> Cursos</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-clipboard-list"></i> Aulas</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-pen"></i> Conteúdos</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Cursos</a>
+                                <a class="dropdown-item" href="#"><i class="fas fa-clipboard-list fa-fw"></i> Aulas</a>
+                                <a class="dropdown-item" href="<?=BASE_URL?>content"><i class="fas fa-pen fa-fw"></i> Conteúdos</a>
                             </div>
                         </li> <!-- dropdown content-->
                         <li class="nav-item dropdown menu-users">
@@ -72,7 +76,7 @@
                             </a>
                             <div class="dropdown-menu dropdown-perfil-user" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item item-perfil-user" href="<?=BASE_URL?>users/myprofile">
-                                    <i class="fas fa-cog"></i> Meu Perfil</a>
+                                    <i class="fas fa-cog fa-fw"></i> Meu Perfil</a>
                             </div>
                         </li> <!-- dropdown perfil-user-->
                         <li class="nav-item dropdown btn-logout">
@@ -89,6 +93,6 @@
                     <?php $this->loadViewInTemplate($viewName, $viewData); ?>
                 </div>
             </main>
-        <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados</small>  </p></footer>
+        <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados &copy;</small>  </p></footer>
     </body>
 </html>

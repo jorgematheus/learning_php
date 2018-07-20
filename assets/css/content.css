@@ -1,0 +1,5 @@
+li.menu-content i, li.menu-content a, .content-color { color: #339AF0; } /* Content */
+.menu-content .dropdown-item:hover { color: #339AF0 !important; } /* Hover Content */
+
+/*Buttons Content*/
+.btn-content { color: #fff; background: #339AF0; }
