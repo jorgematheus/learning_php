@@ -1,5 +1,7 @@
 <h3  class="users-color"><i class="fas fa-users"></i> Usuários Cadastrados</h3>
+<?php if($permission == '3'): ?>
 <a href="<?=BASE_URL?>users/add" class="btn button-all btn-main btn-user" title="Cadastrar Novo Usuário"><i class="fas fa-user-plus"></i> Novo Usuário </a>
+<?php endif; ?>
 <div class="table-responsive-lg">
     <table id="tabela-usuarios" class="table tabela-listagem">
         <thead>
@@ -8,7 +10,9 @@
                 <th>Email</th>
                 <th>Celular</th>
                 <th>Ativo</th>
+                <?php if($permission == '3'): ?>
                 <th>Ações</th>
+                <?php endif; ?>
             </tr>
         </thead>
         <tbody>
@@ -19,13 +23,15 @@
                 <td><?=$rs['email']?></td>
                 <td><?=$rs['celular']?></td>
                 <td><?php $status = $rs['ativo'] == '1' ? 'check' : 'ban'?> <i class="fas fa-<?=$status?>"></i> </td>
-                <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all btn-user"
-                       title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>
-                    <a  href="<?=BASE_URL?>users/del/<?=$rs['id']?>" id="btt"
-                        onclick="callDelete(event,$(this).attr('href'), $(this).parents('tr'), 'usuário')"
-                       title="Excluir" class="btn-del btn button-all btn-user"><i class="fas fa-trash-alt fa-fw"></i>
-                    </a>
-                </td>
+                <?php if($permission == '3'): ?>
+                    <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all btn-user"
+                           title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>
+                        <a  href="<?=BASE_URL?>users/del/<?=$rs['id']?>" id="btt"
+                            onclick="callDelete(event,$(this).attr('href'), $(this).parents('tr'), 'usuário')"
+                           title="Excluir" class="btn-del btn button-all btn-user"><i class="fas fa-trash-alt fa-fw"></i>
+                        </a>
+                    </td>
+                <?php endif; ?>
             </tr>
         <?php endforeach; ?>
         <?php endif;?>

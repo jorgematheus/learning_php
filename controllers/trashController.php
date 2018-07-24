@@ -8,14 +8,25 @@
 
 class trashController extends Controller {
 
+    public function __construct() {
+        $u = new Users();
+        if(!$u->isLogged()) {
+            header('location: '.BASE_URL.'login');
+        }
+    }
+
     public function index() {
         $data = array();
         $u = new Users();
         $t = new Trash();
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
-        $data['listContent'] = $t->getDataInactive('content');
+        $data['listContent'] = $t->getDataInactiveContent();
+        $data['permission'] = $u->getTypeUser();
 
+        if($data['permission'] != '3') {
+            header('location: '.BASE_URL.'restrict');
+        }
         $this->loadTemplate('trash', $data);
     }
 
@@ -25,12 +36,14 @@ class trashController extends Controller {
         $t = new Trash();
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();
 
+        if($data['permission'] != '3') {
+            header('location: '.BASE_URL.'restrict');
+        }
         if(!empty($id)) {
             $t->recoveryDataInactive($id, 'content');
         }
-
-
     }
 
 }

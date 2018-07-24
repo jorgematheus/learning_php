@@ -21,6 +21,10 @@ class usersController extends Controller {
         $u->setLoggedUser();
         $data['listUsers'] = $u->getListUsers();
         $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();
+        if ($data['permission'] != '3' && $data['permission'] != '2') {
+           echo "não é admin nem editor";
+        }
         $this->loadTemplate('users', $data);
     }
 
@@ -29,25 +33,37 @@ class usersController extends Controller {
         $u = new Users();
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
-        if (isset($_POST['email']) && !empty($_POST['email'])) {
-            $user = addslashes($_POST['name']);
-            $email = addslashes($_POST['email']);
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $tipo_user = addslashes($_POST['tipo']);
-            $celular = addslashes($_POST['celular']);
+        $data['permission'] = $u->getTypeUser();
+        if($data['permission'] != '3') {
+            header('location: '.BASE_URL.'restrict');
+        }
 
-            if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
-                $dt_nascimento = addslashes(date('Y-m-d',
-                                 strtotime(str_replace('/', '-', $_POST['nascimento']))));
-            } else {
-                $dt_nascimento = null;
-            }
-            $add = $u->add($user, $email, $password, $dt_nascimento, $tipo_user, $celular);
+        if(isset($_POST['email']) && !empty($_POST['email'])) {
+            if(isset($_POST['name']) && !empty($_POST['name'])) {
+                if(isset($_POST['password']) && !empty($_POST['password'])) {
+                    $user = addslashes($_POST['name']);
+                    $email = addslashes($_POST['email']);
+                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                    $tipo_user = addslashes($_POST['tipo']);
+                    $celular = addslashes($_POST['celular']);
 
-            if ($add) {
-                $data['feedback'] = 'Usuário cadastrado com suceeso!';
-            } else {
-                $data['feedback'] = 'E-mail já está sendo usado!';
+                    if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
+                        $dt_nascimento = addslashes(date('Y-m-d',
+                            strtotime(str_replace('/', '-', $_POST['nascimento']))));
+                    } else {
+                        $dt_nascimento = null;
+                    }
+                    if($u->emailNotUsed($email)) {
+                        $add = $u->add($user, $email, $password, $dt_nascimento, $tipo_user, $celular);
+                        if ($add) {
+                            $data['feedback'] = 'Usuário cadastrado com suceeso!';
+                        } else {
+                            $data['feedback'] = 'Cadastro não efetuado. Verifique todos os campos e tente novamente!';
+                        }
+                    } else {
+                        $data['feedback'] = 'O email solicitado já está em uso';
+                    }
+                }
             }
         }
         $this->loadTemplate('user_add', $data);
@@ -59,6 +75,11 @@ class usersController extends Controller {
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['userData'] = $u->getUserEdit($id); // obtém os dados do usuário a ser editado
+        $data['permission'] = $u->getTypeUser();
+
+        if($data['permission'] != '3') {
+            header('location: '.BASE_URL.'restrict');
+        }
 
         if(empty($id) || $data['userData'] == null) {
             header('location: '.BASE_URL.'users');
@@ -96,11 +117,14 @@ class usersController extends Controller {
 
     public function del($id) {
         $u = new Users();
+        $data['permission'] = $u->getTypeUser();
         if ($u->isLogged()) {
-            if ($u->delete($id)) {
-                echo 'Usuário Deletado!';
-            } else {
-                echo 'Não foi possível deleter o usuário!';
+            if($data['permission'] == '3') {
+                if ($u->delete($id)) {
+                    echo 'Usuário Deletado!';
+                } else {
+                    echo 'Não foi possível deleter o usuário!';
+                }
             }
         }
     }

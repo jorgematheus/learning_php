@@ -23,6 +23,10 @@ class contentController extends Controller{
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['listContent'] = $c->getAllContent();
+        $data['permission'] = $u->getTypeUser();
+        if($data['permission'] != '3' && $data['permission'] != '2') {
+            header('location: '.BASE_URL.'restrict');
+        }
         $this->loadTemplate('content', $data);
     }
 
@@ -32,6 +36,10 @@ class contentController extends Controller{
         $c = new Content();
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();
+        if($data['permission'] != '3' && $data['permission'] != '2') {
+            header('location: '.BASE_URL.'restrict');
+        }
 
         if(isset($_POST['content-title']) && !empty($_POST['content-title'])) {
             $title = addslashes($_POST['content-title']);
@@ -54,6 +62,10 @@ class contentController extends Controller{
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['contentData'] = $c->getContentEdit($id);
+        $data['permission'] = $u->getTypeUser();
+        if($data['permission'] != '3' && $data['permission'] != '2') {
+            header('location: '.BASE_URL.'restrict');
+        }
 
         if(empty($id) || $data['contentData'] == null) {
             header('location: '.BASE_URL.'content');
@@ -77,13 +89,17 @@ class contentController extends Controller{
     }
 
     public function del($id) {
+        $data = array();
         $u = new Users();
         $c = new Content();
+        $data['permission'] = $u->getTypeUser();
         if ($u->isLogged()) {
-            if ($c->delete($id)) {
-                echo 'Usuário Deletado!';
-            } else {
-                echo 'Não foi possível deleter o usuário!';
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                if ($c->delete($id)) {
+                    echo 'Conteúdo Deletado!';
+                } else {
+                    echo 'Não foi possível deleter o usuário!';
+                }
             }
         }
     }

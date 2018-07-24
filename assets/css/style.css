@@ -43,8 +43,14 @@ h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 .navbar-brand:hover { color: #fff; }
 .navbar { background-color: /*#1a1a1a;*/ #2f2f2f; }
 .navbar span, .navbar li a:not(.dropdown-item, [class*="menu-"]) { color: #fff; }
+.navbar-nav { position: relative; width: 100%; }
 #name-user-top { position: relative; }
 li.dropdown a::after { display:none; }
+/*.nav-item.dropdown.menu-user-perfil { position: relative; left: 80%; }
+li.btn-logout {position: relative; left: 80%;}*/
+
+.navbar-collapse  .menu-user-perfil {  margin-left: 300px;}
+.navbar-collapse  .btn-logout { margin-left: 50px; }
 
 /*Dropdowns Menu e títulos (h3)*/
 li[class*="menu-"] { font-weight: 600; }
@@ -76,6 +82,4 @@ footer {  position:relative; margin-top: 100px; height: 50px; background-color: 
     .navbar-collapse li:nth-child(5) + li:nth-child(6) { margin-left: 0px !important; } /*zera a margin do menu*/
 }
 
-.navbar-collapse li:nth-child(4) + li:nth-child(5) {  margin-left: 300px;}
-.navbar-collapse li:nth-child(5) + li:nth-child(6) { margin-left: 50px; }
 

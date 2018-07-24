@@ -31,44 +31,48 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown menu-admin">
-                            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cog fa-fw"></i> Administração
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"><i class="fas fa-users fa-fw"></i> Grupos de Usuários</a>
-                                <a class="dropdown-item" href="<?=BASE_URL?>trash"><i class="fas fa-trash-alt fa-fw"></i> Lixeira</a>
-                            </div>
-                        </li> <!-- dropdown admin-->
-                        <li class="nav-item dropdown menu-content">
-                            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-book fa-fw"></i> Conteúdos
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Cursos</a>
-                                <a class="dropdown-item" href="#"><i class="fas fa-clipboard-list fa-fw"></i> Aulas</a>
-                                <a class="dropdown-item" href="<?=BASE_URL?>content"><i class="fas fa-pen fa-fw"></i> Conteúdos</a>
-                            </div>
-                        </li> <!-- dropdown content-->
-                        <li class="nav-item dropdown menu-users">
-                            <a class="nav-link dropdown-toggle" href="<?=BASE_URL?>users">
-                                <i class="fas fa-user-edit fa-fw"></i> Usuários
-                            </a>
-                        </li> <!-- dropdown users-->
-                        <li style="" class="nav-item dropdown menu-report">
-                            <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-file-export"></i> Relatórios
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">Cursos Criados</a>
-                                <a class="dropdown-item" href="#">Cursos em Andamento</a>
-                                <a class="dropdown-item" href="#">Usuários</a>
-                            </div>
-                        </li> <!-- dropdown report-->
+                        <?php if($viewData['permission'] == 3): ?>
+                            <li class="nav-item dropdown menu-admin">
+                                <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog fa-fw"></i> Administração
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-users fa-fw"></i> Grupos de Usuários</a>
+                                    <a class="dropdown-item" href="<?=BASE_URL?>trash"><i class="fas fa-trash-alt fa-fw"></i> Lixeira</a>
+                                </div>
+                            </li> <!-- dropdown admin-->
+                        <?php endif;?>
+                        <?php if($viewData['permission'] == '2' || $viewData['permission'] == '3'): ?>
+                            <li class="nav-item dropdown menu-content">
+                                <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-book fa-fw"></i> Conteúdos
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Cursos</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-clipboard-list fa-fw"></i> Aulas</a>
+                                    <a class="dropdown-item" href="<?=BASE_URL?>content"><i class="fas fa-pen fa-fw"></i> Conteúdos</a>
+                                </div>
+                            </li> <!-- dropdown content-->
+                            <li class="nav-item dropdown menu-users">
+                                <a class="nav-link dropdown-toggle" href="<?=BASE_URL?>users">
+                                    <i class="fas fa-user-edit fa-fw"></i> Usuários
+                                </a>
+                            </li> <!-- dropdown users-->
+                            <li style="" class="nav-item dropdown menu-report">
+                                <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-file-export"></i> Relatórios
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Cursos Criados</a>
+                                    <a class="dropdown-item" href="#">Cursos em Andamento</a>
+                                    <a class="dropdown-item" href="#">Usuários</a>
+                                </div>
+                            </li> <!-- dropdown report-->
+                        <?php endif;?>
                         <li class="nav-item dropdown menu-user-perfil">
                             <a class="nav-link dropdown-toggle" href="#" id="" title="Editar Perfil" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">

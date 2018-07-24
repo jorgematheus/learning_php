@@ -19,6 +19,8 @@
                 <tr>
                     <th>Título</th>
                     <th>Descrição</th>
+                    <th>Exclusor</th>
+                    <th>Data de exclusão</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -28,6 +30,8 @@
                         <tr>
                             <td><?=$rs['title']?></td>
                             <td><?=$rs['description']?></td>
+                            <td><?=$rs['email']?></td>
+                            <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
                             <td><a href="<?=BASE_URL?>trash/recoveryContent/<?=$rs['id']?>" class="btn button-all btn-admin"
                                    onclick="callRecoveryTrash(event, $(this).attr('href'), $(this).parents('tr'), 'conteúdo', 'recuperar')"
                                    title="Restaurar"><i class="fas fa-level-up-alt fa-fw"></i></a>

@@ -60,6 +60,18 @@ class Users extends Model {
         }
     }
 
+    public function emailNotUsed($email) {
+        $sql = $this->db->prepare('SELECT COUNT(id) as quant FROM users WHERE email = ? ');
+        $sql->bindValue(1, $email);
+        $sql->execute();
+        $data = $sql->fetch();
+        if($data['quant'] == '0') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function add($user, $email, $password, $dt_nascimento, $tipo_user, $celular) {
         $sql = $this->db->prepare('SELECT COUNT(id) as quantidade FROM users WHERE email = :email');
         $sql->bindValue(':email', $email);
@@ -146,6 +158,18 @@ class Users extends Model {
     public function getId() {
         if(isset($this->userInfo['id'])) {
             return $this->userInfo['id'];
+        }
+    }
+    /*
+     * Retorna qual o tipo de usuário está logado
+     * Tipos
+     *  1 = Aluno
+     *  2 = Editor
+     *  3 = Admin
+     */
+    public function getTypeUser() {
+        if(isset($this->userInfo['tipo_user'])) {
+            return $this->userInfo['tipo_user'];
         }
     }
 }
