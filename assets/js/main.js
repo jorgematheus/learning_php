@@ -1,3 +1,12 @@
+$('.btn-logout').click(function (e){
+    //e.preventDefault();
+    $.ajax({
+        url: BASE_URL+'login/logout',
+        type: 'POST'
+    })
+    window.location.reload();
+})
+
 var validLogin = function() {
     var email = $('#email').val(),
         password = $('#password').val();
@@ -25,7 +34,7 @@ var callActionUrl = function(url1) { // função responsável por deletar usuár
 
 var callDelete = function(event,url,parent,name) {
     event.preventDefault();
-    if (window.confirm("Deseja realmente deletar esse "+name+"?")) {
+    if (window.confirm("Deseja realmente inativar esse "+name+"?")) {
         parent.fadeOut(1000,function(){
             parent.remove();
         });

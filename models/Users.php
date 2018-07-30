@@ -88,10 +88,10 @@ class Users extends Model {
         }
     }
 
-    public function edit($id, $name, $password, $dt_nascimento, $status, $tipo_user, $celular) {
-        $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, ativo = ?, tipo_user = ?,
+    public function edit($id, $name, $password, $dt_nascimento, $tipo_user, $celular) {
+        $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, tipo_user = ?,
                                             celular = ?, ultima_modificacao = ?, ultimo_editor = ? WHERE id = ?');
-        $sql->execute(array($name, $dt_nascimento, $status, $tipo_user, $celular,
+        $sql->execute(array($name, $dt_nascimento, $tipo_user, $celular,
                       date('Y-m-d H:i:s'), $this->userInfo['usuario'], $id));
 
         if($password != null) {
@@ -112,13 +112,27 @@ class Users extends Model {
         }
     }
 
-    public function delete($id) {
+    public function inactiveUser($id) {
         $sql = $this->db->prepare('SELECT COUNT(id) as qt FROM users WHERE id = ?');
         $sql->execute(array($id));
         $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         if($data['qt'] > 0) {
-            $sql = $this->db->prepare('DELETE FROM users WHERE id = ?');
+            $sql = $this->db->prepare('UPDATE users SET ativo = 0 WHERE id = ?');
+            $sql->execute(array($id));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function activeUser($id) {
+        $sql = $this->db->prepare('SELECT COUNT(id) as qt FROM users WHERE id = ?');
+        $sql->execute(array($id));
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
+
+        if($data['qt'] > 0) {
+            $sql = $this->db->prepare('UPDATE users SET ativo = 1 WHERE id = ?');
             $sql->execute(array($id));
             return true;
         } else {

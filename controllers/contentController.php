@@ -11,7 +11,7 @@ class contentController extends Controller{
     public function __construct()
     {
         $u = new Users();
-        if (!$u->isLogged()) {
+        if(!$u->isLogged()) {
             header('location: ' . BASE_URL . 'login');
         }
     }
@@ -93,9 +93,9 @@ class contentController extends Controller{
         $u = new Users();
         $c = new Content();
         $data['permission'] = $u->getTypeUser();
-        if ($u->isLogged()) {
+        if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {
-                if ($c->delete($id)) {
+                if($c->delete($id)) {
                     echo 'Conteúdo Deletado!';
                 } else {
                     echo 'Não foi possível deleter o usuário!';

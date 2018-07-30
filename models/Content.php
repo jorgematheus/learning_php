@@ -24,8 +24,7 @@ class Content extends Model {
     }
 
     public function getAllContent() {
-        $sql = $this->db->query('SELECT * FROM content WHERE active = 1');
-        $data;
+        $sql = $this->db->query('SELECT id, title, description FROM content WHERE active = 1');
         if($sql->rowCount() > 0) {
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
             return $data;

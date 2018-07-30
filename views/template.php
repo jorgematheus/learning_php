@@ -13,7 +13,6 @@
               crossorigin="anonymous">
         <script src="<?=BASE_URL?>node_modules/jquery/dist/jquery.min"></script>
         <script> var BASE_URL = '<?=BASE_URL?>' </script>
-        <script src="<?=BASE_URL?>assets/js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
                 crossorigin="anonymous"></script>
@@ -52,7 +51,7 @@
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas</a>
                                     <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Cursos</a>
-                                    <a class="dropdown-item" href="#"><i class="fas fa-clipboard-list fa-fw"></i> Aulas</a>
+                                    <a class="dropdown-item" href="<?=BASE_URL?>lesson"><i class="fas fa-clipboard-list fa-fw"></i> Aulas</a>
                                     <a class="dropdown-item" href="<?=BASE_URL?>content"><i class="fas fa-pen fa-fw"></i> Conteúdos</a>
                                 </div>
                             </li> <!-- dropdown content-->
@@ -84,9 +83,9 @@
                             </div>
                         </li> <!-- dropdown perfil-user-->
                         <li class="nav-item dropdown btn-logout">
-                            <a class="nav-link" href="<?=BASE_URL?>login/logout" title="Logout" style="color:#fff">
+                            <button class="btn btn-logout"  title="Logout" style="color:#fff">
                                 <i class="fas fa-sign-out-alt fa-fw"></i> Sair
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </div>
@@ -98,5 +97,6 @@
                 </div>
             </main>
         <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados &copy;</small>  </p></footer>
+        <script src="<?=BASE_URL?>assets/js/main.js"></script>
     </body>
 </html>

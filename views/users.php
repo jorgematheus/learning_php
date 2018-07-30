@@ -22,14 +22,20 @@
                 <td><?=$rs['usuario']?></td>
                 <td><?=$rs['email']?></td>
                 <td><?=$rs['celular']?></td>
-                <td><?php $status = $rs['ativo'] == '1' ? 'check' : 'ban'?> <i class="fas fa-<?=$status?>"></i> </td>
+                <td><?php $status = $rs['ativo'] == '1' ? 'check' : 'ban'?> <i class="status-user fas fa-<?=$status?>"></i> </td>
                 <?php if($permission == '3'): ?>
                     <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all btn-user"
                            title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>
-                        <a  href="<?=BASE_URL?>users/del/<?=$rs['id']?>" id="btt"
-                            onclick="callDelete(event,$(this).attr('href'), $(this).parents('tr'), 'usuário')"
-                           title="Excluir" class="btn-del btn button-all btn-user"><i class="fas fa-trash-alt fa-fw"></i>
-                        </a>
+                        <?php if($rs['ativo'] == '1'): ?>
+                            <a  href="<?=BASE_URL?>users/inactive/<?=$rs['id']?>" id="btt"
+                                title="Desativar" class="btn-del btn button-all btn-user"><i class="fas fa-ban fa-fw"></i>
+                            </a>
+                        <?php endif;?>
+                        <?php if($rs['ativo'] == '0'): ?>
+                            <a  href="<?=BASE_URL?>users/active/<?=$rs['id']?>" id="btt"
+                                title="Ativar" class="btn-del btn button-all btn-user"><i class="fas fa-thumbs-up fa-fw"></i>
+                            </a>
+                        <?php endif;?>
                     </td>
                 <?php endif; ?>
             </tr>

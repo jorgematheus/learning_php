@@ -19,7 +19,7 @@
                    title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>
                 <a href="<?=BASE_URL?>content/del/<?=$rs['id']?>" id="btt"
                    onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'conteúdo')"
-                   title="Excluir" class="btn-del btn button-all btn-content"><i class="fas fa-trash-alt fa-fw"></i>
+                   title="Inativar" class="btn-del btn button-all btn-content"><i class="fas fa-trash-alt fa-fw"></i>
                 </a>
             </td>
         </tr>

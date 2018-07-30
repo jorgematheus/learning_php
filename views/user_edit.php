@@ -18,7 +18,7 @@
         </div>
         <div class="form-group col-md-6   input-date">
             <label for="nascimento">Data de Nascimento</label>
-            <input type="text" id="nascimento" name="nascimento" class="form-control" value="<?=$userData['dt_nascimento']?>">
+            <input type="text" id="nascimento" name="nascimento" class="form-control" value="<?=date('d/m/Y',strtotime($userData['dt_nascimento']))?>">
         </div>
         <div class="form-group col-md-6">
             <label for="tipo">Tipo de Usuário*</label>
@@ -26,13 +26,6 @@
                 <option value="1" <?=$userData['tipo_user'] == '1' ? 'selected="selected"' : ''?>>Aluno</option>
                 <option value="2" <?=$userData['tipo_user'] == '2' ? 'selected="selected"' : ''?>>Editor</option>
                 <option value="3" <?=$userData['tipo_user'] == '3' ? 'selected="selected"' : ''?>>Administrador</option>
-            </select>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="status">Status*</label>
-            <select name="status" id="status" class="form-control">
-                <option value="1" <?=$userData['ativo'] == '1' ? 'selected="selected"' : ''?>>Ativo</option>
-                <option value="0" <?=$userData['ativo'] == '0' ? 'selected="selected"' : ''?> >Inativo</option>
             </select>
         </div>
         <div class="form-group col-md-6">

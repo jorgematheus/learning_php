@@ -22,8 +22,8 @@ class usersController extends Controller {
         $data['listUsers'] = $u->getListUsers();
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
-        if ($data['permission'] != '3' && $data['permission'] != '2') {
-           echo "não é admin nem editor";
+        if($data['permission'] != '3' && $data['permission'] != '2') {
+           header('location: '.BASE_URL.'restrict');
         }
         $this->loadTemplate('users', $data);
     }
@@ -85,7 +85,7 @@ class usersController extends Controller {
             header('location: '.BASE_URL.'users');
         }
 
-        if (isset($_POST['name']) && !empty($_POST['name'])) {
+        if(isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
 
             if(isset($_POST['password']) && !empty($_POST['password'])) {
@@ -96,7 +96,6 @@ class usersController extends Controller {
             }
             
             $tipo_user = addslashes($_POST['tipo']);
-            $status = addslashes($_POST['status']);
 
             if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
                 $dt_nascimento = addslashes(date('Y-m-d',
@@ -109,22 +108,32 @@ class usersController extends Controller {
             } else {
                 $celular = null;
             }
-            $u->edit($id, $name, $pass, $dt_nascimento, $status, $tipo_user, $celular);
+            $u->edit($id, $name, $pass, $dt_nascimento, $tipo_user, $celular);
             $data['feedback'] = 'Usuário Alterado com sucesso!';
         }
         $this->loadTemplate('user_edit', $data);
     }
 
-    public function del($id) {
+    public function inactive($id) {
         $u = new Users();
+        $u->setLoggedUser();
         $data['permission'] = $u->getTypeUser();
-        if ($u->isLogged()) {
+        if($u->isLogged()) {
             if($data['permission'] == '3') {
-                if ($u->delete($id)) {
-                    echo 'Usuário Deletado!';
-                } else {
-                    echo 'Não foi possível deleter o usuário!';
-                }
+                $u->inactiveUser($id);
+                header('location: '.BASE_URL.'users');
+            }
+        }
+    }
+
+    public function active($id) {
+        $u = new Users();
+        $u->setLoggedUser();
+        $data['permission'] = $u->getTypeUser();
+        if($u->isLogged()) {
+            if($data['permission'] == '3') {
+                $u->activeUser($id);
+                header('location: '.BASE_URL.'users');
             }
         }
     }
@@ -136,7 +145,7 @@ class usersController extends Controller {
         $data['nameUser'] = $u->getName();
         $data['userData'] = $u->getUserEdit($u->getId());
 
-        if (isset($_POST['name']) && !empty($_POST['name'])) {
+        if(isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
 
             if(isset($_POST['password']) && !empty($_POST['password'])) {
@@ -158,9 +167,9 @@ class usersController extends Controller {
                 $celular = null;
             }
             $data['feedback'] = 'Dados Salvos!';
-            $u->editMyProfile($u->getId(), $name, $pass, $dt_nascimento, $celular);
+            $id = $u->getId();
+            $u->editMyProfile($id, $name, $pass, $dt_nascimento, $celular);
         }
         $this->loadTemplate('my_profile', $data);
-
     }
 }
