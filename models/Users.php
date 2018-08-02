@@ -80,8 +80,8 @@ class Users extends Model {
 
         if($row['quantidade'] == 0) {
             $sql = $this->db->prepare('INSERT INTO users (usuario, email, senha, dt_nascimento, tipo_user, data_criacao, 
-                                      celular) VALUES (?, ?, ?, ?, ?, ?, ?)');
-            $sql->execute(array($user, $email, $password, $dt_nascimento, $tipo_user, date('Y-m-d H:i:s'), $celular));
+                                      celular) VALUES (?, ?, ?, ?, ?, now(), ?)');
+            $sql->execute(array($user, $email, $password, $dt_nascimento, $tipo_user, $celular));
             return true;
         } else {
             return false;
@@ -90,9 +90,8 @@ class Users extends Model {
 
     public function edit($id, $name, $password, $dt_nascimento, $tipo_user, $celular) {
         $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, tipo_user = ?,
-                                            celular = ?, ultima_modificacao = ?, ultimo_editor = ? WHERE id = ?');
-        $sql->execute(array($name, $dt_nascimento, $tipo_user, $celular,
-                      date('Y-m-d H:i:s'), $this->userInfo['usuario'], $id));
+                                            celular = ?, ultima_modificacao = now(), ultimo_editor = ? WHERE id = ?');
+        $sql->execute(array($name, $dt_nascimento, $tipo_user, $celular, $this->userInfo['usuario'], $id));
 
         if($password != null) {
             $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');
@@ -102,9 +101,8 @@ class Users extends Model {
 
     public function editMyProfile($id, $name, $password, $dt_nascimento, $celular) {
         $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, 
-                           celular = ?, ultima_modificacao = ?, ultimo_editor = ? WHERE id = ?');
-        $sql->execute(array($name, $dt_nascimento, $celular,
-            date('Y-m-d H:i:s'), $this->userInfo['usuario'], $id));
+                           celular = ?, ultima_modificacao = now(), ultimo_editor = ? WHERE id = ?');
+        $sql->execute(array($name, $dt_nascimento, $celular, $this->userInfo['usuario'], $id));
 
         if($password != null) {
             $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');

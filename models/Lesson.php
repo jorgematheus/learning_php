@@ -9,6 +9,7 @@
 class Lesson extends Model {
 
     private $idUser;
+    private $dataContent;
 
     public function __construct() {
         parent::__construct();
@@ -35,16 +36,6 @@ class Lesson extends Model {
         $sql->execute(array($title, $description, $this->idUser, date('Y-m-d H:i:s')));
     }
 
-    public function editLesson($id, $title, $description) {
-        $sql = $this->db->prepare('UPDATE lesson SET title = ?, description = ?,
-                           last_editor = ?, date_edition = ? WHERE id = ?');
-        $sql->execute(array($title, $description, $this->idUser, date('Y-m-d H:i:s'), $id));
-    }
-
-    public function deleteContent($id) {
-
-    }
-
     public function getLessonEdit($id) {
         $sql = $this->db->prepare('SELECT * FROM lesson WHERE id = ?');
         $sql->bindValue(1, $id);
@@ -53,4 +44,63 @@ class Lesson extends Model {
             return $sql->fetch();
         }
     }
+
+    public function editLesson($id, $title, $description) {
+        $sql = $this->db->prepare('UPDATE lesson SET title = ?, description = ?,
+                           last_editor = ?, date_edition = ? WHERE id = ?');
+        $sql->execute(array($title, $description, $this->idUser, date('Y-m-d H:i:s'), $id));
+    }
+
+    public function moveLessonToTrash($id) {
+        $sql = $this->db->prepare('UPDATE lesson SET active = 0, last_editor = ?, date_edition = ? WHERE id = ?');
+        $sql->execute(array($this->idUser, date('Y-m-d H:i:s'), $id));
+    }
+
+    public function addContentToLesson($idLesson, $idContent){
+        $sql = $this->db->prepare('INSERT INTO lesson_has_content (idLesson, idContent) VALUES(?, ?)');
+        $sql->execute(array($idLesson, $idContent));
+    }
+
+    public function getContentAddToLesson($idLesson) {
+        $sql = $this->db->prepare('SELECT c.title, c.description, lhc.idLesson, lhc.idContent FROM content c 
+                          INNER JOIN lesson_has_content lhc ON c.id = lhc.idContent INNER JOIN lesson l ON l.id = lhc.idLesson
+                         WHERE l.id = ?');
+        $sql->bindValue(1, $idLesson);
+        $sql->execute();
+        if($sql->rowCount() > 0) {
+            $this->dataContent = $sql->fetchAll(PDO::FETCH_ASSOC);
+            return $this->dataContent;
+        }
+    }
+
+    public function deleteContentAddToLesson($idLesson, $idContent) {
+        $sql = $this->db->prepare('SELECT COUNT(idContent) as qt FROM lesson_has_content WHERE idLesson = ? AND idContent = ?');
+        $sql->execute(array($idLesson, $idContent));
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
+        if($data['qt'] != '0') {
+            $sql = $this->db->prepare('DELETE FROM lesson_has_content WHERE idLesson = ? AND idContent = ?');
+            $sql->execute(array($idLesson, $idContent));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function lessonHasContent($idLesson, $idContent = array()) {
+
+        $sql = $this->db->prepare('SELECT * FROM lesson_has_content WHERE idLesson = ? AND idContent = ?');
+        $sql->execute(array($idLesson, $idContent));
+        if($sql->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getIdContent() {
+        if(isset($this->dataContent['idContent'])) {
+            return $this->dataContent['idContent'];
+        }
+    }
+
 }

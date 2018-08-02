@@ -2,16 +2,16 @@
 require 'environment.php';
 $config = array();
 if(ENVIRONMENT == 'development') {
-    define("BASE_URL", "http://localhost/estrutura_mvc/");
-    $config['dbname'] = 'estrutura_mvc';
+    define("BASE_URL", "http://localhost/learning/");
+    $config['dbname'] = 'learning';
     $config['host'] = 'localhost';
     $config['dbuser'] = 'root';
     $config['dbpass'] = '';
 
  }
  else if (ENVIRONMENT == 'development2') {
-    define("BASE_URL", "http://localhost:3000/estrutura_mvc/");
-    $config['dbname'] = 'estrutura_mvc';
+    define("BASE_URL", "http://localhost:3000/learning/");
+    $config['dbname'] = 'learning';
     $config['host'] = 'localhost';
     $config['dbuser'] = 'jorge';
     $config['dbpass'] = 'juninho1010';

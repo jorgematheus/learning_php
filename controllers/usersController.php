@@ -144,6 +144,7 @@ class usersController extends Controller {
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['userData'] = $u->getUserEdit($u->getId());
+        $data['permission'] = $u->getTypeUser();
 
         if(isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);

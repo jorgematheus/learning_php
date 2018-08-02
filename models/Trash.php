@@ -8,6 +8,21 @@
 
 class Trash extends Model {
 
+    private $idUser;
+
+    public function __construct() {
+        parent::__construct();
+        self::getUserId();
+    }
+    /*
+     * Método responsável por pegar o ID  do usuário que está realizando as ações
+     */
+    public function getUserId() {
+        $u = new Users();
+        $u->setLoggedUser();
+        $this->idUser = $u->getId();
+    }
+
     public function getDataInactiveContent() {
         $sql = $this->db->query('SELECT c.title, c.description, c.id, u.email,
          c.date_edition FROM content c INNER JOIN users u ON c.last_editor = u.id 
@@ -17,14 +32,18 @@ class Trash extends Model {
         }
     }
 
-    public function getDataInactiveUser() {
-        $sql = $this->db->query('SELECT u.usuario, u.id, c.id, ');
+    public function getDataInactiveLesson() {
+        $sql = $this->db->query('SELECT l.title, l.description, l.id, u.email,
+         l.date_edition FROM lesson l INNER JOIN users u ON l.last_editor = u.id 
+         WHERE l.active = 0');
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll();
+        }
     }
 
     public function recoveryDataInactive($id, $table) {
-        $sql = $this->db->prepare('UPDATE '.$table.' SET active = 1 WHERE id = ?');
-        $sql->bindValue(1, $id);
-        $sql->execute();
+        $sql = $this->db->prepare('UPDATE '.$table.' SET active = 1, last_editor = ?, date_edition = ? WHERE id = ?');
+        $sql->execute(array($this->idUser, date('Y-m-d H:i:s'), $id));
     }
 
     public function deleteDataInactive($id, $table) {

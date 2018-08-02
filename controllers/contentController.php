@@ -92,10 +92,11 @@ class contentController extends Controller{
         $data = array();
         $u = new Users();
         $c = new Content();
+        $u->setLoggedUser();
         $data['permission'] = $u->getTypeUser();
         if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {
-                if($c->delete($id)) {
+                if($c->moveContentToTrash($id)) {
                     echo 'Conteúdo Deletado!';
                 } else {
                     echo 'Não foi possível deleter o usuário!';

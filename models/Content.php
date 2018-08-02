@@ -43,8 +43,9 @@ class Content extends Model {
         $sql->execute(array($title, $description, $content, $this->idUser, date('Y-m-d H:i:s'), $id));
     }
 
-    public function deleteContent($id) {
-
+    public function moveContentToTrash($id) {
+        $sql = $this->db->prepare('UPDATE content SET active = 0, last_editor = ?, date_edition = ? WHERE id = ?');
+        $sql->execute(array($this->idUser, date('Y-m-d H:i:s'), $id));
     }
 
     public function getContentEdit($id) {

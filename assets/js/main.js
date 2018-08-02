@@ -1,11 +1,13 @@
-$('.btn-logout').click(function (e){
-    //e.preventDefault();
+
+function logout() {
     $.ajax({
-        url: BASE_URL+'login/logout',
+        url: BASE_URL + 'login/logout',
         type: 'POST'
-    })
-    window.location.reload();
-})
+    });
+    setTimeout(function(){
+        window.location.reload();
+    },500)
+}
 
 var validLogin = function() {
     var email = $('#email').val(),

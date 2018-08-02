@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 .btn-home a {  font-size:1.6em; }
 .btn-home-content i { position: absolute; left:50%; transform: translate(-15%, 50%); }
 .btn-home-content a { position: absolute; left:50%; bottom:40%; transform: translate(-25%, 50%); }
-.btn-logout { background-color: transparent; }
+#btn-logout { background-color: transparent; }
 .btn-logout  i { color: #EB191E; }
 /* Tabelas */
 table { width: 100%; }

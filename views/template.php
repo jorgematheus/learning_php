@@ -17,6 +17,7 @@
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
                 crossorigin="anonymous"></script>
         <script src="<?=BASE_URL?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<?=BASE_URL?>assets/js/main.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -72,7 +73,10 @@
                                 </div>
                             </li> <!-- dropdown report-->
                         <?php endif;?>
-                        <li class="nav-item dropdown menu-user-perfil">
+                        <li class="nav-item dropdown menu-user-perfil" <?php if($viewData['permission'] == '1'):?>
+                            style="position: relative; left: 80%;transform: translateX(-80%); margin-left:0px;" <?php endif;
+                        if($viewData['permission'] == '2'):?> style="position: relative; left: 50%;transform: translateX(-50%);
+                                margin-left:0px;" <?php endif;?>>
                             <a class="nav-link dropdown-toggle" href="#" id="" title="Editar Perfil" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user fa-fw"></i> Olá, <?=$viewData['nameUser']?>!
@@ -82,8 +86,11 @@
                                     <i class="fas fa-cog fa-fw"></i> Meu Perfil</a>
                             </div>
                         </li> <!-- dropdown perfil-user-->
-                        <li class="nav-item dropdown btn-logout">
-                            <button class="btn btn-logout"  title="Logout" style="color:#fff">
+                        <li class="nav-item dropdown btn-logout" <?php if($viewData['permission'] == '1'):?>
+                            style="position: relative; left: 80%;transform: translateX(-80%); margin-left:-6px;" <?php endif;
+                            if($viewData['permission'] == '2'):?>style="position: relative; left: 50%;transform: translateX(-50%);
+                            margin-left:-6px !important;" <?php endif;?>>
+                            <button id="btn-logout" class="btn"  onclick="logout()" title="Logout" style="color:#fff">
                                 <i class="fas fa-sign-out-alt fa-fw"></i> Sair
                             </button>
                         </li>
@@ -97,6 +104,5 @@
                 </div>
             </main>
         <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados &copy;</small>  </p></footer>
-        <script src="<?=BASE_URL?>assets/js/main.js"></script>
     </body>
 </html>

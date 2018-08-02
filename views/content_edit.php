@@ -17,8 +17,8 @@
     <button type="submit" class="btn button-all btn-content"><i class="fas fa-save fa-fw"></i>  Salvar</button>
 </form>
 <!-- Button trigger modal -->
-<input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-login">
-<div class="modal fade"  id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-login" aria-hidden="true">
+<input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-feedback">
+<div class="modal fade"  id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-feedback" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body">
