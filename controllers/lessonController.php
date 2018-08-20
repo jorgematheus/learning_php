@@ -72,8 +72,6 @@ class lessonController extends Controller {
         $data['listContentAddToLesson'] = $l->getContentAddToLesson($id);
         $data['lessonHasContent'] = $l->lessonHasContent($id, $l->getIdContent());
 
-        var_dump($data['listContentAddToLesson'][1]['idLesson']);
-
         if(isset($_POST['check-content'])) {
             foreach($_POST['check-content'] as $rs) {
                 $l->addContentToLesson($id, $rs);

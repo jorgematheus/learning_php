@@ -64,7 +64,7 @@ class Users extends Model {
         $sql = $this->db->prepare('SELECT COUNT(id) as quant FROM users WHERE email = ? ');
         $sql->bindValue(1, $email);
         $sql->execute();
-        $data = $sql->fetch();
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
         if($data['quant'] == '0') {
             return true;
         } else {
@@ -141,7 +141,6 @@ class Users extends Model {
     public function getUserEdit($id) {
         $sql = $this->db->prepare('SELECT * FROM users WHERE id = ?');
         $sql->execute(array($id));
-
         if($sql->rowCount() > 0) {
             $data = $sql->fetch(PDO::FETCH_ASSOC);
             return $data;

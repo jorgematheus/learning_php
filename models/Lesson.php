@@ -23,7 +23,7 @@ class Lesson extends Model {
     }
 
     public function getAllLesson() {
-        $sql = $this->db->query('SELECT id, title, description FROM lesson WHERE active = 1');
+        $sql = $this->db->query('SELECT id, title, description FROM lesson WHERE active = 1 ORDER BY title');
         if($sql->rowCount() > 0) {
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
             return $data;
@@ -32,8 +32,8 @@ class Lesson extends Model {
 
     public function addLesson($title, $description) {
         $sql = $this->db->prepare('INSERT INTO lesson (title, description, author, date_creation) 
-                          VALUES (?, ?, ?, ?)');
-        $sql->execute(array($title, $description, $this->idUser, date('Y-m-d H:i:s')));
+                          VALUES (?, ?, ?, now())');
+        $sql->execute(array($title, $description, $this->idUser));
     }
 
     public function getLessonEdit($id) {
@@ -41,19 +41,19 @@ class Lesson extends Model {
         $sql->bindValue(1, $id);
         $sql->execute();
         if($sql->rowCount() > 0) {
-            return $sql->fetch();
+            return $sql->fetch(PDO::FETCH_ASSOC);
         }
     }
 
     public function editLesson($id, $title, $description) {
         $sql = $this->db->prepare('UPDATE lesson SET title = ?, description = ?,
-                           last_editor = ?, date_edition = ? WHERE id = ?');
-        $sql->execute(array($title, $description, $this->idUser, date('Y-m-d H:i:s'), $id));
+                           last_editor = ?, date_edition = now() WHERE id = ?');
+        $sql->execute(array($title, $description, $this->idUser, $id));
     }
 
     public function moveLessonToTrash($id) {
-        $sql = $this->db->prepare('UPDATE lesson SET active = 0, last_editor = ?, date_edition = ? WHERE id = ?');
-        $sql->execute(array($this->idUser, date('Y-m-d H:i:s'), $id));
+        $sql = $this->db->prepare('UPDATE lesson SET active = 0, last_editor = ?, date_edition = now() WHERE id = ?');
+        $sql->execute(array($this->idUser, $id));
     }
 
     public function addContentToLesson($idLesson, $idContent){
@@ -85,9 +85,10 @@ class Lesson extends Model {
             return false;
         }
     }
-
+    /*
+     * Função responsável por verificar se a lição tem determinado conteúdo
+     */
     public function lessonHasContent($idLesson, $idContent = array()) {
-
         $sql = $this->db->prepare('SELECT * FROM lesson_has_content WHERE idLesson = ? AND idContent = ?');
         $sql->execute(array($idLesson, $idContent));
         if($sql->rowCount() > 0) {

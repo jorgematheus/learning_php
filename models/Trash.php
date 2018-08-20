@@ -26,24 +26,33 @@ class Trash extends Model {
     public function getDataInactiveContent() {
         $sql = $this->db->query('SELECT c.title, c.description, c.id, u.email,
          c.date_edition FROM content c INNER JOIN users u ON c.last_editor = u.id 
-         WHERE c.active = 0');
+         WHERE c.active = 0 ORDER BY c.title');
         if($sql->rowCount() > 0) {
-            return $sql->fetchAll();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
     public function getDataInactiveLesson() {
         $sql = $this->db->query('SELECT l.title, l.description, l.id, u.email,
          l.date_edition FROM lesson l INNER JOIN users u ON l.last_editor = u.id 
-         WHERE l.active = 0');
+         WHERE l.active = 0 ORDER BY l.title');
         if($sql->rowCount() > 0) {
-            return $sql->fetchAll();
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function getDataInactiveCourse() {
+        $sql = $this->db->query('SELECT c.title, c.description, c.id, u.email,
+         c.date_edition FROM course c INNER JOIN users u ON c.last_editor = u.id 
+         WHERE c.active = 0 ORDER BY c.title');
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
     public function recoveryDataInactive($id, $table) {
-        $sql = $this->db->prepare('UPDATE '.$table.' SET active = 1, last_editor = ?, date_edition = ? WHERE id = ?');
-        $sql->execute(array($this->idUser, date('Y-m-d H:i:s'), $id));
+        $sql = $this->db->prepare('UPDATE '.$table.' SET active = 1, last_editor = ?, date_edition = now() WHERE id = ?');
+        $sql->execute(array($this->idUser, $id));
     }
 
     public function deleteDataInactive($id, $table) {

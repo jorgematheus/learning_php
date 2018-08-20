@@ -24,7 +24,7 @@ class Content extends Model {
     }
 
     public function getAllContent() {
-        $sql = $this->db->query('SELECT id, title, description FROM content WHERE active = 1');
+        $sql = $this->db->query('SELECT id, title, description FROM content WHERE active = 1 ORDER BY title');
         if($sql->rowCount() > 0) {
             $data = $sql->fetchAll(PDO::FETCH_ASSOC);
             return $data;
@@ -33,19 +33,19 @@ class Content extends Model {
 
     public function addContent($title, $description, $content) {
         $sql = $this->db->prepare('INSERT INTO content (title, description, content, 
-                          author, date_creation) VALUES (?, ?, ?, ?, ?)');
-        $sql->execute(array($title, $description, $content, $this->idUser, date('Y-m-d H:i:s')));
+                          author, date_creation) VALUES (?, ?, ?, ?, now())');
+        $sql->execute(array($title, $description, $content, $this->idUser));
     }
 
     public function editContent($id, $title, $description, $content) {
         $sql = $this->db->prepare('UPDATE content SET title = ?, description = ?,
-                          content = ?, last_editor = ?, date_edition = ? WHERE id = ?');
-        $sql->execute(array($title, $description, $content, $this->idUser, date('Y-m-d H:i:s'), $id));
+                          content = ?, last_editor = ?, date_edition = now() WHERE id = ?');
+        $sql->execute(array($title, $description, $content, $this->idUser, $id));
     }
 
     public function moveContentToTrash($id) {
-        $sql = $this->db->prepare('UPDATE content SET active = 0, last_editor = ?, date_edition = ? WHERE id = ?');
-        $sql->execute(array($this->idUser, date('Y-m-d H:i:s'), $id));
+        $sql = $this->db->prepare('UPDATE content SET active = 0, last_editor = ?, date_edition = now() WHERE id = ?');
+        $sql->execute(array($this->idUser, $id));
     }
 
     public function getContentEdit($id) {
@@ -53,7 +53,8 @@ class Content extends Model {
         $sql->bindValue(1, $id);
         $sql->execute();
         if($sql->rowCount() > 0) {
-            return $sql->fetch();
+            return $sql->fetch(PDO::FETCH_ASSOC);
+
         }
     }
 }

@@ -263,7 +263,6 @@ CREATE TABLE IF NOT EXISTS `lesson_has_content` (
   PRIMARY KEY (`idLesson`,`idContent`),
   KEY `FK_content` (`idContent`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
 --
 -- Extraindo dados da tabela `lesson_has_content`
 --
