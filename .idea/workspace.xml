@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e73b665b-6678-4ea8-a5a5-c7a5278dee3d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/courseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/courseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/lessonController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/lessonController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/trashController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/trashController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/learning.sql" beforeDir="false" afterPath="$PROJECT_DIR$/learning.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Content.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Content.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Lesson.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Lesson.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Trash.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/models/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/lesson_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/lesson_edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/template.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/template.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/trash.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/trash.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,7 +31,7 @@
         <entry file="file://$PROJECT_DIR$/models/Users.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1040">
-              <caret line="143" column="34" lean-forward="true" selection-start-line="143" selection-start-column="34" selection-end-line="143" selection-end-column="34" />
+              <caret line="143" column="34" selection-start-line="143" selection-start-column="34" selection-end-line="143" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -60,7 +49,7 @@
         <entry file="file://$PROJECT_DIR$/views/lesson.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
-              <caret line="18" column="40" lean-forward="true" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+              <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -68,8 +57,8 @@
       <file leaf-file-name="Trash.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/Trash.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="28" column="47" lean-forward="true" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+            <state relative-caret-position="289">
+              <caret line="46" column="44" selection-start-line="44" selection-start-column="33" selection-end-line="46" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -424,12 +413,12 @@
       <workItem from="1533573150010" duration="2097000" />
       <workItem from="1534534849164" duration="1767000" />
       <workItem from="1534774358894" duration="2619000" />
-      <workItem from="1534778142663" duration="9614000" />
+      <workItem from="1534778142663" duration="10968000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="263615000" />
+    <option name="totallyTimeSpent" value="264969000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -782,7 +771,7 @@
     <entry file="file://$PROJECT_DIR$/models/Users.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1040">
-          <caret line="143" column="34" lean-forward="true" selection-start-line="143" selection-start-column="34" selection-end-line="143" selection-end-column="34" />
+          <caret line="143" column="34" selection-start-line="143" selection-start-column="34" selection-end-line="143" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -803,14 +792,14 @@
     <entry file="file://$PROJECT_DIR$/views/lesson.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="18" column="40" lean-forward="true" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
+          <caret line="18" column="40" selection-start-line="18" selection-start-column="40" selection-end-line="18" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/models/Trash.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="28" column="47" lean-forward="true" selection-start-line="28" selection-start-column="47" selection-end-line="28" selection-end-column="47" />
+        <state relative-caret-position="289">
+          <caret line="46" column="44" selection-start-line="44" selection-start-column="33" selection-end-line="46" selection-end-column="44" />
         </state>
       </provider>
     </entry>
