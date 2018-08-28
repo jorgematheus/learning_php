@@ -19,6 +19,7 @@
         <script src="<?=BASE_URL?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="<?=BASE_URL?>assets/js/main.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
     <body>
         <div id="geral">
@@ -50,7 +51,7 @@
                                     <i class="fas fa-book fa-fw"></i> Conteúdos
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas</a>
+                                    <a class="dropdown-item" href="<?=BASE_URL?>class"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas</a>
                                     <a class="dropdown-item" href="<?=BASE_URL?>course"><i class="fas fa-chalkboard-teacher fa-fw"></i> Cursos</a>
                                     <a class="dropdown-item" href="<?=BASE_URL?>lesson"><i class="fas fa-clipboard-list fa-fw"></i> Aulas</a>
                                     <a class="dropdown-item" href="<?=BASE_URL?>content"><i class="fas fa-pen fa-fw"></i> Conteúdos</a>

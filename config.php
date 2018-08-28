@@ -23,7 +23,7 @@ else {
     $config['dbuser'] = 'teste';
     $config['dbpass'] = 'teste';
 }
-global $db;
+
 try {
     $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'],
             $config['dbuser'], $config['dbpass']);

@@ -19,6 +19,12 @@ html, body { height: auto; background-color: #F8F9FA !important; }
 #main-content { padding: 15px; }
 h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 
+/* Imagem */
+
+img.img-class.img-thumbnail {
+    margin-bottom: 10px !important;
+}
+
 /* Botões */
 .button-all { font-weight: 600 !important; }
 .btn-main { margin: 10px 0px; }
