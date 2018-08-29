@@ -9,9 +9,12 @@ spl_autoload_register(function($class){
     else if(file_exists('models/'.$class.'.php')) {
         require 'models/'.$class.'.php';
     }
+    else if(file_exists('helpers/'.$class.'.php')) {
+        require 'helpers/'.$class.'.php';
+    }
     else if(file_exists('core/'.$class.'.php')) {
         require 'core/'.$class.'.php';
-    }
+    }    
 });
 
 $core = new Core();

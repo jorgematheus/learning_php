@@ -2,7 +2,7 @@
 <form id="form-class" method="POST" enctype="multipart/form-data">
 <div class="form-group">
         <label for="class-photo">Foto</label>
-        <input type="file" class="form-control" id="class-photo" name="class-photo">
+        <input type="file" class="form-control" name="class-photo">
     </div>
     <div class="form-group">
         <label for="class-title">Título*</label>

@@ -24,6 +24,7 @@ class trashController extends Controller {
         $data['listContent'] = $t->getDataInactiveContent();
         $data['listLesson'] = $t->getDataInactiveLesson();
         $data['listCourse'] = $t->getDataInactiveCourse();
+        $data['listClass'] = $t->getDataInactiveClass();
         $data['permission'] = $u->getTypeUser();
 
         if($data['permission'] != '3') {
@@ -77,6 +78,22 @@ class trashController extends Controller {
         }
         if(!empty($id)) {
             $t->recoveryDataInactive($id, 'course');
+        }
+    }
+
+    public function recoveryClass($id) {
+        $data = array();
+        $u = new Users();
+        $t = new Trash();
+        $u->setLoggedUser();
+        $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();
+
+        if($data['permission'] != '3') {
+            header('location: '.BASE_URL.'restrict');
+        }
+        if(!empty($id)) {
+            $t->recoveryDataInactive($id, 'class');
         }
     }
 

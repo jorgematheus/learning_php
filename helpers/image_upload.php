@@ -1,6 +1,6 @@
 <?php
 //Retorna o nome da imagem a ser inserida no banco de dados
- function image_upload($_width, $_height, $_size, $_photo) {
+ function helper_image_upload($_width, $_height, $_size, $_photo) {
      // Largura máxima em pixels
      $width = $_width;
      // Altura máxima em pixels

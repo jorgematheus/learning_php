@@ -17,7 +17,7 @@
                 <tr>
 <td><?php if($rs['image'] != null):?><img src="img/classes/<?=$rs['image']?>" width="50" height="50" 
     alt="Imagem Turma" title="Imagem Turma"> <?php endif;?> </td>
-                    <td><?=$rs['name']?></td>
+                    <td><?=$rs['title']?></td>
                     <td><?=$rs['description']?></td>
                     <td><a href="<?=BASE_URL?>class/edit/<?=$rs['id']?>" class="btn button-all btn-content"
                            title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>

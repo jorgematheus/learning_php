@@ -1,7 +1,6 @@
 <?php
-
-class ClassController extends Controller {
-
+include "helpers/image_upload.php";
+class ClassController extends Controller {    
     public function __construct() {
         $u = new Users();
         if(!$u->isLogged()) {
@@ -23,8 +22,7 @@ class ClassController extends Controller {
         $this->loadTemplate('class', $data);
     }
 
-    public function add() {
-        include "helpers/image_upload.php";
+    public function add() {        
         $data = array();
         $u = new Users();
         $c = new Classes();        
@@ -45,9 +43,8 @@ class ClassController extends Controller {
                 $description = null;
             }
             
-            if(!empty($photo['name'])) {
-                $photo = $_FILES['class-photo'];
-                $img = image_upload(1500, 1800, 1000000, $photo);
+            if(!empty($photo['name'])) {               
+                $img = helper_image_upload(1500, 1800, 1000000, $photo);
               
                /* // Largura máxima em pixels
                 $largura = 1500;
@@ -108,23 +105,85 @@ class ClassController extends Controller {
                 $img = null;
             }  
             if($img) {
-                $c->add($title, $description, $img);
+                $c->addClass($title, $description, $img);
             }
         }       
         $this->loadTemplate('class_add', $data);        
     }
 
-    public function edit($id) {
+    public function edit($id) {        
         $data = array();
         $u = new Users();
-        $c = new Classes();        
+        $c = new Classes();  
+        $cr = new Course();      
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
+        $data['classData'] = $c->getClassEdit($id);
+        $data['listCourseAddToClass'] = $c->getCourseAddToClass($id);
+        $data['listCourse'] = $cr->getAllCourse();
+
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
         } 
-        $data['classData'] = $c->getClassEdit($id);
+
+        if(isset($_POST['check-content'])) {
+            foreach($_POST['check-content'] as $rs) {
+                $c->addCourseToClass($id, $rs);
+            }
+            header('location: '.$_SERVER['REQUEST_URI']);
+        }        
+          
+        if(isset($_POST['class-title']) && !empty($_POST['class-title'])) {  
+            $photo = $_FILES['class-photo'];          
+            $img = null;
+            $title = $_POST['class-title'];                      
+            if(isset($_POST['class-description'])) {
+                $description = $_POST['class-description'];
+            } else {
+                $description = null;
+            }            
+            if(!empty($photo['tmp_name'])) {                
+                $img = helper_image_upload(1500, 1800, 1000000, $photo);              
+            } else {
+                $img = null;                
+            }  
+                     
+            $c->editClass($id,$title, $description, $img);
+            
+        }      
         $this->loadTemplate('class_edit', $data);
+    }
+
+    public function del($id) {
+        $data = array();
+        $u = new Users();
+        $c = new Classes();
+        $u->setLoggedUser();
+        $data['permission'] = $u->getTypeUser();
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                $c->moveClassToTrash($id);
+            }
+        }
+    }
+
+    /*Funções responsáveis por manipular os cursos vinculados às classes*/
+
+    public function deleteCourse($idClass, $idCourse) {
+        $data = array();
+        $u = new Users();
+        $c = new Classes();
+        $u->setLoggedUser();        
+        $data['permission'] = $u->getTypeUser();
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                if($c->deleteLessonAddToCourse($idCourse, $idLesson)) {
+                    echo 'Conteúdo Deletado!';
+                }
+            } else {
+                header('location: '.BASE_URL.'restrict');
+            }
+        }
     }
 }

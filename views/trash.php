@@ -7,7 +7,10 @@
         <a class="nav-link" id="pills-lesson-tab" data-toggle="pill" href="#pills-lesson" role="tab" aria-controls="pills-content" aria-selected="false">Aulas</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="pills-course-tab" data-toggle="pill" href="#pills-course" role="tab" aria-controls="pills-contact" aria-selected="false">Cursos</a>
+        <a class="nav-link" id="pills-course-tab" data-toggle="pill" href="#pills-course" role="tab" aria-controls="pills-course" aria-selected="false">Cursos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-course-tab" data-toggle="pill" href="#pills-class" role="tab" aria-controls="pills-class" aria-selected="false">Turmas</a>
     </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
@@ -102,6 +105,41 @@
                             <td><?=$rs['email']?></td>
                             <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
                             <td><a href="<?=BASE_URL?>trash/recoveryCourse/<?=$rs['id']?>" class="btn button-all btn-admin"
+                                   onclick="callRecoveryTrash(event, $(this).attr('href'), $(this).parents('tr'), 'curso', 'recuperar')"
+                                   title="Restaurar"><i class="fas fa-level-up-alt fa-fw"></i></a>
+                                <a  href="<?=BASE_URL?>trash/deleteContent/<?=$rs['id']?>" id="btt"
+                                    onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'curso')"
+                                    title="Excluir" class="btn-del btn button-all btn-admin"><i class="fas fa-trash-alt fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane" id="pills-class" role="tabpanel" aria-labelledby="pills-class-tab">
+        <div class="table-responsive-lg">
+            <table id="tabela-usuarios" class="table tabela-listagem">
+                <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Exclusor</th>
+                    <th>Data de exclusão</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($listClass != null):?>
+                    <?php foreach($listClass as $rs): ?>
+                        <tr>
+                            <td><?=$rs['title']?></td>
+                            <td><?=$rs['description']?></td>
+                            <td><?=$rs['email']?></td>
+                            <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
+                            <td><a href="<?=BASE_URL?>trash/recoveryClass/<?=$rs['id']?>" class="btn button-all btn-admin"
                                    onclick="callRecoveryTrash(event, $(this).attr('href'), $(this).parents('tr'), 'curso', 'recuperar')"
                                    title="Restaurar"><i class="fas fa-level-up-alt fa-fw"></i></a>
                                 <a  href="<?=BASE_URL?>trash/deleteContent/<?=$rs['id']?>" id="btt"

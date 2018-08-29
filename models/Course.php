@@ -70,8 +70,7 @@ class Course extends Model {
         $sql->bindValue(1, $idCourse);
         $sql->execute();
         if($sql->rowCount() > 0) {
-            $this->dataContent = $sql->fetchAll(PDO::FETCH_ASSOC);
-            return $this->dataContent;
+           return  $sql->fetchAll(PDO::FETCH_ASSOC);            
         }
     }
 

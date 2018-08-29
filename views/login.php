@@ -29,10 +29,14 @@
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
                             </div>
                             <input type="submit" class="btn button-all" id="login" value="Entrar">
-                        </form>
-                        <small class="feedback-invalid"></small>
-                        <?php if (isset($feedback) && !empty($feedback)):?>
-                        <small class="feedback-invalid"><?=$feedback?></small>
+                        </form> <br>
+                        <?php if (isset($feedback) && !empty($feedback)):?>                        
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?=$feedback?>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                         <?php endif;?>
                     </div>
                 </div>
