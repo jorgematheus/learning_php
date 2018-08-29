@@ -1,7 +1,8 @@
 <?php
 class Classes extends Model {
     private $idUser;
-    public $dataClass;    
+    public $dataClass;  
+    private $imageDefault = 'class-default-image.jpg';  
 
     public function __construct() {
         parent::__construct();
@@ -21,7 +22,7 @@ class Classes extends Model {
         if($data['qt'] != '0') {
             $sql = $this->db->prepare('SELECT id, description, image, title FROM class WHERE active = 1');
             $sql->execute();
-            return $this->dataClass = $sql->fetchAll(PDO::FETCH_ASSOC);          
+            return $sql->fetchAll(PDO::FETCH_ASSOC);          
         }
     }
 
@@ -33,12 +34,26 @@ class Classes extends Model {
 
     public function editClass($id, $title, $description, $image) {
         $sql = $this->db->prepare('UPDATE class SET title = ?, description = ?, last_editor =?, 
-        date_edition = now() WHERE id = ?');
+        date_edition = NOW() WHERE id = ?');
         $sql->execute(array($title, $description, $this->idUser, $id));
 
         if($image != null) {
             $sql = $this->db->prepare('UPDATE class SET image = ? WHERE id = ?');
-            $sql->execute(array($image, $id));
+            $sql->execute(array($image, $id)); 
+            if($this->dataClass['image'] != 'class-default-image.jpg') {        
+                unlink("img/classes/".$this->dataClass['image']);                
+            }
+        }        
+    }
+
+    public function deleteImage($id) {
+        $sql = $this->db->prepare('UPDATE class SET image = ? WHERE id = ?');
+        $sql->bindValue(1, $this->imageDefault);
+        $sql->bindValue(2, $id);
+        if($this->dataClass['image'] != 'class-default-image.jpg') {        
+            var_dump($this->dataClass['image']);
+            unlink("img/classes/".$this->dataClass['image']);
+            var_dump($this->imageDefault);
         }
     }
 
@@ -48,10 +63,11 @@ class Classes extends Model {
     }
 
     public function getClassEdit($id) {
-        $sql = $this->db->prepare('SELECT image, title, description FROM class WHERE id = ?');
+        $sql = $this->db->prepare('SELECT id, image, title, description FROM class WHERE id = ?');
         $sql->bindValue(1, $id);
         $sql->execute();
-        return $sql->fetch(PDO::FETCH_ASSOC);        
+        $this->dataClass = $sql->fetch(PDO::FETCH_ASSOC); 
+        return $this->dataClass;     
     }
 
     public function addCourseToClass($idClass, $idCourse){
@@ -82,5 +98,6 @@ class Classes extends Model {
         } else {
             return false;
         }
-    }    
+    } 
+    
 }

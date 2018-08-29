@@ -34,8 +34,9 @@ img.img-class.img-thumbnail { margin-bottom: 10px !important; }
 .btn-home a {  font-size:1.6em; }
 .btn-home-content i { position: absolute; left:50%; transform: translate(-15%, 50%); }
 .btn-home-content a { position: absolute; left:50%; bottom:40%; transform: translate(-25%, 50%); }
-#btn-logout { background-color: transparent; }
-.btn-logout  i { color: #EB191E; }
+#btn-logout, .del-image { background-color: transparent; }
+.del-image { border-radius:100% !important; }
+.btn-logout  i { color: #EB191E; } 
 /* Tabelas */
 table { width: 100%; }
 .tabela-listagem thead { background-color: #2f2f2f; color: #fff; }

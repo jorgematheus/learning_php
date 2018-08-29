@@ -2,8 +2,13 @@
 <form id="form-content" method="POST" enctype="multipart/form-data">
     <div class="row no-gutters">  
         <div class="col-md-2 col-12">
+        <button class="btn del-image float-right btn-content-icon">
+        <i class="fas fa-times-circle"></i>
+        </button>
+        
         <img src="../../img/classes/<?=$classData['image']?>" width="250" height="250" 
-        class="img-class rounded float-left img-thumbnail img-fluid img-edit-e" alt="Imagem Turma"> 
+        class="img-class rounded float-left img-thumbnail img-fluid img-edit-e" alt="Imagem da Turma"
+        title="Imagem da Turma"> 
         </div>
         <div class="col-md-4 col-12">     
             <input type="file" class="form-control input-file" id="class-photo" name="class-photo">
@@ -16,8 +21,9 @@
     </div>    
     <div class="form-group">
         <label for="class-description">Descrição*</label>
-        <input type="text" class="form-control" id="class-description" name="class-description"
-        value="<?=$classData['description']?>" placeholder="Informe uma descrição com no máximo 255 caracteres." >
+        <textarea class="form-control" id="class-description" 
+        placeholder="Informe uma descrição com no máximo 255 caracteres."
+        name="class-description"><?=$classData['description']?></textarea>       
     </div>       
     <button type="submit" class="btn button-all btn-content"><i class="fas fa-save fa-fw"></i>Salvar</button>
 </form>

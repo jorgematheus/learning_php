@@ -6,9 +6,9 @@
         <thead>
         <tr>
             <th></th>
-            <th>Turma</th>
-            <th>Descrição</th>
-            <th>Ações</th>
+            <th width="35%">Turma</th>
+            <th width="50%">Descrição</th>
+            <th width="15%">Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -16,7 +16,7 @@
             <?php foreach($listClass as $rs): ?>
                 <tr>
 <td><?php if($rs['image'] != null):?><img src="img/classes/<?=$rs['image']?>" width="50" height="50" 
-    alt="Imagem Turma" title="Imagem Turma"> <?php endif;?> </td>
+    alt="img class" title="Imagem Turma"> <?php endif;?> </td>
                     <td><?=$rs['title']?></td>
                     <td><?=$rs['description']?></td>
                     <td><a href="<?=BASE_URL?>class/edit/<?=$rs['id']?>" class="btn button-all btn-content"

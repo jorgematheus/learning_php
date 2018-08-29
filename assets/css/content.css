@@ -3,3 +3,4 @@ li.menu-content i, li.menu-content a, .content-color { color: #339AF0; } /* Cont
 
 /*Buttons Content*/
 .btn-content { color: #fff; background: #339AF0; }
+.btn-content-icon i {color:#339AF0;}

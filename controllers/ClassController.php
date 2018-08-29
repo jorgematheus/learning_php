@@ -18,7 +18,7 @@ class ClassController extends Controller {
         $data['permission'] = $u->getTypeUser();
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
-        }
+        }        
         $this->loadTemplate('class', $data);
     }
 
@@ -32,6 +32,7 @@ class ClassController extends Controller {
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
         } 
+        
         $img_valid = true;
         if(isset($_POST['class-title']) && !empty($_POST['class-title'])) {            
             $img = null;
@@ -44,7 +45,7 @@ class ClassController extends Controller {
             }
             
             if(!empty($photo['name'])) {               
-                $img = helper_image_upload(1500, 1800, 1000000, $photo);
+                $img = helper_image_upload(1500, 1800, 1000000, $photo, 'img/classes/');
               
                /* // Largura máxima em pixels
                 $largura = 1500;
@@ -104,7 +105,9 @@ class ClassController extends Controller {
             } else {
                 $img = null;
             }  
-            if($img) {
+            if($img == null) {
+                $c->addClass($title, $description, 'class-default-image.jpg');
+            } else {
                 $c->addClass($title, $description, $img);
             }
         }       
@@ -117,6 +120,7 @@ class ClassController extends Controller {
         $c = new Classes();  
         $cr = new Course();      
         $u->setLoggedUser();
+        $data['idClass'] = $id;
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
         $data['classData'] = $c->getClassEdit($id);
@@ -144,13 +148,13 @@ class ClassController extends Controller {
                 $description = null;
             }            
             if(!empty($photo['tmp_name'])) {                
-                $img = helper_image_upload(1500, 1800, 1000000, $photo);              
+                $img = helper_image_upload(1500, 1800, 1000000, $photo, 'img/classes/');                          
             } else {
                 $img = null;                
             }  
                      
             $c->editClass($id,$title, $description, $img);
-            
+            header('location: '.$_SERVER['REQUEST_URI']);            
         }      
         $this->loadTemplate('class_edit', $data);
     }
@@ -164,6 +168,19 @@ class ClassController extends Controller {
         if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {
                 $c->moveClassToTrash($id);
+            }
+        }
+    }
+
+    public function deleteImage($id) {
+        $u = new Users();
+        $c = new Classes();
+        $u->setLoggedUser();
+        $data['classData'] = $c->getClassEdit($id);
+        $data['permission'] = $u->getTypeUser();        
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                $c->deleteImage($id);
             }
         }
     }

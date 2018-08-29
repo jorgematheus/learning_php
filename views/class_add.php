@@ -10,9 +10,9 @@
                placeholder="Informe um título com no máximo 100 caracteres.">
     </div>
     <div class="form-group">
-        <label for="class-description">Descrição*</label>
-        <input type="text" class="form-control" id="class-description" name="class-description"
-               placeholder="Informe uma descrição com no máximo 255 caracteres." >
+        <label for="class-description">Descrição*</label>        
+        <textarea class="form-control" id="class-description" name="class-description"
+               placeholder="Informe uma descrição com no máximo 255 caracteres."></textarea>
     </div>
     <button type="submit" class="btn button-all btn-content"><i class="fas fa-save fa-fw"></i>Salvar</button>
     <br><br>
