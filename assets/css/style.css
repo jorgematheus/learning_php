@@ -14,13 +14,12 @@
 /* Geral */
 html, body { height: auto; background-color: #F8F9FA !important; }
 :disabled { cursor: no-drop; }
-
 #main { background-color: #fff;  margin-top: 20px; border-radius:5px; font-family: 'Song Myung', serif !important;}
 #main-content { padding: 15px; }
 h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 
 /* Imagem */
-
+.break-img-edit { margin-top: 38px; }
 img.img-class.img-thumbnail { margin-bottom: 10px !important; }
 .img-edit-e{ height: 150px !important; }
 
@@ -34,14 +33,15 @@ img.img-class.img-thumbnail { margin-bottom: 10px !important; }
 .btn-home a {  font-size:1.6em; }
 .btn-home-content i { position: absolute; left:50%; transform: translate(-15%, 50%); }
 .btn-home-content a { position: absolute; left:50%; bottom:40%; transform: translate(-25%, 50%); }
-#btn-logout, .del-image { background-color: transparent; }
-.del-image { border-radius:100% !important; }
+#btn-logout { padding-left: 0; }
+#btn-logout, .btn-del-image { background-color: transparent; }
+.btn-del-image { border-radius:100% !important; }
 .btn-logout  i { color: #EB191E; } 
 /* Tabelas */
 table { width: 100%; }
-.tabela-listagem thead { background-color: #2f2f2f; color: #fff; }
-.tabela-listagem tbody { background-color: #f9f5f2; }
-.tabela-listagem { border-radius: 50px ; }
+.table-list thead { background-color: #2f2f2f; color: #fff; }
+.table-list tbody { background-color: #f9f5f2; }
+.table-list { border-radius: 50px ; }
 
 
 /*Navbar*/
@@ -83,14 +83,20 @@ footer {  position:relative; margin-top: 100px; height: 50px; background-color: 
 .footer-copyright { position: relative;   top: 50%; color: #fff; }
 
 @media screen and (min-width: 768px) { 
-    input#class-photo { position: relative; top: 106px; left: 1%; }
+    input#class-photo { position: relative; top: 144px; left: 1%; }
 }
 
 @media screen and (max-width: 990px) {
     .btn-home  { width: 80%; }
-    .tabela-listagem tr td:last-child a:first-child { margin-bottom:5px; } /* Página usuários */
+    .table-list tr td:last-child a:first-child { margin-bottom:5px; } /* Página usuários */
     .navbar-collapse li:nth-child(4) + li:nth-child(5) { margin-left: 0px !important; } /*zera a margin do menu*/
     .navbar-collapse li:nth-child(5) + li:nth-child(6) { margin-left: 0px !important; } /*zera a margin do menu*/
+}
+
+@media screen and (min-width: 990px) and (max-width: 1265px) {
+    .navbar-collapse .menu-user-perfil {
+        margin-left: 25px !important;
+    }
 }
 
 

@@ -16,11 +16,10 @@
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane show active" id="pills-content" role="tabpanel" aria-labelledby="pills-content-tab">
         <div class="table-responsive-lg">
-            <table id="tabela-usuarios" class="table tabela-listagem">
+            <table class="table table-list table-trash">
                 <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th>Título</th>                    
                     <th>Exclusor</th>
                     <th>Data de exclusão</th>
                     <th>Ações</th>
@@ -30,8 +29,7 @@
                 <?php if($listContent != null):?>
                     <?php foreach($listContent as $rs): ?>
                         <tr>
-                            <td><?=$rs['title']?></td>
-                            <td><?=$rs['description']?></td>
+                            <td class="title-table-trash"><?=$rs['title']?></td>                            
                             <td><?=$rs['email']?></td>
                             <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
                             <td><a href="<?=BASE_URL?>trash/recoveryContent/<?=$rs['id']?>" class="btn button-all btn-admin"
@@ -51,11 +49,10 @@
     </div>
     <div class="tab-pane" id="pills-lesson" role="tabpanel" aria-labelledby="pills-lesson-tab">
         <div class="table-responsive-lg">
-            <table id="tabela-usuarios" class="table tabela-listagem">
+            <table class="table table-list table-trash">
                 <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th>Título</th>                    
                     <th>Exclusor</th>
                     <th>Data de exclusão</th>
                     <th>Ações</th>
@@ -65,8 +62,7 @@
                 <?php if($listLesson != null):?>
                     <?php foreach($listLesson as $rs): ?>
                         <tr>
-                            <td><?=$rs['title']?></td>
-                            <td><?=$rs['description']?></td>
+                            <td class="title-table-trash"><?=$rs['title']?></td>                            
                             <td><?=$rs['email']?></td>
                             <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
                             <td><a href="<?=BASE_URL?>trash/recoveryLesson/<?=$rs['id']?>" class="btn button-all btn-admin"
@@ -86,11 +82,10 @@
     </div>
     <div class="tab-pane" id="pills-course" role="tabpanel" aria-labelledby="pills-course-tab">
         <div class="table-responsive-lg">
-            <table id="tabela-usuarios" class="table tabela-listagem">
+            <table class="table table-list table-trash">
                 <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th>Título</th>                    
                     <th>Exclusor</th>
                     <th>Data de exclusão</th>
                     <th>Ações</th>
@@ -100,8 +95,7 @@
                 <?php if($listCourse != null):?>
                     <?php foreach($listCourse as $rs): ?>
                         <tr>
-                            <td><?=$rs['title']?></td>
-                            <td><?=$rs['description']?></td>
+                            <td class="title-table-trash"><?=$rs['title']?></td>                            
                             <td><?=$rs['email']?></td>
                             <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
                             <td><a href="<?=BASE_URL?>trash/recoveryCourse/<?=$rs['id']?>" class="btn button-all btn-admin"
@@ -121,11 +115,10 @@
     </div>
     <div class="tab-pane" id="pills-class" role="tabpanel" aria-labelledby="pills-class-tab">
         <div class="table-responsive-lg">
-            <table id="tabela-usuarios" class="table tabela-listagem">
+            <table class="table table-list table-trash">
                 <thead>
                 <tr>
-                    <th>Título</th>
-                    <th>Descrição</th>
+                    <th>Título</th>                    
                     <th>Exclusor</th>
                     <th>Data de exclusão</th>
                     <th>Ações</th>
@@ -135,8 +128,7 @@
                 <?php if($listClass != null):?>
                     <?php foreach($listClass as $rs): ?>
                         <tr>
-                            <td><?=$rs['title']?></td>
-                            <td><?=$rs['description']?></td>
+                            <td class="title-table-trash"><?=$rs['title']?></td>                            
                             <td><?=$rs['email']?></td>
                             <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
                             <td><a href="<?=BASE_URL?>trash/recoveryClass/<?=$rs['id']?>" class="btn button-all btn-admin"

@@ -1,14 +1,19 @@
 <h3 class="content-color"><i class="fas fa-pencil-alt fa-fw"></i>Edição de Turma</h3>
-<form id="form-content" method="POST" enctype="multipart/form-data">
+<form id="form-class" method="POST" enctype="multipart/form-data">
     <div class="row no-gutters">  
         <div class="col-md-2 col-12">
-        <button class="btn del-image float-right btn-content-icon">
-        <i class="fas fa-times-circle"></i>
-        </button>
-        
-        <img src="../../img/classes/<?=$classData['image']?>" width="250" height="250" 
-        class="img-class rounded float-left img-thumbnail img-fluid img-edit-e" alt="Imagem da Turma"
-        title="Imagem da Turma"> 
+            <?php if($classData['image'] == 'class-default-image.jpg'):?>
+                <div class="break-img-edit"></div>
+            <?php endif;?>
+            <?php if($classData['image'] != 'class-default-image.jpg'):?>
+                <a title="Deletar imagem" class="btn btn-del-image float-right btn-content-icon" 
+                data-class="class" id="<?=$classData['id']?>"> 
+                <i class="fas fa-times-circle"></i>
+                </a> 
+            <?php endif;?>       
+            <img src="../../img/classes/<?=$classData['image']?>" width="250" height="250" 
+            class="img-class rounded float-left img-thumbnail img-fluid img-edit-e" alt="Imagem da Turma"
+            title="Imagem da Turma"> 
         </div>
         <div class="col-md-4 col-12">     
             <input type="file" class="form-control input-file" id="class-photo" name="class-photo">
@@ -17,12 +22,13 @@
     <div class="form-group">
         <label for="class-title">Título*</label>
         <input type="text" class="form-control" id="class-title" name="class-title"
-         value="<?=$classData['title']?>" placeholder="Informe um título com no máximo 100 caracteres.">
+         value="<?=$classData['title']?>" minlength="3" maxlength="100" placeholder="Informe um título com no máximo 100 caracteres.">
     </div>    
     <div class="form-group">
         <label for="class-description">Descrição*</label>
         <textarea class="form-control" id="class-description" 
         placeholder="Informe uma descrição com no máximo 255 caracteres."
+        minlength="3" maxlength="255"
         name="class-description"><?=$classData['description']?></textarea>       
     </div>       
     <button type="submit" class="btn button-all btn-content"><i class="fas fa-save fa-fw"></i>Salvar</button>
@@ -41,7 +47,7 @@
                 <div class="modal-body">
                     <h5>Conteúdos</h5>
                     <div class="table-responsive-lg">
-                        <table class="table tabela-listagem">
+                        <table class="table table-list">
                             <thead>
                             <tr>
                                 <th>Título</th>
@@ -94,7 +100,7 @@
 <?php endif;?>
 <h3>Cursos Vinculados</h3>
 <div class="table-responsive-lg">
-    <table class="table tabela-listagem">
+    <table class="table table-list">
         <thead>
         <tr>
             <th>Título</th>

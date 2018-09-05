@@ -21,7 +21,21 @@ var validLogin = function() {
 
     }
 }
-var callActionUrl = function(url1) { // função responsável por deletar usuário
+
+// Função responsável por deletar imagem
+$('.btn-del-image').on('click', function(ev){    
+    var id = $(this).attr('id');
+    $control = $(this).attr('data-class');
+    $.get(BASE_URL+$control+'/deleteImage/'+id, function(data){
+        console.log('Data: ' +data);
+        window.location.reload();
+    })
+    
+    
+});
+
+// função responsável por deletar os itens do sistema
+var callActionUrl = function(url1) { 
     $.ajax({
         url: url1,
         type: 'POST'
@@ -37,7 +51,7 @@ var callActionUrl = function(url1) { // função responsável por deletar usuár
 var callDelete = function(event,url,parent,name) {
     event.preventDefault();
     if (window.confirm("Deseja realmente inativar esse "+name+"?")) {
-        parent.fadeOut(1000,function(){
+        parent.fadeOut(500,function(){
             parent.remove();
         });
         callActionUrl(url);
@@ -61,46 +75,4 @@ function callRecoveryTrash(event,url,parent,name) {
         });
         callActionUrl(url);
     }
-}
-
-function callModalEdit(modalName,view) {
-    $(document).ready( function(){
-        $('#btn-modal').trigger('click');
-        setTimeout(function () {
-            $(modalName).modal('hide')
-            window.location.href=BASE_URL+view;
-        }, 2000);
-    });
-    $(modalName).modal();
-}
-
-function callModalAdd(modalName) {
-    $(document).ready( function(){
-        $('#btn-modal').trigger('click');
-        setTimeout(function () {
-            $(modalName).modal('hide')
-        }, 2000);
-    });
-    $(modalName).modal();
-}
-
-function callModalRecoveryTrash(modalName) {
-    $(document).ready( function(){
-        $('#btn-modal').trigger('click');
-        setTimeout(function () {
-            $(modalName).modal('hide')
-        }, 2000);
-    });
-    $(modalName).modal();
-}
-
-/*Datepicker*/
-let callDatePicker = () => {
-    $('.input-date input').datepicker({
-        format: "dd/mm/yyyy",
-        startView: 2,
-        language: "pt-BR",
-        autoclose: true,
-        datesDisabled: ['07/06/2018', '07/21/2018']
-    });
 }

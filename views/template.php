@@ -7,17 +7,19 @@
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/report.css">
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/content.css">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/trash.css">
         <link rel="stylesheet" href="<?=BASE_URL?>node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
               integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
               crossorigin="anonymous">
-        <script src="<?=BASE_URL?>node_modules/jquery/dist/jquery.min"></script>
+        <script src="<?=BASE_URL?>node_modules/jquery/dist/jquery.min"></script>        
+        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>  
+        <script src="<?=BASE_URL?>assets/js/alerts.js?v=2"></script>      
         <script> var BASE_URL = '<?=BASE_URL?>' </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
                 crossorigin="anonymous"></script>
-        <script src="<?=BASE_URL?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="<?=BASE_URL?>assets/js/main.js"></script>
+        <script src="<?=BASE_URL?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     </head>
@@ -32,14 +34,14 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <?php if($viewData['permission'] == 3): ?>
+                        <?php if($viewData['permission'] == '3'): ?>
                             <li class="nav-item dropdown menu-admin">
                                 <a class="nav-link dropdown-toggle" href="#" id="" role="button" data-toggle="dropdown"
                                    aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-cog fa-fw"></i> Administração
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#"><i class="fas fa-users fa-fw"></i> Grupos de Usuários</a>
+                                    <a class="dropdown-item" href="<?=BASE_URL?>group"><i class="fas fa-users fa-fw"></i> Grupos de Usuários</a>
                                     <a class="dropdown-item" href="<?=BASE_URL?>trash"><i class="fas fa-trash-alt fa-fw"></i> Lixeira</a>
                                 </div>
                             </li> <!-- dropdown admin-->
@@ -88,9 +90,9 @@
                             </div>
                         </li> <!-- dropdown perfil-user-->
                         <li class="nav-item dropdown btn-logout" <?php if($viewData['permission'] == '1'):?>
-                            style="position: relative; left: 80%;transform: translateX(-80%); margin-left:-6px;" <?php endif;
+                            style="position: relative; left: 71%;transform: translateX(-80%); margin-left:5%;" <?php endif;
                             if($viewData['permission'] == '2'):?>style="position: relative; left: 50%;transform: translateX(-50%);
-                            margin-left:-6px !important;" <?php endif;?>>
+                            margin-left:0% !important;" <?php endif;?>>
                             <button id="btn-logout" class="btn"  onclick="logout()" title="Logout" style="color:#fff">
                                 <i class="fas fa-sign-out-alt fa-fw"></i> Sair
                             </button>
@@ -105,5 +107,7 @@
                 </div>
             </main>
         <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados &copy;</small>  </p></footer>
+        <script src="<?=BASE_URL?>assets/js/main.js"></script>
+        <script src="<?=BASE_URL?>assets/js/formValidate.js"></script>        
     </body>
 </html>

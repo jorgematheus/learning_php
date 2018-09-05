@@ -47,13 +47,18 @@ class Classes extends Model {
     }
 
     public function deleteImage($id) {
-        $sql = $this->db->prepare('UPDATE class SET image = ? WHERE id = ?');
-        $sql->bindValue(1, $this->imageDefault);
-        $sql->bindValue(2, $id);
+        $sql = $this->db->prepare('UPDATE class SET image = ?, last_editor = ?, 
+        date_edition = NOW() WHERE id = ?');            
+        $sql->bindValue(1, $this->imageDefault);   
+        $sql->bindValue(2, $this->idUser);      
+        $sql->bindValue(3, $id);
+        $sql->execute();         
         if($this->dataClass['image'] != 'class-default-image.jpg') {        
             var_dump($this->dataClass['image']);
             unlink("img/classes/".$this->dataClass['image']);
-            var_dump($this->imageDefault);
+            return true;            
+        } else {
+            return false;
         }
     }
 

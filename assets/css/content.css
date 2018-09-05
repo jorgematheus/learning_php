@@ -4,3 +4,17 @@ li.menu-content i, li.menu-content a, .content-color { color: #339AF0; } /* Cont
 /*Buttons Content*/
 .btn-content { color: #fff; background: #339AF0; }
 .btn-content-icon i {color:#339AF0;}
+
+
+/*Table Content*/
+.table-class th:first-child { width: 1% }
+.table-class th:nth-child(2) { width: 35% }
+.table-class th:nth-child(3) { width: 49% }
+.table-class th:nth-child(4) { width: 15% }
+.table-class tr td.title-table-contents { word-wrap: break-word; max-width: 100px; }
+.table-class tr td.description-table-contents { word-wrap: break-word;  max-width: 125px; }
+
+.table-contents tr td.title-table-contents { word-wrap: break-word; max-width: 240px; }
+.table-contents tr td.description-table-contents { word-wrap: break-word;  max-width: 350px; }
+
+

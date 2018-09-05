@@ -26,7 +26,7 @@
                 <div class="modal-body">
                     <h5>Conteúdos</h5>
                     <div class="table-responsive-lg">
-                        <table class="table tabela-listagem">
+                        <table class="table table-list">
                             <thead>
                             <tr>
                                 <th>Título</th>
@@ -82,7 +82,7 @@
 <?php endif;?>
 <h3>Conteúdos Vinculados</h3>
 <div class="table-responsive-lg">
-    <table class="table tabela-listagem">
+    <table class="table table-list">
         <thead>
         <tr>
             <th>Título</th>

@@ -3,7 +3,7 @@
 <a href="<?=BASE_URL?>users/add" class="btn button-all btn-main btn-user" title="Cadastrar Novo Usuário"><i class="fas fa-user-plus"></i> Novo Usuário </a>
 <?php endif; ?>
 <div class="table-responsive-lg">
-    <table id="tabela-usuarios" class="table tabela-listagem">
+    <table id="tabela-usuarios" class="table table-list">
         <thead>
             <tr>
                 <th>Nome</th>
@@ -18,20 +18,20 @@
         <tbody>
         <?php if($listUsers != null):?>
         <?php foreach($listUsers as $rs): ?>
-            <tr <?php $status = $rs['ativo'] == '1' ? 'user-active' : 'user-inactive'?> class="<?=$status?>">
-                <td><?=$rs['usuario']?></td>
+            <tr <?php $status = $rs['active'] == '1' ? 'user-active' : 'user-inactive'?> class="<?=$status?>">
+                <td><?=$rs['name']?></td>
                 <td><?=$rs['email']?></td>
-                <td><?=$rs['celular']?></td>
-                <td><?php $status = $rs['ativo'] == '1' ? 'check' : 'ban'?> <i class="status-user fas fa-<?=$status?>"></i> </td>
+                <td><?=$rs['phone']?></td>
+                <td><?php $status = $rs['active'] == '1' ? 'check' : 'ban'?> <i class="status-user fas fa-<?=$status?>"></i> </td>
                 <?php if($permission == '3'): ?>
                     <td><a href="<?=BASE_URL?>users/edit/<?=$rs['id']?>" class="btn button-all btn-user"
                            title="Editar"><i class="fas fa-pencil-alt fa-fw"></i></a>
-                        <?php if($rs['ativo'] == '1'): ?>
+                        <?php if($rs['active'] == '1'): ?>
                             <a  href="<?=BASE_URL?>users/inactive/<?=$rs['id']?>" id="btt"
                                 title="Desativar" class="btn-del btn button-all btn-user"><i class="fas fa-ban fa-fw"></i>
                             </a>
                         <?php endif;?>
-                        <?php if($rs['ativo'] == '0'): ?>
+                        <?php if($rs['active'] == '0'): ?>
                             <a  href="<?=BASE_URL?>users/active/<?=$rs['id']?>" id="btt"
                                 title="Ativar" class="btn-del btn button-all btn-user"><i class="fas fa-thumbs-up fa-fw"></i>
                             </a>

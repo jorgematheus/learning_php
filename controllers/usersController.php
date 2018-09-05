@@ -5,20 +5,20 @@
  * Date: 04/07/2018
  * Time: 13:23
  */
-
+include "helpers/image_upload.php";
 class usersController extends Controller {
 
     public function __construct() {
         $u = new Users();
         if(!$u->isLogged()) {
-            header('location: '.BASE_URL.'/login');
+            header('location: '.BASE_URL.'login');
         }
     }
 
     public function index() {
         $data = array();
         $u = new Users();
-        $u->setLoggedUser();
+        $u->setLoggedUser();       
         $data['listUsers'] = $u->getListUsers();
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
@@ -37,34 +37,56 @@ class usersController extends Controller {
         if($data['permission'] != '3') {
             header('location: '.BASE_URL.'restrict');
         }
+        try{        
+            if(isset($_POST['email']) && !empty($_POST['email'])) {
+                if(isset($_POST['name']) && !empty($_POST['name'])) {
+                    if(isset($_POST['password']) && !empty($_POST['password'])) {
+                        $user = addslashes($_POST['name']);
+                        $email = addslashes($_POST['email']);
+                        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+                        $type_user = addslashes($_POST['type_user']);
+                        $phone = addslashes($_POST['phone']);
+                        $photo = $_FILES['photo'];
 
-        if(isset($_POST['email']) && !empty($_POST['email'])) {
-            if(isset($_POST['name']) && !empty($_POST['name'])) {
-                if(isset($_POST['password']) && !empty($_POST['password'])) {
-                    $user = addslashes($_POST['name']);
-                    $email = addslashes($_POST['email']);
-                    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                    $tipo_user = addslashes($_POST['tipo']);
-                    $celular = addslashes($_POST['celular']);
-
-                    if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
-                        $dt_nascimento = addslashes(date('Y-m-d',
-                            strtotime(str_replace('/', '-', $_POST['nascimento']))));
-                    } else {
-                        $dt_nascimento = null;
-                    }
-                    if($u->emailNotUsed($email)) {
-                        $add = $u->add($user, $email, $password, $dt_nascimento, $tipo_user, $celular);
-                        if ($add) {
-                            $data['feedback'] = 'Usuário cadastrado com suceeso!';
+                        if(isset($_POST['birth']) && !empty($_POST['birth'])) {
+                            $birth = addslashes(date('Y-m-d',
+                                strtotime(str_replace('/', '-', $_POST['birth']))));
                         } else {
-                            $data['feedback'] = 'Cadastro não efetuado. Verifique todos os campos e tente novamente!';
+                            $birth = null;
                         }
-                    } else {
-                        $data['feedback'] = 'O email solicitado já está em uso';
+                        if($u->emailNotUsed($email)) {
+                            if(!empty($photo['tmp_name'])) {    
+                                if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
+                                    // Gera um nome único para a imagem
+                                    $name_img = md5(uniqid(time())) . "." . $ext[1];                       
+                                    helper_image_upload(250, 250, $photo, $name_img, 'img/users/'); 
+                                    $data['feedback'] = 'Arquivo ok'; 
+                                }  else {
+                                    $data['feedback'] = 'Arquivo nao permitido';
+                                }                                  
+                            } else {
+                                $name_img = null;                
+                            }            
+                            if($name_img == null) {
+                                $add = $u->add($user, $email, $password, 'user-profile-default.png', 
+                                $birth, $type_user, $phone);                                
+                            } else {
+                                $add = $u->add($user, $email, $password, $name_img, $birth, 
+                                $type_user, $phone);
+                            }                           
+                            if ($add) {
+                                $data['feedback'] = 'Usuário cadastrado com suceeso!';
+                            } else {
+                                $data['feedback'] = 'Cadastro não efetuado. Verifique todos os campos e tente novamente!';
+                            }
+                        } else {
+                            $data['feedback'] = 'O email solicitado já está em uso';
+                        }
                     }
                 }
             }
+        } catch(Exception $ex) {
+            echo 'error: '.$ex->getMessage();
         }
         $this->loadTemplate('user_add', $data);
     }
@@ -80,38 +102,70 @@ class usersController extends Controller {
         if($data['permission'] != '3') {
             header('location: '.BASE_URL.'restrict');
         }
-
         if(empty($id) || $data['userData'] == null) {
             header('location: '.BASE_URL.'users');
         }
-
         if(isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
-
+            $photo = $_FILES['photo'];
+            $img_valid = true; //verifica se é uma imagem válida
             if(isset($_POST['password']) && !empty($_POST['password'])) {
                 $pass = addslashes($_POST['password']);
-                $pass = password_hash($pass, PASSWORD_DEFAULT);
+                $pass = password_hash($pass, PASSWORD_DEFAULT);                
             } else {
                 $pass = null;
             }
             
-            $tipo_user = addslashes($_POST['tipo']);
+            $type_user = addslashes($_POST['type_user']);
 
-            if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
-                $dt_nascimento = addslashes(date('Y-m-d',
-                                strtotime(str_replace('/', '-', $_POST['nascimento']))));
+            if(isset($_POST['birth']) && !empty($_POST['birth'])) {
+                $birth = addslashes(date('Y-m-d',
+                                strtotime(str_replace('/', '-', $_POST['birth']))));
             } else {
-                $dt_nascimento = null;
+                $birth = null;
             }
-            if(isset($_POST['celular']) && !empty($_POST['celular'])) {
-                $celular = addslashes($_POST['celular']);
+            if(isset($_POST['phone']) && !empty($_POST['phone'])) {
+                $phone = addslashes($_POST['phone']);
             } else {
-                $celular = null;
+                $phone = null;
             }
-            $u->edit($id, $name, $pass, $dt_nascimento, $tipo_user, $celular);
-            $data['feedback'] = 'Usuário Alterado com sucesso!';
+            if(!empty($photo['tmp_name'])) {    
+                if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
+                    // Gera um nome único para a imagem
+                    $name_img = md5(uniqid(time())) . "." . $ext[1];                       
+                    helper_image_upload(250, 250, $photo, $name_img, 'img/users/');  
+                    $img_valid = true;                  
+                }  else {
+                    $data['feedback_img'] = 'Arquivo invalido';   
+                    $img_valid = false;                
+                }                                  
+            } else {
+                $name_img = null;                
+            }
+            if($img_valid === true) {               
+                $u->edit($id, $name, $pass, $name_img, $birth, $type_user, $phone);
+                $data['feedback'] = 'Usuário alterado!';                                
+            } 
+                                
         }
         $this->loadTemplate('user_edit', $data);
+    } 
+
+    public function deleteImage($id) {
+        $u = new Users();        
+        $u->setLoggedUser();        
+        $data['UserData'] = $u->getUserEdit($id);
+        $data['permission'] = $u->getTypeUser();        
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {                
+                if($u->deleteImage($id)) {
+                    $resposta = array('msg'=>'Imagem Deletada com Sucesso !');
+                } else {                    
+                    $resposta =  array('msg' =>'Erro ao deletar a imagem!');
+                }
+                echo json_encode($resposta);
+            }
+        }
     }
 
     public function inactive($id) {
@@ -131,7 +185,7 @@ class usersController extends Controller {
         $u->setLoggedUser();
         $data['permission'] = $u->getTypeUser();
         if($u->isLogged()) {
-            if($data['permission'] == '3') {
+            if($data['permission'] == '3') { 
                 $u->activeUser($id);
                 header('location: '.BASE_URL.'users');
             }
@@ -156,21 +210,26 @@ class usersController extends Controller {
                 $pass = null;
             }
 
-            if(isset($_POST['nascimento']) && !empty($_POST['nascimento'])) {
-                $dt_nascimento = addslashes(date('Y-m-d',
-                    strtotime(str_replace('/', '-', $_POST['nascimento']))));
+            if(isset($_POST['birth']) && !empty($_POST['birth'])) {
+                $birth = addslashes(date('Y-m-d',
+                    strtotime(str_replace('/', '-', $_POST['birth']))));
             } else {
-                $dt_nascimento = null;
+                $birth = null;
             }
-            if(isset($_POST['celular']) && !empty($_POST['celular'])) {
-                $celular = addslashes($_POST['celular']);
+            if(isset($_POST['phone']) && !empty($_POST['phone'])) {
+                $phone = addslashes($_POST['phone']);
             } else {
-                $celular = null;
+                $phone = null;
             }
             $data['feedback'] = 'Dados Salvos!';
             $id = $u->getId();
-            $u->editMyProfile($id, $name, $pass, $dt_nascimento, $celular);
+            $u->editMyProfile($id, $name, $pass, $birth, $phone);
         }
         $this->loadTemplate('my_profile', $data);
+    }
+
+    /* Grupo de usuários */
+    public function group() {
+
     }
 }

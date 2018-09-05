@@ -31,9 +31,8 @@ class ClassController extends Controller {
         $data['permission'] = $u->getTypeUser();
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
-        } 
+        }         
         
-        $img_valid = true;
         if(isset($_POST['class-title']) && !empty($_POST['class-title'])) {            
             $img = null;
             $title = $_POST['class-title'];
@@ -43,72 +42,22 @@ class ClassController extends Controller {
             } else {
                 $description = null;
             }
-            
-            if(!empty($photo['name'])) {               
-                $img = helper_image_upload(1500, 1800, 1000000, $photo, 'img/classes/');
-              
-               /* // Largura máxima em pixels
-                $largura = 1500;
-                // Altura máxima em pixels
-                $altura = 1800;
-                // Tamanho máximo do arquivo em bytes
-                $tamanho = 10000000;        
-                $error = array();        
-                // Verifica se o arquivo é uma imagem
-                if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $photo["type"])){
-                $error[1] = "O arquivo não é uma imagem!";
-                $img_valid = false;
-                }             
-                // Pega as dimensões da imagem
-                $dimensoes = getimagesize($photo["tmp_name"]);            
-                // Verifica se a largura da imagem é maior que a largura permitida
-                if($dimensoes[0] > $largura) {
-                    $error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
-                    $img_valid = false;
-                }        
-                // Verifica se a altura da imagem é maior que a altura permitida
-                if($dimensoes[1] > $altura) {
-                    $error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
-                    $img_valid = false;
-                }
-                
-                // Verifica se o tamanho da imagem é maior que o tamanho permitido
-                if($photo["size"] > $tamanho) {
-                    $error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
-                    $img_valid = false;
-                }
-        
-                // Se não houver nenhum erro
-                if (count($error) == 0) {
-                
-                    // Pega extensão da imagem
-                    preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext);
-                   
+            if(!empty($photo['tmp_name'])) {    
+                if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
                     // Gera um nome único para a imagem
-                    $name_img = md5(uniqid(time())) . "." . $ext[1];
-                   
-                    // Caminho de onde ficará a imagem
-                    $location_img = "img/classes/" . $name_img;
-        
-                    // Faz o upload da imagem para seu respectivo caminho
-                    move_uploaded_file($photo["tmp_name"], $location_img);  
-                    
-                    $img = $name_img;                    
-                }
-            
-                // Se houver mensagens de erro, exibe-as
-                if (count($error) != 0) {
-                    foreach ($error as $erro) {
-                        $data['feedback'] = $erro . "<br />";
-                    }
-                }*/
+                    $name_img = md5(uniqid(time())) . "." . $ext[1];                       
+                    helper_image_upload(250, 250, $photo, $name_img, 'img/classes/'); 
+                    $data['feedback'] = 'Arquivo ok'; 
+                }  else {
+                    $data['feedback'] = 'Arquivo nao permitido';
+                }                                  
             } else {
-                $img = null;
-            }  
-            if($img == null) {
+                $name_img = null;                
+            }            
+            if($name_img == null) {
                 $c->addClass($title, $description, 'class-default-image.jpg');
             } else {
-                $c->addClass($title, $description, $img);
+                $c->addClass($title, $description, $name_img);
             }
         }       
         $this->loadTemplate('class_add', $data);        
@@ -147,13 +96,20 @@ class ClassController extends Controller {
             } else {
                 $description = null;
             }            
-            if(!empty($photo['tmp_name'])) {                
-                $img = helper_image_upload(1500, 1800, 1000000, $photo, 'img/classes/');                          
+            if(!empty($photo['tmp_name'])) {    
+                if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
+                    // Gera um nome único para a imagem
+                    $name_img = md5(uniqid(time())) . "." . $ext[1];                       
+                    helper_image_upload(250, 250, $photo, $name_img, 'img/classes/'); 
+                    $data['feedback'] = 'Arquivo ok'; 
+                }  else {
+                    $data['feedback'] = 'Arquivo nao permitido';
+                }                                  
             } else {
-                $img = null;                
+                $name_img = null;                
             }  
                      
-            $c->editClass($id,$title, $description, $img);
+            $c->editClass($id,$title, $description, $name_img);
             header('location: '.$_SERVER['REQUEST_URI']);            
         }      
         $this->loadTemplate('class_edit', $data);
@@ -175,12 +131,17 @@ class ClassController extends Controller {
     public function deleteImage($id) {
         $u = new Users();
         $c = new Classes();
-        $u->setLoggedUser();
+        $u->setLoggedUser();        
         $data['classData'] = $c->getClassEdit($id);
         $data['permission'] = $u->getTypeUser();        
         if($u->isLogged()) {
-            if($data['permission'] == '3' || $data['permission'] == '2') {
-                $c->deleteImage($id);
+            if($data['permission'] == '3' || $data['permission'] == '2') {                
+                if($c->deleteImage($id)) {
+                    $resposta = array('msg'=>'Imagem Deletada com Sucesso !');
+                } else {                    
+                    $resposta =  array('msg' =>'Erro ao deletar a imagem!');
+                }
+                echo json_encode($resposta);
             }
         }
     }

@@ -1,6 +1,6 @@
 <h3 class="content-color"><i class="fas fa-clipboard-list fa-fw"></i>Adicionar Nova Turma</h3>
 <form id="form-class" method="POST" enctype="multipart/form-data">
-<div class="form-group">
+    <div class="form-group">
         <label for="class-photo">Foto</label>
         <input type="file" class="form-control" name="class-photo">
     </div>

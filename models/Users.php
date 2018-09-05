@@ -9,9 +9,10 @@
 class Users extends Model {
 
     private $userInfo;
+    private $imageDefault = 'user-profile-default.png';  
 
     public function isLogged() {
-        if (isset($_SESSION['ssUser']) && !empty($_SESSION['ssUser'])) {
+        if(isset($_SESSION['ssUser']) && !empty($_SESSION['ssUser'])) {
             return true;
         } else {
             return false;
@@ -22,10 +23,10 @@ class Users extends Model {
         $sql = $this->db->prepare('SELECT * FROM users WHERE email = :email');
         $sql->bindValue(':email', $email);
         $sql->execute();
-        if ($sql->rowCount() > 0) {
+        if($sql->rowCount() > 0) {
             $data = $sql->fetch(PDO::FETCH_ASSOC);
-            if($data['ativo'] == '1') {
-                if (password_verify($pass, $data['senha'])) {
+            if($data['active'] == '1') {
+                if(password_verify($pass, $data['password'])) {
                     $_SESSION['ssUser'] = $data['id'];
                     return true;
                 } else {
@@ -72,40 +73,66 @@ class Users extends Model {
         }
     }
 
-    public function add($user, $email, $password, $dt_nascimento, $tipo_user, $celular) {
-        $sql = $this->db->prepare('SELECT COUNT(id) as quantidade FROM users WHERE email = :email');
+    public function add($user, $email, $password, $image, $birth, $type_user, $phone) {
+        $sql = $this->db->prepare('SELECT COUNT(id) as quant FROM users WHERE email = :email');
         $sql->bindValue(':email', $email);
         $sql->execute();
         $row = $sql->fetch(PDO::FETCH_ASSOC);
 
-        if($row['quantidade'] == 0) {
-            $sql = $this->db->prepare('INSERT INTO users (usuario, email, senha, dt_nascimento, tipo_user, data_criacao, 
-                                      celular) VALUES (?, ?, ?, ?, ?, now(), ?)');
-            $sql->execute(array($user, $email, $password, $dt_nascimento, $tipo_user, $celular));
+        if($row['quant'] == 0) {
+            $sql = $this->db->prepare('INSERT INTO users (name, email, password, image, birth, creator, type_user,
+                 date_creation, phone) VALUES (?, ?, ?, ?, ?, ?, ?, now(), ?)');
+            $sql->execute(array($user, $email, $password,
+            $image, $birth, $this->userInfo['id'], $type_user, $phone));
             return true;
         } else {
             return false;
         }
     }
 
-    public function edit($id, $name, $password, $dt_nascimento, $tipo_user, $celular) {
-        $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, tipo_user = ?,
-                                            celular = ?, ultima_modificacao = now(), ultimo_editor = ? WHERE id = ?');
-        $sql->execute(array($name, $dt_nascimento, $tipo_user, $celular, $this->userInfo['usuario'], $id));
+    public function edit($id, $name, $password, $image, $birth, $type_user, $phone) {
+        $sql = $this->db->prepare('UPDATE users SET name = ?, birth = ?, type_user = ?,
+                                            phone = ?, date_edition = now(), last_editor = ? WHERE id = ?');
+        $sql->execute(array($name, $birth, $type_user, $phone, $this->userInfo['id'], $id));
 
         if($password != null) {
-            $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');
+            $sql = $this->db->prepare('UPDATE users SET password = ? WHERE id = ?');
             $sql->execute(array($password, $id));
         }
+
+        if($image != null) {
+            $sql = $this->db->prepare('UPDATE users SET image = ? WHERE id = ?');
+            $sql->execute(array($image, $id)); 
+            if($this->userInfo['image'] != 'user-profile-default.png') {        
+                unlink("img/users/".$this->userInfo['image']);                
+            }
+        } 
     }
 
-    public function editMyProfile($id, $name, $password, $dt_nascimento, $celular) {
-        $sql = $this->db->prepare('UPDATE users SET usuario = ?, dt_nascimento = ?, 
-                           celular = ?, ultima_modificacao = now(), ultimo_editor = ? WHERE id = ?');
-        $sql->execute(array($name, $dt_nascimento, $celular, $this->userInfo['usuario'], $id));
+    public function deleteImage($id) {
+        $sql = $this->db->prepare('UPDATE users SET image = ?, last_editor = ?, 
+        date_edition = NOW() WHERE id = ?');            
+        $sql->bindValue(1, $this->imageDefault);   
+        $sql->bindValue(2, $this->userInfo['id']);      
+        $sql->bindValue(3, $id);
+        $sql->execute();         
+        if($this->userInfo['image'] != 'user-profile-default.png') {        
+            var_dump($this->userInfo['image']);
+            unlink("img/users/".$this->userInfo['image']);
+            return true;            
+        } else {
+            return false;
+        }
+    }
+    
+
+    public function editMyProfile($id, $name, $password, $birth, $phone) {
+        $sql = $this->db->prepare('UPDATE users SET name = ?, birth = ?, 
+                           phone = ?, date_edition = now(), last_editor = ? WHERE id = ?');
+        $sql->execute(array($name, $birth, $phone, $this->userInfo['id'], $id));
 
         if($password != null) {
-            $sql = $this->db->prepare('UPDATE users SET senha = ? WHERE id = ?');
+            $sql = $this->db->prepare('UPDATE users SET password = ? WHERE id = ?');
             $sql->execute(array($password, $id));
         }
     }
@@ -116,7 +143,7 @@ class Users extends Model {
         $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         if($data['qt'] > 0) {
-            $sql = $this->db->prepare('UPDATE users SET ativo = 0 WHERE id = ?');
+            $sql = $this->db->prepare('UPDATE users SET active = 0 WHERE id = ?');
             $sql->execute(array($id));
             return true;
         } else {
@@ -130,7 +157,7 @@ class Users extends Model {
         $data = $sql->fetch(PDO::FETCH_ASSOC);
 
         if($data['qt'] > 0) {
-            $sql = $this->db->prepare('UPDATE users SET ativo = 1 WHERE id = ?');
+            $sql = $this->db->prepare('UPDATE users SET active = 1 WHERE id = ?');
             $sql->execute(array($id));
             return true;
         } else {
@@ -161,8 +188,8 @@ class Users extends Model {
     }
 
     public function getName() {
-        if(isset($this->userInfo['usuario'])) {
-            return $this->userInfo['usuario'];
+        if(isset($this->userInfo['name'])) {
+            return $this->userInfo['name'];
         }
     }
 
@@ -179,8 +206,8 @@ class Users extends Model {
      *  3 = Admin
      */
     public function getTypeUser() {
-        if(isset($this->userInfo['tipo_user'])) {
-            return $this->userInfo['tipo_user'];
+        if(isset($this->userInfo['type_user'])) {
+            return $this->userInfo['type_user'];
         }
     }
 }
