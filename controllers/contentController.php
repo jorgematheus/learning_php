@@ -49,8 +49,12 @@ class contentController extends Controller{
             } else {
                 $description = null;
             }
-            $c->addContent($title, $description, $content);
-            $data['feedback'] = 'Conteúdo Inserido!';
+            if($c->addContent($title, $description, $content)) {
+                $data['feedback_success'] = 'Conteúdo Inserido com sucesso!';
+            } else {
+                $data['feedback_error'] = 'Ocorreu algum erro!';
+            }
+            
         }
         $this->loadTemplate('content_add', $data);
     }
@@ -82,7 +86,7 @@ class contentController extends Controller{
             }
 
             $c->editContent($id, $title, $description, $content);
-            $data['feedback'] = 'Conteúdo Alterado com Sucesso!';
+            $data['feedback_success'] = 'Conteúdo Alterado com Sucesso!';
 
         }
         $this->loadTemplate('content_edit', $data);

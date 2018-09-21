@@ -35,12 +35,15 @@ class Content extends Model {
         $sql = $this->db->prepare('INSERT INTO content (title, description, content, 
                           author, date_creation) VALUES (?, ?, ?, ?, now())');
         $sql->execute(array($title, $description, $content, $this->idUser));
+        if($this->db->lastInsertId() != null) {
+            return true;
+        }
     }
 
     public function editContent($id, $title, $description, $content) {
         $sql = $this->db->prepare('UPDATE content SET title = ?, description = ?,
                           content = ?, last_editor = ?, date_edition = now() WHERE id = ?');
-        $sql->execute(array($title, $description, $content, $this->idUser, $id));
+        $sql->execute(array($title, $description, $content, $this->idUser, $id));        
     }
 
     public function moveContentToTrash($id) {

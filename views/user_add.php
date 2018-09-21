@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker3.min.css">
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker.standalone.min.css">
 <h3 class="users-color"><i class="fas fa-user-plus"></i> Cadastrar Novo Usuário</h3>
-<form id="new-user" enctype="multipart/form-data" method="POST">
+<form id="form-user" enctype="multipart/form-data" method="POST">
     <div class="row">
         <div class="form-group col-md-6">
             <label for="photo">Foto</label>
@@ -34,7 +34,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="password">Senha*</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Senha">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Senha" required>
         </div>
     </div>
     <button type="submit" class="btn button-all btn-user"><i class="fas fa-plus"></i> Cadastrar</button>
@@ -62,8 +62,11 @@
         </div>
     </div>
 </div>
-<?php if (isset($feedback)):?>
-    <script> callModalAdd('#modal-feedback', 'users');</script>
+<?php if (isset($feedback_success)):?>
+    <script> feedbackSuccess(<?php echo "'".$feedback_success."'"; ?>);</script>
+<?php endif;?>
+<?php if (isset($feedback_error)):?>
+    <script> feedbackError(<?php echo "'".$feedback_error."'"; ?>);</script>
 <?php endif;?>
 <script src="<?=BASE_URL?>vendor/datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<?=BASE_URL?>vendor/datepicker/js/bootstrap-datepicker.pt-BR.min.js"></script>

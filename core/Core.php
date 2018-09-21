@@ -33,6 +33,12 @@ class Core {
            $currentAction = 'index';
        }
 
+      /* if($currentController == 'contentController' && $currentAction == 'ckeditor') {
+            $currentController = 'tes';
+            $currentAction = 'te';
+            header('location: '.BASE_URL.'vendor/ckeditor/plugins/imageuploader/imgbrowser.php?CKEditor=content&CKEditorFuncNum=1&langCode=pt-br');
+       }
+*/
        if(!file_exists('controllers/'.$currentController.'.php') || 
             !method_exists($currentController, $currentAction)) {
             $currentController = 'notFoundController';

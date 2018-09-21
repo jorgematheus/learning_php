@@ -61,6 +61,11 @@ class courseController extends Controller {
         $data['courseData'] = $c->getCourseEdit($id);
         $data['listLessonAddToCourse'] = $c->getLessonAddToCourse($id);
         $data['listLesson'] = $l->getAllLesson();
+
+        if(empty($id) || $data['courseData'] == null) {
+            header('location: '.BASE_URL.'course');
+        }
+
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
         }

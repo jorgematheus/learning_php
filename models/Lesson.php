@@ -34,6 +34,9 @@ class Lesson extends Model {
         $sql = $this->db->prepare('INSERT INTO lesson (title, description, author, date_creation) 
                           VALUES (?, ?, ?, now())');
         $sql->execute(array($title, $description, $this->idUser));
+        if($this->db->lastInsertId() != null) {
+            return true;
+        }
     }
 
     public function getLessonEdit($id) {

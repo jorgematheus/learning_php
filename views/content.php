@@ -1,7 +1,8 @@
+<link rel="stylesheet" href="<?=BASE_URL?>vendor/bootstrap-table-pagination\css\datatables.min.css">
 <h3 class="content-color"><i class="fas fa-book fa-fw"></i> Conteúdos Cadastrados</h3>
 <a href="<?=BASE_URL?>content/add" class="btn button-all btn-content btn-main" title="Cadastrar Novo Conteúdo"><i class="fas fa-plus fa-fw"></i> Novo Conteúdo </a>
 <div class="table-responsive-lg">
-    <table class="table table-list table-contents">
+    <table id="table-content" class="table table-list table-contents">
         <thead>
         <tr>
             <th>Título</th>
@@ -31,3 +32,7 @@
     <p class="text-center">Nenhum dado encontrado.</p>
     <?php endif;?>
 </div>
+<script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>
+<script>
+  $(document).ready(function(){  tablePagination('#table-content'); });
+</script>

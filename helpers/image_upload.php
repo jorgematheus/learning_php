@@ -1,7 +1,7 @@
 <?php
    
    /*
-    *Faz upload e redimensionamento da imagem e retorna o nome para ser inserida no banco de dados
+    *Faz upload e redimensionamento da imagem 
     *@Params:
     * 1- Largura maxima da imagem
     * 2- Altura maxima da imagem
@@ -37,8 +37,5 @@
         $location_img = $dir . $name_img;
         
         // Salvando a imagem em arquivo:  
-        imagejpeg($image_p, $location_img, 100);
-   
+        imagejpeg($image_p, $location_img, 100);   
 }
-
-?>

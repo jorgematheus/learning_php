@@ -6,5 +6,12 @@ li.menu-admin i, li.menu-admin a, .admin-color { color: #FF8C00; } /* Admin */
 
 #pills-tab { background-color: #F8F9FA !important; border-radius: 5px; }
 
+.table-admins th:first-child { width: 35% }
+.table-admins th:nth-child(2) { width: 50% }
+.table-admins th:nth-child(3) { width: 15% }
+
+.table-admins tr td.title-table-admins { word-wrap: break-word; max-width: 200; }
+.table-admins tr td.description-table-admins { word-wrap: break-word;  max-width: 1225px; }
+
 
 

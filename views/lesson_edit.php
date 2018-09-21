@@ -1,12 +1,13 @@
+<link rel="stylesheet" href="<?=BASE_URL?>vendor/bootstrap-table-pagination\css\datatables.min.css">
 <h3 class="content-color"><i class="fas fa-pencil-alt fa-fw"></i>Edição de Aula</h3>
-<form id="form-content" method="POST">
+<form id="form-lesson" method="POST">
     <div class="form-group">
-        <label for="content-title">Título</label>
+        <label for="lesson-title">Título</label>
         <input type="text" class="form-control" id="lesson-title" name="lesson-title"
               value="<?=$lessonData['title']?>" placeholder="Informe um título com no máximo 100 caracteres.">
     </div>
     <div class="form-group">
-        <label for="content-description">Descrição</label>
+        <label for="lesson-description">Descrição</label>
         <input type="text" class="form-control" id="lesson-description" name="lesson-description"
                value="<?=$lessonData['description']?>" placeholder="Informe uma descrição com no máximo 255 caracteres." >
     </div>
@@ -26,7 +27,7 @@
                 <div class="modal-body">
                     <h5>Conteúdos</h5>
                     <div class="table-responsive-lg">
-                        <table class="table table-list">
+                        <table class="table table-list table-modal">
                             <thead>
                             <tr>
                                 <th>Título</th>
@@ -40,8 +41,8 @@
                                     <?php foreach($listContent as $rs): ?>
                                     <?php if(!$lessonHasContent): ?>
                                         <tr>
-                                            <td><?=$rs['title']?></td>
-                                            <td><?=$rs['description']?></td>
+                                            <td class="title-modal"><?=$rs['title']?></td>
+                                            <td class="description-modal"><?=$rs['description']?></td>
                                             <td> <input type="checkbox" class="form-control" id="content-description"
                                                         name="check-content[]" value="<?=$rs['id']?>" > </td>
                                         </tr>
@@ -82,7 +83,7 @@
 <?php endif;?>
 <h3>Conteúdos Vinculados</h3>
 <div class="table-responsive-lg">
-    <table class="table table-list">
+    <table class="table table-list table-contents">
         <thead>
         <tr>
             <th>Título</th>
@@ -94,8 +95,8 @@
         <?php if($listContentAddToLesson != null):?>
             <?php foreach($listContentAddToLesson as $rs): ?>
                 <tr>
-                    <td><?=$rs['title']?></td>
-                    <td><?=$rs['description']?></td>
+                    <td class="title-table-contents"><?=$rs['title']?></td>
+                    <td class="description-table-contents"><?=$rs['description']?></td>
                     <td>
                         <a href="<?=BASE_URL?>lesson/deleteContent/<?=$rs['idLesson']?>/<?=$rs['idContent']?>" id="btt"
                            onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'conteúdo')"
@@ -111,3 +112,8 @@
         <p class="text-center">Nenhum dado encontrado.</p>
     <?php endif;?>
 </div>
+<script> $(document).ready(function(){ adapterTextTable();}) </script>
+<script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>
+<script>
+  $(document).ready(function(){ tablePagination('.table-list')});
+</script>

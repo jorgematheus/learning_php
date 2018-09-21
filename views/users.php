@@ -1,11 +1,13 @@
+<link rel="stylesheet" href="<?=BASE_URL?>vendor/bootstrap-table-pagination\css\datatables.min.css">
 <h3  class="users-color"><i class="fas fa-users"></i> Usuários Cadastrados</h3>
 <?php if($permission == '3'): ?>
 <a href="<?=BASE_URL?>users/add" class="btn button-all btn-main btn-user" title="Cadastrar Novo Usuário"><i class="fas fa-user-plus"></i> Novo Usuário </a>
 <?php endif; ?>
 <div class="table-responsive-lg">
-    <table id="tabela-usuarios" class="table table-list">
+    <table id="table-users" class="table table-list">
         <thead>
             <tr>
+                <th></th>
                 <th>Nome</th>
                 <th>Email</th>
                 <th>Celular</th>
@@ -19,6 +21,9 @@
         <?php if($listUsers != null):?>
         <?php foreach($listUsers as $rs): ?>
             <tr <?php $status = $rs['active'] == '1' ? 'user-active' : 'user-inactive'?> class="<?=$status?>">
+            <td><?php if($rs['image'] != null):?><img src="img/users/<?=$rs['image']?>" 
+                        width="50" height="50" alt="img class" title="Imagem Turma"> <?php endif;?> 
+                    </td>
                 <td><?=$rs['name']?></td>
                 <td><?=$rs['email']?></td>
                 <td><?=$rs['phone']?></td>
@@ -66,3 +71,7 @@
         </script>
     <?php endif;?>
 </div>
+<script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>
+<script>
+  $(document).ready(function(){ tablePagination('#table-users')});
+</script>

@@ -1,12 +1,12 @@
 <h3 class="content-color"><i class="fas fa-clipboard-list fa-fw"></i>Adicionar Novo Curso</h3>
-<form id="form-content" method="POST">
+<form id="form-course" method="POST">
     <div class="form-group">
-        <label for="lesson-title">Título</label>
+        <label for="course-title">Título</label>
         <input type="text" class="form-control" id="course-title" name="course-title"
                placeholder="Informe um título com no máximo 100 caracteres.">
     </div>
     <div class="form-group">
-        <label for="content-description">Descrição</label>
+        <label for="course-description">Descrição</label>
         <input type="text" class="form-control" id="course-description" name="course-description"
                placeholder="Informe uma descrição com no máximo 255 caracteres." >
     </div>

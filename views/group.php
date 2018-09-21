@@ -1,5 +1,5 @@
-<h3 class="admin-color"><i class="fas fa-users fa-fw"></i> Grupos Cadastradas</h3>
-<a href="<?=BASE_URL?>course/add" class="btn button-all btn-admin btn-main" title="Cadastrar Novo Grupo"><i class="fas fa-plus fa-fw"></i> Novo Curso </a>
+<h3 class="admin-color"><i class="fas fa-users fa-fw"></i> Grupos Cadastrados</h3>
+<a href="<?=BASE_URL?>group/add" class="btn button-all btn-admin btn-main" title="Cadastrar Novo Grupo"><i class="fas fa-plus fa-fw"></i> Novo Grupo </a>
 <div class="table-responsive-lg">
     <table class="table table-list table-admins">
         <thead>

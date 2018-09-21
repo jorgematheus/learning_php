@@ -68,9 +68,21 @@ class Users extends Model {
         $data = $sql->fetch(PDO::FETCH_ASSOC);
         if($data['quant'] == '0') {
             return true;
-        } else {
-            return false;
-        }
+        } 
+
+        return false;
+    }
+
+    public function userInative($email) {
+        $sql = $this->db->prepare('SELECT active FROM users WHERE email = ? ');
+        $sql->bindValue(1, $email);
+        $sql->execute();
+        $data = $sql->fetch(PDO::FETCH_ASSOC);
+        if($data['active'] == '0') {
+            return true;
+        } 
+
+        return false;
     }
 
     public function add($user, $email, $password, $image, $birth, $type_user, $phone) {
@@ -126,7 +138,7 @@ class Users extends Model {
     }
     
 
-    public function editMyProfile($id, $name, $password, $birth, $phone) {
+    public function editMyProfile($id, $name, $password, $image, $birth, $phone) {
         $sql = $this->db->prepare('UPDATE users SET name = ?, birth = ?, 
                            phone = ?, date_edition = now(), last_editor = ? WHERE id = ?');
         $sql->execute(array($name, $birth, $phone, $this->userInfo['id'], $id));
@@ -135,6 +147,14 @@ class Users extends Model {
             $sql = $this->db->prepare('UPDATE users SET password = ? WHERE id = ?');
             $sql->execute(array($password, $id));
         }
+
+        if($image != null) {
+            $sql = $this->db->prepare('UPDATE users SET image = ? WHERE id = ?');
+            $sql->execute(array($image, $id)); 
+            if($this->userInfo['image'] != 'user-profile-default.png') {        
+                unlink("img/users/".$this->userInfo['image']);                
+            }
+        } 
     }
 
     public function inactiveUser($id) {

@@ -14,9 +14,14 @@
 /* Geral */
 html, body { height: auto; background-color: #F8F9FA !important; }
 :disabled { cursor: no-drop; }
-#main { background-color: #fff;  margin-top: 20px; border-radius:5px; font-family: 'Song Myung', serif !important;}
+#main { background-color: #fff; margin-top: 20px; border-radius:5px; font-family: 'Song Myung', serif !important; padding-bottom: 5px;}
 #main-content { padding: 15px; }
 h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
+label[id*="-error"] { color: #dc3545; } /*label para feedback de erro*/
+input.error { border: 1px solid #dc3545; }
+
+/* Reseta focus dos inputs */
+/*textarea:focus, input:focus, select:focus { box-shadow: 0 0 0 !important;  border: 1px solid #ced4da !important; } 
 
 /* Imagem */
 .break-img-edit { margin-top: 38px; }
@@ -37,12 +42,12 @@ img.img-class.img-thumbnail { margin-bottom: 10px !important; }
 #btn-logout, .btn-del-image { background-color: transparent; }
 .btn-del-image { border-radius:100% !important; }
 .btn-logout  i { color: #EB191E; } 
+
 /* Tabelas */
 table { width: 100%; }
 .table-list thead { background-color: #2f2f2f; color: #fff; }
 .table-list tbody { background-color: #f9f5f2; }
 .table-list { border-radius: 50px ; }
-
 
 /*Navbar*/
 .navbar-toggler .bar-icon { color: #fff ; }

@@ -1,3 +1,23 @@
+/*$('#login').on('click', function(ev){
+    ev.preventDefault();
+    let email = $('#email').val(),
+    password = $('#password').val();
+
+    $.ajax({
+        url: BASE_URL+'login',
+        type: 'POST',
+        data: {
+            'email' : email,
+            'password': password
+        },
+        success: function(tes) {
+            alert(tes.msg)
+        }
+
+    });
+    
+});*/
+
 
 function logout() {
     $.ajax({
@@ -9,17 +29,22 @@ function logout() {
     },500)
 }
 
-var validLogin = function() {
+function validLogin () {
     var email = $('#email').val(),
         password = $('#password').val();
-    let regex_email = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    if (!regex_email.test(email)) {
-        $('.feedback-invalid').html('Email Incorreto!');
+    var regex_email = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    
+    if(!regex_email.test(email)) {
+       $('#error-c').html('error')
         return false;
-    } else {
+    } 
 
-
+    if(password == "") {
+        alert('vazio')
+        return false;
     }
+
+    return true;
 }
 
 // Função responsável por deletar imagem
@@ -27,10 +52,12 @@ $('.btn-del-image').on('click', function(ev){
     var id = $(this).attr('id');
     $control = $(this).attr('data-class');
     $.get(BASE_URL+$control+'/deleteImage/'+id, function(data){
-        console.log('Data: ' +data);
+        //console.log('Data: ' +data);
+        
+    })  
+    setTimeout(function(){
         window.location.reload();
-    })
-    
+    },1000)  
     
 });
 
@@ -76,3 +103,4 @@ function callRecoveryTrash(event,url,parent,name) {
         callActionUrl(url);
     }
 }
+ 

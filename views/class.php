@@ -1,8 +1,9 @@
+<link rel="stylesheet" href="<?=BASE_URL?>vendor/bootstrap-table-pagination\css\datatables.min.css">
 <h3 class="content-color"><i class="fas fa-chalkboard-teacher fa-fw"></i> Turmas Cadastradas</h3>
 <a href="<?=BASE_URL?>class/add" class="btn button-all btn-content btn-main" title="Cadastrar Nova Turma">
 <i class="fas fa-plus fa-fw"></i> Nova Turma </a>
 <div class="table-responsive-lg">
-    <table class="table table-list table-class">
+    <table id="table-class" class="table table-list table-class">
         <thead>
         <tr>
             <th></th>
@@ -36,3 +37,7 @@
         <p class="text-center">Nenhum dado encontrado.</p>
     <?php endif;?>
 </div>
+<script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>
+<script>
+  $(document).ready(function(){ tablePagination('#table-class')});
+</script>

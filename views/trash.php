@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?=BASE_URL?>vendor/bootstrap-table-pagination\css\datatables.min.css">
 <h3 class="admin-color"><i class="fas fa-trash-alt"> </i> Lixeira</h3>
 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item">
@@ -147,3 +148,7 @@
         </div>
     </div>
 </div>
+<script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>
+<script>
+  $(document).ready(function(){ tablePagination('.table-list')});
+</script>

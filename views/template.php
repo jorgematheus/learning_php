@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
     <head>
-        <title> Learning </title>
-        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/style.css">
-        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/users.css">
-        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/report.css">
-        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css">
-        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/content.css">
-        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/trash.css">
+        <title> Learning </title>        
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/style.css?v<?=date('YmdHis');?>">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/users.css?v<?=date('YmdHis');?>">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/report.css?v<?=date('YmdHis');?>">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/admin.css?v<?=date('YmdHis');?>">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/content.css?v<?=date('YmdHis');?>">
+        <link rel="stylesheet" href="<?=BASE_URL?>assets/css/trash.css?v<?=date('YmdHis');?>">
         <link rel="stylesheet" href="<?=BASE_URL?>node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
               integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
               crossorigin="anonymous">
         <script src="<?=BASE_URL?>node_modules/jquery/dist/jquery.min"></script>        
-        <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>  
-        <script src="<?=BASE_URL?>assets/js/alerts.js?v=2"></script>      
+        <script src="https://jqueryvalidation.org/files/dist/jquery.validate.js"></script>  
+        <script src="<?=BASE_URL?>assets/js/alerts.js?v<?=date('YmdHis');?>"></script>   
+        <script src="<?=BASE_URL?>assets/js/helpers.js?v<?=date('YmdHis');?>"></script>     
         <script> var BASE_URL = '<?=BASE_URL?>' </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
                 integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -22,6 +23,7 @@
         <script src="<?=BASE_URL?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>        
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--noscript><meta http-equiv="Refresh" content="1; url=noscript"></noscript-->
     </head>
     <body>
         <div id="geral">
@@ -107,7 +109,7 @@
                 </div>
             </main>
         <footer><p class="footer-copyright text-center"> <small>Todos os Direitos Reservados &copy;</small>  </p></footer>
-        <script src="<?=BASE_URL?>assets/js/main.js"></script>
-        <script src="<?=BASE_URL?>assets/js/formValidate.js"></script>        
+        <script src="<?=BASE_URL?>assets/js/main.js?v<?=date('YmdHis');?>"></script>
+        <script src="<?=BASE_URL?>assets/js/formValidate.js?v<?=date('YmdHis');?>"></script>        
     </body>
 </html>

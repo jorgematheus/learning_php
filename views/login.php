@@ -19,9 +19,9 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <h5><img src="<?=BASE_URL?>assets/img/icons/graduation-cap-solid.svg"
-                             width="30" height="30" alt="E-learning Cap"> E-learning</h5>
+                            width="30" height="30" alt="E-learning Cap"> E-learning</h5>
                     <div id="bloco-login">
-                        <form method="POST" id="form-login" name="form-login" onsubmit="return validLogin();">
+                        <form method="POST" id="form-login" name="form-login">
                             <div class="form-group">
                                 <input type="text" class="form-control" name="email" id="email" placeholder="E-mail">
                             </div>
@@ -29,7 +29,7 @@
                                 <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
                             </div>
                             <input type="submit" class="btn button-all" id="login" value="Entrar">
-                        </form> <br>
+                        </form> <br>                        
                         <?php if (isset($feedback) && !empty($feedback)):?>                        
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             <?=$feedback?>
@@ -44,12 +44,13 @@
         </div>
     </div>
 </div>
-<script src="<?=BASE_URL?>node_modules/jquery/dist/jquery.min"></script>
-<script src="<?=BASE_URL?>assets/js/main.js"></script>
+<script src="<?=BASE_URL?>node_modules/jquery/dist/jquery.min.js"></script>
+<script src="<?=BASE_URL?>assets/js/main.js?v4"></script>
+<script> var BASE_URL = '<?=BASE_URL?>' </script>
 <script src="<?=BASE_URL?>node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script>
     $(document).ready( function(){
-       $('#btn-modal').trigger('click');
+    $('#btn-modal').trigger('click');
     });
     $('#modal-login').modal({
         keyboard: false,
@@ -58,3 +59,15 @@
 </script>
 </body>
 </html>
+<?php
+$data = Array
+(
+     Array
+        (
+            'id' => 896
+        ),
+
+        );
+
+        print_r($data);
+?>

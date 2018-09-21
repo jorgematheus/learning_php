@@ -24,10 +24,16 @@ class Group extends Model {
         }
     }
 
-    public function addGroup($title, $description) {
+    public function addGroup($title, $description) {      
         $sql = $this->db->prepare('INSERT INTO group_user (title, description, author, date_creation) 
                           VALUES (?, ?, ?, now())');
         $sql->execute(array($title, $description, $this->idUser));
+
+        if($this->db->lastInsertId() == '0') {
+            return false;            
+        } 
+        
+        return true;   
     }
 
     public function getGroupEdit($id) {
@@ -37,5 +43,5 @@ class Group extends Model {
         if($sql->rowCount() > 0) {
             return $sql->fetch(PDO::FETCH_ASSOC);
         }
-    }
+    }  
 }

@@ -26,12 +26,8 @@ $config = array();
 // https://docs.ckeditor.com/ckfinder/ckfinder3-php/configuration.html#configuration_options_authentication
 
 $config['authentication'] = function () {
-    return false;
-   /* if (!empty($_SESSION['ssUser'])){
-        return true;
-    }
-
-    return false;*/
+    return true;
+    
 };
 
 /*============================ License Key ============================================*/
@@ -71,7 +67,7 @@ $config['images'] = array(
 $config['backends'][] = array(
     'name'         => 'default',
     'adapter'      => 'local',
-    'baseUrl'      => '/ckfinder/userfiles/',
+    'baseUrl'      => '/learning/img/contents',
 //  'root'         => '', // Can be used to explicitly set the CKFinder user files directory.
     'chmodFiles'   => 0777,
     'chmodFolders' => 0755,
@@ -96,7 +92,7 @@ $config['resourceTypes'][] = array(
     'name'              => 'Images',
     'directory'         => 'images',
     'maxSize'           => 0,
-    'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
+    'allowedExtensions' => 'bmp,gif,jpeg,jpg,png,doc,docx,gzip,mid,mov,mp3,mp4,pdf,ppt,pptx,rar,swf,tar,tgz,txt,zip',
     'deniedExtensions'  => '',
     'backend'           => 'default'
 );

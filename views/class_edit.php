@@ -1,4 +1,5 @@
 <h3 class="content-color"><i class="fas fa-pencil-alt fa-fw"></i>Edição de Turma</h3>
+<?php if(isset($img_invalid)) include "assets/includes/img_invalid.php";?>
 <form id="form-class" method="POST" enctype="multipart/form-data">
     <div class="row no-gutters">  
         <div class="col-md-2 col-12">
@@ -47,7 +48,7 @@
                 <div class="modal-body">
                     <h5>Conteúdos</h5>
                     <div class="table-responsive-lg">
-                        <table class="table table-list">
+                        <table class="table table-list table-modal">
                             <thead>
                             <tr>
                                 <th>Título</th>
@@ -60,8 +61,8 @@
                                 <?php if($listCourse != null):?>
                                     <?php foreach($listCourse as $rs): ?>
                                             <tr>
-                                                <td><?=$rs['title']?></td>
-                                                <td><?=$rs['description']?></td>
+                                                <td class="title-modal"><?=$rs['title']?></td>
+                                                <td class="description-modal"><?=$rs['description']?></td>
                                                 <td> <input type="checkbox" class="form-control" id="course-description"
                                                             name="check-content[]" value="<?=$rs['id']?>" > </td>
                                             </tr>
@@ -100,7 +101,7 @@
 <?php endif;?>
 <h3>Cursos Vinculados</h3>
 <div class="table-responsive-lg">
-    <table class="table table-list">
+    <table class="table table-list table-contents">
         <thead>
         <tr>
             <th>Título</th>
@@ -112,8 +113,8 @@
         <?php if($listCourseAddToClass != null):?>
             <?php foreach($listCourseAddToClass as $rs): ?>
                 <tr>
-                    <td><?=$rs['title']?></td>
-                    <td><?=$rs['description']?></td>
+                    <td class="title-table-contents"><?=$rs['title']?></td>
+                    <td class="description-table-contents"><?=$rs['description']?></td>
                     <td>
                         <a href="<?=BASE_URL?>class/deleteCourse/<?=$rs['idClass']?>/<?=$rs['idCourse']?>" id="btt"
                            onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'curso')"
@@ -129,3 +130,21 @@
         <p class="text-center">Nenhum dado encontrado.</p>
     <?php endif;?>
 </div>
+<!-- Button trigger modal -->
+<input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-login">
+<div class="modal fade"  id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-login" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <span><i class="fas fa-check"></i> <?=$feedback;?></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<?php if (isset($feedback)):?>
+    <script> callModalEdit('#modal-feedback', 'class');</script>
+<?php endif;?>
+<script> $(document).ready(function(){ adapterTextTable(); }) </script>

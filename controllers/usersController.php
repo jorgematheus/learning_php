@@ -75,12 +75,12 @@ class usersController extends Controller {
                                 $type_user, $phone);
                             }                           
                             if ($add) {
-                                $data['feedback'] = 'Usuário cadastrado com suceeso!';
+                                $data['feedback_success'] = 'Usuário cadastrado com sucesso!';
                             } else {
-                                $data['feedback'] = 'Cadastro não efetuado. Verifique todos os campos e tente novamente!';
+                                $data['feedback_error'] = 'Cadastro não efetuado. Verifique todos os campos e tente novamente!';
                             }
                         } else {
-                            $data['feedback'] = 'O email solicitado já está em uso';
+                            $data['feedback_error'] = 'O email solicitado já está em uso!';
                         }
                     }
                 }
@@ -98,6 +98,10 @@ class usersController extends Controller {
         $data['nameUser'] = $u->getName();
         $data['userData'] = $u->getUserEdit($id); // obtém os dados do usuário a ser editado
         $data['permission'] = $u->getTypeUser();
+
+        if(empty($id) || $data['userData'] == null) {
+            header('location: '.BASE_URL.'users');
+        }
 
         if($data['permission'] != '3') {
             header('location: '.BASE_URL.'restrict');
@@ -133,10 +137,9 @@ class usersController extends Controller {
                 if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
                     // Gera um nome único para a imagem
                     $name_img = md5(uniqid(time())) . "." . $ext[1];                       
-                    helper_image_upload(250, 250, $photo, $name_img, 'img/users/');  
-                    $img_valid = true;                  
+                    helper_image_upload(250, 250, $photo, $name_img, 'img/users/');                                       
                 }  else {
-                    $data['feedback_img'] = 'Arquivo invalido';   
+                    $data['img_invalid'] = true;   
                     $img_valid = false;                
                 }                                  
             } else {
@@ -202,6 +205,8 @@ class usersController extends Controller {
 
         if(isset($_POST['name']) && !empty($_POST['name'])) {
             $name = addslashes($_POST['name']);
+            $photo = $_FILES['photo'];
+            $img_valid = true; //verifica se é uma imagem válida
 
             if(isset($_POST['password']) && !empty($_POST['password'])) {
                 $pass = addslashes($_POST['password']);
@@ -221,15 +226,27 @@ class usersController extends Controller {
             } else {
                 $phone = null;
             }
-            $data['feedback'] = 'Dados Salvos!';
-            $id = $u->getId();
-            $u->editMyProfile($id, $name, $pass, $birth, $phone);
+            
+            if(!empty($photo['tmp_name'])) {    
+                if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
+                    // Gera um nome único para a imagem
+                    $name_img = md5(uniqid(time())) . "." . $ext[1];                       
+                    helper_image_upload(250, 250, $photo, $name_img, 'img/users/');                                       
+                }  else {
+                    $data['img_invalid'] = true;   
+                    $img_valid = false;                
+                }                                  
+            } else {
+                $name_img = null;                
+            }
+            if($img_valid === true) {                  
+                $id = $u->getId();   
+                $u->editMyProfile($id, $name, $pass, $name_img, $birth, $phone);                
+                $data['feedback_success'] = 'Usuário alterado!';  
+                header('location: '.$_SERVER['REQUEST_URI']);                                    
+            } 
+            
         }
         $this->loadTemplate('my_profile', $data);
-    }
-
-    /* Grupo de usuários */
-    public function group() {
-
-    }
+    }    
 }

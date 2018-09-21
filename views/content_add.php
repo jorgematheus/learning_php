@@ -13,9 +13,12 @@
     </div>
     <label for="content">Conteúdo</label>
     <textarea name="content" id="content" rows="10" cols="80"></textarea>
-    <script>CKEDITOR.replace( 'content');</script> <br>
+    <script>CKEDITOR.replace('content'/*, { extraPlugins: 'imageuploader'}*/);</script> <br>
     <button type="submit" class="btn button-all btn-content"><i class="fas fa-save fa-fw"></i>  Salvar</button>
 </form>
-<?php if (isset($feedback)):?>
-    <span> <?=$feedback; ?> </span>
+<?php if (isset($feedback_success)):?>
+    <script> feedbackSuccess(<?php echo "'".$feedback_success."'"; ?>);</script>
+<?php endif;?>
+<?php if (isset($feedback_error)):?>
+    <script> feedbackError(<?php echo "'".$feedback_error."'"; ?>);</script>
 <?php endif;?>

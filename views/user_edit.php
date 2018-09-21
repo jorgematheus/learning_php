@@ -2,16 +2,8 @@
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker3.min.css">
 <link rel="stylesheet" href="<?=BASE_URL?>vendor/datepicker/css/bootstrap-datepicker.standalone.min.css">
 <h3 class="users-color"><i class="fas fa-pen fa-fw"></i> Edição de Usuário </h3>
-<?php if(isset($feedback_img)):?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>Formato de imagem inválido!</strong> <br>
-     <p>Formatos permitidos: <b>.gif | .bmp | .png | .jpg | .jpeg</b> </p>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-<?php endif;?>
-<form id="edit-user" enctype="multipart/form-data" method="POST"> 
+<?php if(isset($img_invalid)) include "assets/includes/img_invalid.php";?>
+<form id="form-user" enctype="multipart/form-data" method="POST"> 
     <div class="row no-gutters">        
         <div class="col-md-2 col-12">
             <?php if($userData['image'] == 'user-profile-default.png'):?>

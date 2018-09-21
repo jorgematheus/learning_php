@@ -50,8 +50,12 @@ class lessonController extends Controller {
             } else {
                 $description = null;
             }
-            $l->addLesson($title, $description);
-            header('location: '.BASE_URL.'lesson');
+            if($l->addLesson($title, $description)) {
+                $data['feedback_success'] = 'Aula cadastrado com sucesso!';
+            } else {
+                $data['feedback_error'] = 'Ocorreu algum erro!';
+            }
+            //header('location: '.BASE_URL.'lesson');
         }
         $this->loadTemplate('lesson_add', $data);
     }
@@ -74,7 +78,7 @@ class lessonController extends Controller {
 
         if(isset($_POST['check-content'])) {
             foreach($_POST['check-content'] as $rs) {
-                $l->addContentToLesson($id, $rs);
+                $l->addContentToLesson($id, $rs);                
             }
             header('location: '.$_SERVER['REQUEST_URI']);
         }
@@ -118,9 +122,8 @@ class lessonController extends Controller {
         $data['permission'] = $u->getTypeUser();
         if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {
-               if($l->deleteContentAddToLesson($idLesson, $idContent)) {
-                   echo 'Conteúdo Deletado!';
-               }
+               $l->deleteContentAddToLesson($idLesson, $idContent); 
+                
             } else {
                 header('location: '.BASE_URL.'restrict');
             }

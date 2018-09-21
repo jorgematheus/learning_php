@@ -35,8 +35,10 @@ class ClassController extends Controller {
         
         if(isset($_POST['class-title']) && !empty($_POST['class-title'])) {            
             $img = null;
+            $name_img = null;
             $title = $_POST['class-title'];
             $photo = $_FILES['class-photo'];
+            $img_valid = true; //verifica se é uma imagem válida
             if(isset($_POST['class-description'])) {
                 $description = $_POST['class-description'];
             } else {
@@ -47,18 +49,20 @@ class ClassController extends Controller {
                     // Gera um nome único para a imagem
                     $name_img = md5(uniqid(time())) . "." . $ext[1];                       
                     helper_image_upload(250, 250, $photo, $name_img, 'img/classes/'); 
-                    $data['feedback'] = 'Arquivo ok'; 
                 }  else {
-                    $data['feedback'] = 'Arquivo nao permitido';
-                }                                  
+                    $data['img_invalid'] = true;   
+                    $img_valid = false;                
+                }                                
             } else {
                 $name_img = null;                
             }            
-            if($name_img == null) {
+            if($name_img == null && $img_valid === true) {
                 $c->addClass($title, $description, 'class-default-image.jpg');
-            } else {
+                $data['feedback_success'] = 'Turma cadastrada';
+            } else if($name_img != null && $img_valid === true) {
                 $c->addClass($title, $description, $name_img);
-            }
+                $data['feedback_success'] = 'Turma cadastrada';
+            } 
         }       
         $this->loadTemplate('class_add', $data);        
     }
@@ -76,6 +80,10 @@ class ClassController extends Controller {
         $data['listCourseAddToClass'] = $c->getCourseAddToClass($id);
         $data['listCourse'] = $cr->getAllCourse();
 
+        if(empty($id) || $data['classData'] == null) {
+            header('location: '.BASE_URL.'class');
+        }
+
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
         } 
@@ -90,6 +98,7 @@ class ClassController extends Controller {
         if(isset($_POST['class-title']) && !empty($_POST['class-title'])) {  
             $photo = $_FILES['class-photo'];          
             $img = null;
+            $img_valid = true; //verifica se é uma imagem válida
             $title = $_POST['class-title'];                      
             if(isset($_POST['class-description'])) {
                 $description = $_POST['class-description'];
@@ -100,17 +109,19 @@ class ClassController extends Controller {
                 if(preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $photo["name"], $ext)) {
                     // Gera um nome único para a imagem
                     $name_img = md5(uniqid(time())) . "." . $ext[1];                       
-                    helper_image_upload(250, 250, $photo, $name_img, 'img/classes/'); 
-                    $data['feedback'] = 'Arquivo ok'; 
+                    helper_image_upload(250, 250, $photo, $name_img, 'img/classes/');                     
                 }  else {
-                    $data['feedback'] = 'Arquivo nao permitido';
+                    $data['img_invalid'] = true;   
+                    $img_valid = false;
                 }                                  
             } else {
                 $name_img = null;                
             }  
-                     
-            $c->editClass($id,$title, $description, $name_img);
-            header('location: '.$_SERVER['REQUEST_URI']);            
+            if($img_valid === true) {
+                $c->editClass($id,$title, $description, $name_img);
+                //header('location: '.$_SERVER['REQUEST_URI']); 
+                $data['feedback'] = "Dados Alterados!";
+            }                      
         }      
         $this->loadTemplate('class_edit', $data);
     }
@@ -129,6 +140,7 @@ class ClassController extends Controller {
     }
 
     public function deleteImage($id) {
+        header('Content-Type: application/json');
         $u = new Users();
         $c = new Classes();
         $u->setLoggedUser();        
@@ -137,10 +149,10 @@ class ClassController extends Controller {
         if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {                
                 if($c->deleteImage($id)) {
-                    $resposta = array('msg'=>'Imagem Deletada com Sucesso !');
+                    $resposta = array('msg' => 'Imagem Deletada com Sucesso!');
                 } else {                    
-                    $resposta =  array('msg' =>'Erro ao deletar a imagem!');
-                }
+                    $resposta =  array('msg' => 'Ocorreu algum erro!');
+                }                
                 echo json_encode($resposta);
             }
         }
