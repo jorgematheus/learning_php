@@ -14,7 +14,7 @@ if(ENVIRONMENT == 'development') {
     $config['dbname'] = 'learning';
     $config['host'] = 'localhost';
     $config['dbuser'] = 'jorge';
-    $config['dbpass'] = '';
+    $config['dbpass'] = 'juninho1010';
  }
 else {
     define("BASE_URL", "http://meusite.com/");

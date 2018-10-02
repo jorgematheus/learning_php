@@ -71,10 +71,9 @@ class lessonController extends Controller {
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
         }
-        $data['listContent'] = $c->getAllContent();
+        $data['listContent'] = $l->listContent($id);
         $data['lessonData'] = $l->getLessonEdit($id);
-        $data['listContentAddToLesson'] = $l->getContentAddToLesson($id);
-        $data['lessonHasContent'] = $l->lessonHasContent($id, $l->getIdContent());
+        $data['listContentAddToLesson'] = $l->getContentAddToLesson($id);        
 
         if(isset($_POST['check-content'])) {
             foreach($_POST['check-content'] as $rs) {
@@ -111,6 +110,8 @@ class lessonController extends Controller {
             }
         }
     }
+
+    
 
     /*Funções responsáveis por manipular os conteúdos vinculados às aulas*/
 

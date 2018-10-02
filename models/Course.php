@@ -86,4 +86,18 @@ class Course extends Model {
             return false;
         }
     }
+
+     /*
+     * Função responsável por trazer todas as lições que não estejam vinculados ao curso a ser editado
+     */  
+
+    public function listLesson($id) {
+        $sql = $this->db->prepare("SELECT * FROM lesson  WHERE  lesson.id NOT IN 
+        (SELECT idLesson FROM course_has_lesson WHERE idCourse = ?) ");
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll();
+        }
+    }
 }

@@ -70,15 +70,14 @@ class ClassController extends Controller {
     public function edit($id) {        
         $data = array();
         $u = new Users();
-        $c = new Classes();  
-        $cr = new Course();      
+        $c = new Classes();               
         $u->setLoggedUser();
         $data['idClass'] = $id;
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
         $data['classData'] = $c->getClassEdit($id);
         $data['listCourseAddToClass'] = $c->getCourseAddToClass($id);
-        $data['listCourse'] = $cr->getAllCourse();
+        $data['listCourse'] = $c->listCourse($id);
 
         if(empty($id) || $data['classData'] == null) {
             header('location: '.BASE_URL.'class');

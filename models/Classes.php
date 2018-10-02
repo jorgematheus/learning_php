@@ -104,5 +104,19 @@ class Classes extends Model {
             return false;
         }
     } 
+
+    /*
+     * Função responsável por trazer todos os cursos que não estejam vinculados à turma a ser editada
+     */  
+
+    public function listCourse($id) {
+        $sql = $this->db->prepare("SELECT * FROM course  WHERE  course.id NOT IN 
+        (SELECT idCourse FROM class_has_course WHERE idClass = ?) ");
+        $sql->bindValue(1, $id);
+        $sql->execute();
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll();
+        }
+    }
     
 }

@@ -53,14 +53,13 @@ class courseController extends Controller {
 
     public function edit($id) {
         $u = new Users();
-        $c = new Course();
-        $l = new Lesson();
+        $c = new Course();        
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
         $data['courseData'] = $c->getCourseEdit($id);
         $data['listLessonAddToCourse'] = $c->getLessonAddToCourse($id);
-        $data['listLesson'] = $l->getAllLesson();
+        $data['listLesson'] = $c->listLesson($id);
 
         if(empty($id) || $data['courseData'] == null) {
             header('location: '.BASE_URL.'course');

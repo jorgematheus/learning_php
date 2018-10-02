@@ -38,15 +38,13 @@
                             <tbody>
                             <form method="POST">
                                 <?php if($listContent != null):?>
-                                    <?php foreach($listContent as $rs): ?>
-                                    <?php if(!$lessonHasContent): ?>
+                                    <?php foreach($listContent as $rs): ?>                                    
                                         <tr>
                                             <td class="title-modal"><?=$rs['title']?></td>
                                             <td class="description-modal"><?=$rs['description']?></td>
                                             <td> <input type="checkbox" class="form-control" id="content-description"
                                                         name="check-content[]" value="<?=$rs['id']?>" > </td>
-                                        </tr>
-                                    <?php endif;?>
+                                        </tr>                                    
                                     <?php endforeach;?>
                                 <?php endif;?>
                             </tbody>

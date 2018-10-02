@@ -89,15 +89,16 @@ class Lesson extends Model {
         }
     }
     /*
-     * Função responsável por verificar se a lição tem determinado conteúdo
-     */
-    public function lessonHasContent($idLesson, $idContent = array()) {
-        $sql = $this->db->prepare('SELECT * FROM lesson_has_content WHERE idLesson = ? AND idContent = ?');
-        $sql->execute(array($idLesson, $idContent));
+     * Função responsável por trazer todos os conteúdos que não estejam vinculados à aula a ser editada
+     */  
+
+    public function listContent($id) {
+        $sql = $this->db->prepare("SELECT * FROM content  WHERE  content.id NOT IN 
+        (SELECT idContent FROM lesson_has_content WHERE idLesson = ?) ");
+        $sql->bindValue(1, $id);
+        $sql->execute();
         if($sql->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
+            return $sql->fetchAll();
         }
     }
 

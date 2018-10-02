@@ -193,12 +193,12 @@ class Users extends Model {
             return $data;
         }
     }
-
-    public function getListUsers() {
-        $sql = $this->db->query('SELECT * FROM users');
+     
+    public function getListUsers() {        
+        $sql = $this->db->query('SELECT * FROM  users');        
         if($sql->rowCount() > 0) {
             return $sql->fetchAll(PDO::FETCH_ASSOC);
-        }
+        }        
     }
 
     public function getEmail() {
