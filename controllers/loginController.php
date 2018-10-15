@@ -26,10 +26,9 @@ class loginController extends Controller {
             else if($u->userInative($email)) {
                 $data['feedback'] = 'Usuário inativo!';
             }
-            
+
             else {
                 $data['feedback'] = 'Combinação de login incorreta!';
-              
             }
         }
         $this->loadView('login', $data);

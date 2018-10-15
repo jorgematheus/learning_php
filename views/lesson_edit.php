@@ -76,9 +76,6 @@
         </div>
     </div>
 </div>
-<?php if (isset($feedback)):?>
-    <script> callModalEdit('#modal-feedback', 'lesson');</script>
-<?php endif;?>
 <h3>Conteúdos Vinculados</h3>
 <div class="table-responsive-lg">
     <table class="table table-list table-contents">
@@ -115,3 +112,9 @@
 <script>
   $(document).ready(function(){ tablePagination('.table-list')});
 </script>
+<?php if (isset($feedback_success)):?>
+    <script> feedbackSuccess(<?php echo "'".$feedback_success."'"; ?>, 'lesson');</script>
+<?php endif;?>
+<?php if (isset($feedback_error)):?>
+    <script> feedbackError(<?php echo "'".$feedback_error."'"; ?>);</script>
+<?php endif;?>

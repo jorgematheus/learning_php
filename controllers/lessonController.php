@@ -89,7 +89,7 @@ class lessonController extends Controller {
                 $description = null;
             }
             $l->editLesson($id, $title, $description);
-                $data['feedback'] = "Dados alterados!";
+            $data['feedback_success'] = "Aula alterada com sucesso!";
         }
         $this->loadTemplate('lesson_edit', $data);
     }

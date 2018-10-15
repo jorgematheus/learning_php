@@ -4,7 +4,7 @@
             <div class="btn-home">
                 <div class="btn-home-content">
                     <i class="fas fa-graduation-cap fa-4x"></i><br>
-                    <a id="btn-my-courses" href="">Meus Cursos</a>
+                    <a id="btn-my-courses" href="<?=BASE_URL?>course/myCourses">Meus Cursos</a>
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
-        <title> Learning </title>        
+        <title> Learning </title> 
+        <link rel="icon" type="image/png" sizes="16x16" href="<?=BASE_URL?>favicon.ico">       
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/style.css?v<?=date('YmdHis');?>">
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/users.css?v<?=date('YmdHis');?>">
         <link rel="stylesheet" href="<?=BASE_URL?>assets/css/report.css?v<?=date('YmdHis');?>">

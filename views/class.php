@@ -16,8 +16,8 @@
         <?php if($listClass != null):?>
             <?php foreach($listClass as $rs): ?>
                 <tr>
-                    <td><?php if($rs['image'] != null):?><img src="img/classes/<?=$rs['image']?>" 
-                        width="50" height="50" alt="img class" title="Imagem Turma"> <?php endif;?> 
+                    <td><?php if($rs['image'] != null):?><img src="<?=BASE_URL?>img/classes/<?=$rs['image']?>" 
+                        width="50" height="50" alt="Imagem Curso" title="Imagem Curso"> <?php endif;?> 
                     </td>
                     <td class="title-table-contents"><?=$rs['title']?></p></td>
                     <td class="description-table-contents"><?=$rs['description']?></td>

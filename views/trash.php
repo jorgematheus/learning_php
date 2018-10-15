@@ -11,7 +11,10 @@
         <a class="nav-link" id="pills-course-tab" data-toggle="pill" href="#pills-course" role="tab" aria-controls="pills-course" aria-selected="false">Cursos</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="pills-course-tab" data-toggle="pill" href="#pills-class" role="tab" aria-controls="pills-class" aria-selected="false">Turmas</a>
+        <a class="nav-link" id="pills-class-tab" data-toggle="pill" href="#pills-class" role="tab" aria-controls="pills-class" aria-selected="false">Turmas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-group-tab" data-toggle="pill" href="#pills-group" role="tab" aria-controls="pills-group" aria-selected="false">Grupos de Usuários</a>
     </li>
 </ul>
 <div class="tab-content" id="pills-tabContent">
@@ -137,6 +140,39 @@
                                    title="Restaurar"><i class="fas fa-level-up-alt fa-fw"></i></a>
                                 <a  href="<?=BASE_URL?>trash/deleteContent/<?=$rs['id']?>" id="btt"
                                     onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'curso')"
+                                    title="Excluir" class="btn-del btn button-all btn-admin"><i class="fas fa-trash-alt fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="tab-pane" id="pills-group" role="tabpanel" aria-labelledby="pills-group-tab">
+        <div class="table-responsive-lg">
+            <table class="table table-list table-trash">
+                <thead>
+                <tr>
+                    <th>Título</th>                    
+                    <th>Exclusor</th>
+                    <th>Data de exclusão</th>
+                    <th>Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($listGroup != null):?>
+                    <?php foreach($listGroup as $rs): ?>
+                        <tr>
+                            <td class="title-table-trash"><?=$rs['title']?></td>                            
+                            <td><?=$rs['email']?></td>
+                            <td><?=date('d/m/Y H:i:s', strtotime($rs['date_edition']))?></td>
+                            <td><a href="<?=BASE_URL?>trash/recoveryGroup/<?=$rs['id']?>" class="btn button-all btn-admin"
+                                   onclick="callRecoveryTrash(event, $(this).attr('href'), $(this).parents('tr'), 'grupo', 'recuperar')"
+                                   title="Restaurar"><i class="fas fa-level-up-alt fa-fw"></i></a>
+                                <a  href="<?=BASE_URL?>trash/deleteGroup/<?=$rs['id']?>" id="btt"
+                                    onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'grupo')"
                                     title="Excluir" class="btn-del btn button-all btn-admin"><i class="fas fa-trash-alt fa-fw"></i>
                                 </a>
                             </td>

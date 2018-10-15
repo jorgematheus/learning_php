@@ -39,7 +39,14 @@ let callDatePicker = () => {
     });
 }
 
-function feedbackSuccess(message) {
+/*******************************************************************| 
+| Função resonsável por exibir feedbacks de sucesso                 |
+|  @params: 1: Mensagem a ser exibida.                              |
+|  2: Página a ser redirecionada após timeout (Opcional)            |
+|  @return: Retorna um elemento na página para exibição de feedback |
+********************************************************************/
+
+function feedbackSuccess(message, redirectPage = []) {
     var feed = '<div class="alert alert-success alert-dismissible fade show" role="alert">'+
                     '<i class="fas fa-check-circle fa-fw"> </i> <strong>'+message+'</strong>'+ 
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
@@ -47,10 +54,24 @@ function feedbackSuccess(message) {
                     '</button>'+
                 '</div>';
         var body = $(feed).insertAfter("h3");
-    return body;
+
+    if(redirectPage.length != 0) {
+        setTimeout(function(){
+            window.location = BASE_URL+redirectPage;
+        },2000)
+    }
+
+    return body;    
 }
 
-function feedbackError(message) {
+/*******************************************************************| 
+| Função resonsável por exibir feedbacks de erros                   |
+|  @params: 1: Mensagem a ser exibida.                              |
+|  2: Página a ser redirecionada após timeout (Opcional)            |
+|  @return: Retorna um elemento na página para exibição de feedback |
+********************************************************************/
+
+function feedbackError(message, redirectPage = []) {
     var feed = '<div class="alert alert-danger alert-dismissible fade show" role="alert">'+
                   '<i class="fas fa-exclamation-triangle fa-fw"></i> <strong>'+message+'</strong>'+ 
                     '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
@@ -58,5 +79,13 @@ function feedbackError(message) {
                     '</button>'+
                 '</div>';
         var body = $(feed).insertAfter("h3");
+    
+    if(redirectPage.length != 0) {
+        setTimeout(function(){
+            window.location = BASE_URL+redirectPage;
+        });
+    }
+
     return body;
 }
+

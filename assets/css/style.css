@@ -19,6 +19,7 @@ html, body { height: auto; background-color: #F8F9FA !important; }
 h1, h2, h3, h4, h5, h6 { margin: 20px 0px !important; color: #212121; }
 label[id*="-error"] { color: #dc3545; } /*label para feedback de erro*/
 input.error { border: 1px solid #dc3545; }
+.nav-pills .nav-link { color: #2f2f2f; } /* nav-pills */
 
 /* Reseta focus dos inputs */
 /*textarea:focus, input:focus, select:focus { box-shadow: 0 0 0 !important;  border: 1px solid #ced4da !important; } 
@@ -33,7 +34,8 @@ img.img-class.img-thumbnail { margin-bottom: 10px !important; }
 .btn-main { margin: 10px 0px; }
 .button-all:hover { color:#fff; box-shadow:5px 10px 18px #888888; }
 .btn-home { height: 200px;  background-color: #FF8C00; position:relative; border-radius:5px;
-            width: 60%; transform: scale(1.0); box-shadow: 0 0 20px rgba(0,0,0,.5); margin-bottom:20px; } /* Botões página inicial */
+            width: 60%; transform: scale(1.0); box-shadow: 0 0 20px rgba(0,0,0,.5); 
+            margin-bottom:20px; } /* Botões página inicial */
 .btn-home a, .btn-home i { width:100%; color: #fff; }
 .btn-home a {  font-size:1.6em; }
 .btn-home-content i { position: absolute; left:50%; transform: translate(-15%, 50%); }
@@ -85,7 +87,7 @@ li[class*="menu-"] { font-weight: 600; }
 
 /* Rodapé */
 footer {  position:relative; margin-top: 100px; height: 50px; background-color: #2f2f2f; }
-.footer-copyright { position: relative;   top: 50%; color: #fff; }
+.footer-copyright { position: relative;   top: 50%; color: #fff; line-height: 1px; }
 
 @media screen and (min-width: 768px) { 
     input#class-photo { position: relative; top: 144px; left: 1%; }

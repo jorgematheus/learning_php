@@ -115,7 +115,7 @@ class Users extends Model {
         if($image != null) {
             $sql = $this->db->prepare('UPDATE users SET image = ? WHERE id = ?');
             $sql->execute(array($image, $id)); 
-            if($this->userInfo['image'] != 'user-profile-default.png') {        
+            if($this->userInfo['image'] != $this->imageDefault) {        
                 unlink("img/users/".$this->userInfo['image']);                
             }
         } 
@@ -128,7 +128,7 @@ class Users extends Model {
         $sql->bindValue(2, $this->userInfo['id']);      
         $sql->bindValue(3, $id);
         $sql->execute();         
-        if($this->userInfo['image'] != 'user-profile-default.png') {        
+        if($this->userInfo['image'] != $this->imageDefault) {        
             var_dump($this->userInfo['image']);
             unlink("img/users/".$this->userInfo['image']);
             return true;            

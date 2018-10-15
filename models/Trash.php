@@ -59,6 +59,15 @@ class Trash extends Model {
         }
     }
 
+    public function getDataInactiveGroup() {
+        $sql = $this->db->query('SELECT g.title, g.description, g.id, u.email,
+         g.date_edition FROM group_user g INNER JOIN users u ON g.last_editor = u.id 
+         WHERE g.active = 0 ORDER BY g.title');
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
     public function recoveryDataInactive($id, $table) {
         $sql = $this->db->prepare('UPDATE '.$table.' SET active = 1, last_editor = ?, date_edition = now() WHERE id = ?');
         $sql->execute(array($this->idUser, $id));

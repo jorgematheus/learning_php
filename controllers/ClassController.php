@@ -56,10 +56,11 @@ class ClassController extends Controller {
             } else {
                 $name_img = null;                
             }            
-            if($name_img == null && $img_valid === true) {
+            if($name_img == null && $img_valid == true) {                
                 $c->addClass($title, $description, 'class-default-image.jpg');
                 $data['feedback_success'] = 'Turma cadastrada';
-            } else if($name_img != null && $img_valid === true) {
+
+            } else if($name_img != null && $img_valid == true) {                
                 $c->addClass($title, $description, $name_img);
                 $data['feedback_success'] = 'Turma cadastrada';
             } 
@@ -77,7 +78,9 @@ class ClassController extends Controller {
         $data['permission'] = $u->getTypeUser();
         $data['classData'] = $c->getClassEdit($id);
         $data['listCourseAddToClass'] = $c->getCourseAddToClass($id);
+        $data['listGroupAddToClass'] = $c->getGroupAddToClass($id);
         $data['listCourse'] = $c->listCourse($id);
+        $data['listGroup'] = $c->listGroup($id);
 
         if(empty($id) || $data['classData'] == null) {
             header('location: '.BASE_URL.'class');
@@ -87,12 +90,19 @@ class ClassController extends Controller {
             header('location: '.BASE_URL.'restrict');
         } 
 
-        if(isset($_POST['check-content'])) {
-            foreach($_POST['check-content'] as $rs) {
+        if(isset($_POST['check-course'])) {
+            foreach($_POST['check-course'] as $rs) {
                 $c->addCourseToClass($id, $rs);
             }
+            header('location: '.$_SERVER['REQUEST_URI']);       
+        }  
+        
+        if(isset($_POST['check-group'])) {
+            foreach($_POST['check-group'] as $rs) {
+                $c->addGroupToClass($id, $rs);
+            }
             header('location: '.$_SERVER['REQUEST_URI']);
-        }        
+        } 
           
         if(isset($_POST['class-title']) && !empty($_POST['class-title'])) {  
             $photo = $_FILES['class-photo'];          
@@ -117,9 +127,8 @@ class ClassController extends Controller {
                 $name_img = null;                
             }  
             if($img_valid === true) {
-                $c->editClass($id,$title, $description, $name_img);
-                //header('location: '.$_SERVER['REQUEST_URI']); 
-                $data['feedback'] = "Dados Alterados!";
+                $c->editClass($id,$title, $description, $name_img);                
+                $data['feedback_success'] = "Turma alterada com sucesso!";
             }                      
         }      
         $this->loadTemplate('class_edit', $data);
@@ -167,7 +176,24 @@ class ClassController extends Controller {
         $data['permission'] = $u->getTypeUser();
         if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {
-                if($c->deleteLessonAddToCourse($idCourse, $idLesson)) {
+                if($c->deleteCourseAddToClass($idClass, $idCourse)) {
+                    echo 'Conteúdo Deletado!';
+                }
+            } else {
+                header('location: '.BASE_URL.'restrict');
+            }
+        }
+    }
+
+    public function deleteGroup($idClass, $idGroup) {
+        $data = array();
+        $u = new Users();
+        $c = new Classes();
+        $u->setLoggedUser();        
+        $data['permission'] = $u->getTypeUser();
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                if($c->deleteGroupAddToClass($idClass, $idGroup)) {
                     echo 'Conteúdo Deletado!';
                 }
             } else {

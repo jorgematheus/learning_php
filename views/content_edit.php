@@ -30,6 +30,9 @@
         </div>
     </div>
 </div>
-<?php if (isset($feedback)):?>
-    <script> callModalEdit('#modal-feedback', 'content');</script>
+<?php if (isset($feedback_success)):?>
+    <script> feedbackSuccess(<?php echo "'".$feedback_success."'"; ?>, 'content');</script>
+<?php endif;?>
+<?php if (isset($feedback_error)):?>
+    <script> feedbackError(<?php echo "'".$feedback_error."'"; ?>);</script>
 <?php endif;?>

@@ -5,6 +5,7 @@
     <table id="table-course" class="table table-list table-contents">
         <thead>
         <tr>
+            <th></th>
             <th>Título</th>
             <th>Descrição</th>
             <th>Ações</th>
@@ -14,6 +15,9 @@
         <?php if($listCourse != null):?>
             <?php foreach($listCourse as $rs): ?>
                 <tr>
+                    <td><?php if($rs['image'] != null):?><img src="<?=BASE_URL?>img/courses/<?=$rs['image']?>" 
+                        width="50" height="50" alt="img class" title="Imagem Turma"> <?php endif;?> 
+                        </td>
                     <td class="title-table-contents"><?=$rs['title']?></td>
                     <td class="description-table-contents"><?=$rs['description']?></td>
                     <td><a href="<?=BASE_URL?>course/edit/<?=$rs['id']?>" class="btn button-all btn-content"

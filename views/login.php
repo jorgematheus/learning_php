@@ -59,15 +59,3 @@
 </script>
 </body>
 </html>
-<?php
-$data = Array
-(
-     Array
-        (
-            'id' => 896
-        ),
-
-        );
-
-        print_r($data);
-?>

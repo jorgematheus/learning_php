@@ -147,7 +147,7 @@ class usersController extends Controller {
             }
             if($img_valid === true) {               
                 $u->edit($id, $name, $pass, $name_img, $birth, $type_user, $phone);
-                $data['feedback'] = 'Usuário alterado!';                                
+                $data['feedback_success'] = 'Usuário alterado com sucesso!';                                
             } 
                                 
         }

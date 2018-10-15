@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?=BASE_URL?>vendor/bootstrap-table-pagination\css\datatables.min.css">
 <h3 class="content-color"><i class="fas fa-pencil-alt fa-fw"></i>Edição de Turma</h3>
 <?php if(isset($img_invalid)) include "assets/includes/img_invalid.php";?>
 <form id="form-class" method="POST" enctype="multipart/form-data">
@@ -35,18 +36,97 @@
     <button type="submit" class="btn button-all btn-content"><i class="fas fa-save fa-fw"></i>Salvar</button>
 </form>
 <br><br>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCurso">
     Selecionar Curso
+</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalGrupo">
+    Selecionar Grupo
 </button>
 
 <br><br>
-<!-- Modal -->
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-course-tab" data-toggle="pill" href="#pills-course" role="tab" aria-controls="pills-course" aria-selected="true">Cursos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-group-tab" data-toggle="pill" href="#pills-group" role="tab" aria-controls="pills-group" aria-selected="false">Grupos de Usuários</a>
+    </li>    
+</ul>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane show active" id="pills-course" role="tabpanel" aria-labelledby="pills-course-tab">
+    <h3>Cursos Vinculados</h3>
+        <div class="table-responsive-lg">
+            <table class="table table-list table-contents">
+                <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Excluir</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($listCourseAddToClass != null):?>
+                    <?php foreach($listCourseAddToClass as $rs): ?>
+                        <tr>
+                            <td class="title-table-contents"><?=$rs['title']?></td>
+                            <td class="description-table-contents"><?=$rs['description']?></td>
+                            <td>
+                                <a href="<?=BASE_URL?>class/deleteCourse/<?=$rs['idClass']?>/<?=$rs['idCourse']?>" id="btt"
+                                onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'curso')"
+                                title="Excluir" class="btn-del btn button-all btn-content"><i class="fas fa-trash-alt fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
+                </tbody>
+            </table>
+            <?php if($listCourseAddToClass == null):?>
+                <p class="text-center">Nenhum dado encontrado.</p>
+            <?php endif;?>
+        </div>
+    </div>
+    <div class="tab-pane" id="pills-group" role="tabpanel" aria-labelledby="pills-group-tab">
+    <h3>Grupos Vinculados</h3>
+        <div class="table-responsive-lg">
+            <table class="table table-list table-contents">
+                <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Excluir</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php if($listGroupAddToClass != null):?>
+                    <?php foreach($listGroupAddToClass as $rs): ?>
+                        <tr>
+                            <td class="title-table-contents"><?=$rs['title']?></td>
+                            <td class="description-table-contents"><?=$rs['description']?></td>
+                            <td>
+                                <a href="<?=BASE_URL?>class/deleteGroup/<?=$rs['idClass']?>/<?=$rs['idGroup']?>" id="btt"
+                                onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'curso')"
+                                title="Excluir" class="btn-del btn button-all btn-content"><i class="fas fa-trash-alt fa-fw"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach;?>
+                <?php endif;?>
+                </tbody>
+            </table>
+            <?php if($listGroupAddToClass == null):?>
+                <p class="text-center">Nenhum dado encontrado.</p>
+            <?php endif;?>
+        </div>
+    </div>   
+</div>
+    <!-- Modal Cursos -->
 <form id="form-add-ajax" method="POST">
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalCurso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h5>Conteúdos</h5>
+                    <h5>Cursos</h5>
                     <div class="table-responsive-lg">
                         <table class="table table-list table-modal">
                             <thead>
@@ -56,15 +136,14 @@
                                 <th>Selecionar</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <form method="POST">
+                            <tbody>                            
                                 <?php if($listCourse != null):?>
                                     <?php foreach($listCourse as $rs): ?>
                                             <tr>
                                                 <td class="title-modal"><?=$rs['title']?></td>
                                                 <td class="description-modal"><?=$rs['description']?></td>
                                                 <td> <input type="checkbox" class="form-control" id="course-description"
-                                                            name="check-content[]" value="<?=$rs['id']?>" > </td>
+                                                            name="check-course[]" value="<?=$rs['id']?>" > </td>
                                             </tr>
                                     <?php endforeach;?>
                                 <?php endif;?>
@@ -78,73 +157,59 @@
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-content">Vincular</button>
                 </div>
+            </div>
+        </div>
+    </div>  
+</form> 
+   <!-- Modal Grupo -->
+<form id="form-add-ajax" method="POST">
+    <div class="modal fade" id="modalGrupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5>Grupos</h5>
+                    <div class="table-responsive-lg">
+                        <table class="table table-list table-modal">
+                            <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Descrição</th>
+                                <th>Selecionar</th>
+                            </tr>
+                            </thead>
+                            <tbody>                            
+                                <?php if($listGroup != null):?>
+                                    <?php foreach($listGroup as $rs): ?>
+                                            <tr>
+                                                <td class="title-modal"><?=$rs['title']?></td>
+                                                <td class="description-modal"><?=$rs['description']?></td>
+                                                <td> <input type="checkbox" class="form-control" id="course-description"
+                                                            name="check-group[]" value="<?=$rs['id']?>" > </td>
+                                            </tr>
+                                    <?php endforeach;?>
+                                <?php endif;?>
+                            </tbody>
+                        </table>
+                        <?php if($listGroup == null):?>
+                            <p class="text-center">Nenhum dado encontrado.</p>
+                        <?php endif;?>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-content">Vincular</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-</div>
-</div>
-</div>
-<!-- Button trigger modal -->
-<input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-login">
-<div class="modal fade"  id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-login" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <span><i class="fas fa-check"></i> <?=$feedback;?></span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<?php if (isset($feedback)):?>
-    <script> callModalEdit('#modal-feedback', 'lesson');</script>
-<?php endif;?>
-<h3>Cursos Vinculados</h3>
-<div class="table-responsive-lg">
-    <table class="table table-list table-contents">
-        <thead>
-        <tr>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Excluir</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php if($listCourseAddToClass != null):?>
-            <?php foreach($listCourseAddToClass as $rs): ?>
-                <tr>
-                    <td class="title-table-contents"><?=$rs['title']?></td>
-                    <td class="description-table-contents"><?=$rs['description']?></td>
-                    <td>
-                        <a href="<?=BASE_URL?>class/deleteCourse/<?=$rs['idClass']?>/<?=$rs['idCourse']?>" id="btt"
-                           onclick="callDelete(event, $(this).attr('href'), $(this).parents('tr'), 'curso')"
-                           title="Excluir" class="btn-del btn button-all btn-content"><i class="fas fa-trash-alt fa-fw"></i>
-                        </a>
-                    </td>
-                </tr>
-            <?php endforeach;?>
-        <?php endif;?>
-        </tbody>
-    </table>
-    <?php if($listCourseAddToClass == null):?>
-        <p class="text-center">Nenhum dado encontrado.</p>
-    <?php endif;?>
-</div>
-<!-- Button trigger modal -->
-<input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-login">
-<div class="modal fade"  id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-login" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <span><i class="fas fa-check"></i> <?=$feedback;?></span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<?php if (isset($feedback)):?>
-    <script> callModalEdit('#modal-feedback', 'class');</script>
-<?php endif;?>
 <script> $(document).ready(function(){ adapterTextTable(); }) </script>
+<script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>
+<script>
+  $(document).ready(function(){ tablePagination('.table-list')});
+</script>
+<?php if (isset($feedback_success)):?>
+    <script> feedbackSuccess(<?php echo "'".$feedback_success."'"; ?>, 'class');</script>
+<?php endif;?>
+<?php if (isset($feedback_error)):?>
+    <script> feedbackError(<?php echo "'".$feedback_error."'"; ?>);</script>
+<?php endif;?>

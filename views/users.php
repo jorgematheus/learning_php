@@ -66,9 +66,7 @@
         </div>
     </div>
     <?php if (isset($feedback)):?>
-        <script>
-            callModal('#modal-feedback');
-        </script>
+        <script>callModal('#modal-feedback');</script>
     <?php endif;?>
 </div>
 <script src="<?=BASE_URL?>vendor/bootstrap-table-pagination\js\datatables.min.js"></script>

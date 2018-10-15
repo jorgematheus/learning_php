@@ -58,34 +58,64 @@ class groupController extends Controller {
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
         $data['permission'] = $u->getTypeUser();
-        $data['courseData'] = $c->getCourseEdit($id);
-        $data['listClassAddToGroup'] = $c->getLessonAddToCourse($id);
-        $data['listClass'] = $c->getAllClass();
+        $data['groupData'] = $g->getGroupEdit($id);
+        $data['listUsersAddToGroup'] = $g->getUserAddToGroup($id);      
+        $data['listUsers'] = $g->listUsers($id);  
 
-        if(empty($id) || $data['courseData'] == null) {
-            header('location: '.BASE_URL.'course');
+        if(empty($id) || $data['groupData'] == null) {
+            header('location: '.BASE_URL.'group');
         }
 
         if($data['permission'] != '3' && $data['permission'] != '2') {
             header('location: '.BASE_URL.'restrict');
         }
 
-        if(isset($_POST['check-content'])) {
-            foreach($_POST['check-content'] as $rs) {
-                $c->addLessonToCourse($id, $rs);
+        /* Adicionando os usuários ao grupo */
+        if(isset($_POST['check-admin'])) {
+            foreach($_POST['check-admin'] as $rs) {
+                $g->addUserToGroup($id, $rs);
             }
             header('location: '.$_SERVER['REQUEST_URI']);
         }
-        if(isset($_POST['course-title']) && !empty($_POST['course-title'])) {
-            $title = $_POST['course-title'];
-            if(isset($_POST['course-description']) && !empty($_POST['course-description'])) {
-                $description = $_POST['course-description'];
+        if(isset($_POST['group-title']) && !empty($_POST['group-title'])) {
+            $title = $_POST['group-title'];
+            if(isset($_POST['group-description']) && !empty($_POST['group-description'])) {
+                $description = $_POST['group-description'];
             } else {
                 $description = null;
             }
-            $c->editCourse($id, $title, $description);
+            $g->editgroup($id, $title, $description);
             $data['feedback'] = "Dados alterados!";            
         }
-        $this->loadTemplate('course_edit', $data);
+        $this->loadTemplate('group_edit', $data);
+    }
+
+    public function del($id) {
+        $data = array();
+        $u = new Users();
+        $g = new Group();
+        $u->setLoggedUser();
+        $data['permission'] = $u->getTypeUser();
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                $g->moveGroupToTrash($id);
+            }
+        }
+    }   
+
+    /*Funções responsáveis por manipular os usuários vinculados aos grupos*/
+    public function deleteUser($idGroup, $idUser) {
+        $data = array();
+        $u = new Users();
+        $g = new Group();
+        $u->setLoggedUser();        
+        $data['permission'] = $u->getTypeUser();
+        if($u->isLogged()) {
+            if($data['permission'] == '3' || $data['permission'] == '2') {
+                $g->deleteUserAddToGroup($idGroup, $idUser);                  
+            } else {
+                header('location: '.BASE_URL.'restrict');
+            }
+        }
     }
 }

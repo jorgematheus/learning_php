@@ -64,23 +64,12 @@
         Administrador - Acesso em todas as áreas da aplicação.
     </small>
 </div>
-<!-- Button trigger modal -->
-<input type="hidden" id="btn-modal" data-toggle="modal" data-target="#modal-login">
-<div class="modal fade"  id="modal-feedback" tabindex="-1" role="dialog" aria-labelledby="modal-login" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <span><i class="fas fa-check"></i> <?=$feedback;?></span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<?php if (isset($feedback)):?>
-    <script> callModalEdit('#modal-feedback', 'users');</script>
-<?php endif;?>
 <script src="<?=BASE_URL?>vendor/datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<?=BASE_URL?>vendor/datepicker/js/bootstrap-datepicker.pt-BR.min.js"></script>
 <script>callDatePicker();</script>
+<?php if (isset($feedback_success)):?>
+    <script> feedbackSuccess(<?php echo "'".$feedback_success."'"; ?>, 'users');</script>
+<?php endif;?>
+<?php if (isset($feedback_error)):?>
+    <script> feedbackError(<?php echo "'".$feedback_error."'"; ?>);</script>
+<?php endif;?>
