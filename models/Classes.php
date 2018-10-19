@@ -127,10 +127,8 @@ class Classes extends Model {
         $data = $sql->fetch(PDO::FETCH_ASSOC);
         if($data['qt'] != '0') {
             $sql = $this->db->prepare('DELETE FROM class_has_group WHERE idClass = ? AND idGroup = ?');
-            $sql->execute(array($idClass, $idGroup));
-            return true;
-        } 
-        return false;
+            $sql->execute(array($idClass, $idGroup));            
+        }        
     } 
 
     /*

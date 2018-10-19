@@ -193,9 +193,7 @@ class ClassController extends Controller {
         $data['permission'] = $u->getTypeUser();
         if($u->isLogged()) {
             if($data['permission'] == '3' || $data['permission'] == '2') {
-                if($c->deleteGroupAddToClass($idClass, $idGroup)) {
-                    echo 'Conteúdo Deletado!';
-                }
+                $c->deleteGroupAddToClass($idClass, $idGroup);                    
             } else {
                 header('location: '.BASE_URL.'restrict');
             }

@@ -129,11 +129,60 @@ class Course extends Model {
     /* Cursos da página inicial  */
 
     public function getMyCourses() {
-        $sql = $this->db->prepare("SELECT u.id as id_user, c.id as id_course, c.title as title_course, c.description, c.image, cl.title as title_class FROM course c INNER JOIN class_has_course chc ON c.id = chc.idCourse INNER JOIN class cl ON cl.id = chc.idClass INNER JOIN class_has_group chg ON cl.id = chg.idClass INNER JOIN group_has_user ghu ON chg.idGroup = ghu.idGroup INNER JOIN users u ON u.id = ghu.idUser WHERE u.id = 1 AND c.active = 1 ORDER BY c.title");
+        $sql = $this->db->prepare("SELECT DISTINCT u.id as id_user, c.id as id_course, cl.id as id_class, 
+        c.title as title_course, c.description, c.image, cl.title as title_class FROM course c INNER JOIN 
+        class_has_course chc ON c.id = chc.idCourse INNER JOIN class cl ON cl.id = chc.idClass INNER JOIN 
+        class_has_group chg ON cl.id = chg.idClass INNER JOIN group_has_user ghu ON chg.idGroup = 
+        ghu.idGroup INNER JOIN users u ON u.id = ghu.idUser INNER JOIN user_course_register ucr ON ucr.class = cl.id  WHERE u.id = ? AND c.active = 1 AND c.id IN (SELECT course FROM user_course_register  WHERE user = ?  AND completed = 0) AND cl.id IN (SELECT class FROM user_course_register WHERE user = ? AND course = c.id)  ORDER BY c.title");
         $sql->bindValue(1, $this->idUser);
+        $sql->bindValue(2, $this->idUser); 
+        $sql->bindValue(3, $this->idUser);       
         $sql->execute();
         if($sql->rowCount() > 0) {
             return $sql->fetchAll(PDO::FETCH_ASSOC); 
         }
+    }   
+
+    public function getNewCourses() {
+        $sql = $this->db->prepare("SELECT DISTINCT u.id as id_user, c.id as id_course, cl.id as id_class, 
+        c.title as title_course, c.description, c.image, cl.title as title_class FROM course c INNER JOIN 
+        class_has_course chc ON c.id = chc.idCourse INNER JOIN class cl ON cl.id = chc.idClass INNER JOIN 
+        class_has_group chg ON cl.id = chg.idClass INNER JOIN group_has_user ghu ON chg.idGroup = 
+        ghu.idGroup INNER JOIN users u ON u.id = ghu.idUser WHERE u.id = ? AND c.active = 1 AND c.id 
+        NOT IN (SELECT course FROM user_course_register WHERE user = ? AND class = cl.id) ORDER BY c.title");
+        $sql->bindValue(1, $this->idUser);
+        $sql->bindValue(2, $this->idUser);
+        $sql->execute();
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll(PDO::FETCH_ASSOC); 
+        }
+    }    
+    
+    public function registerCourse($class, $course) {
+       $sql= $this->db->prepare("INSERT INTO user_course_register(class, course, user) VALUES (?, ?, ?)");
+       $sql->execute(array($class, $course, $this->idUser));        
+    }    
+
+    public function getCourseOpen($id) {
+        $sql = $this->db->prepare("SELECT * FROM course WHERE id = ?");
+        $sql->bindValue(1, $id);
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            return $sql->fetch(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function getLessonCourse($idCourse) {
+        /*$sql = $this->db->prepare("SELECT l.id, l.title, l.description FROM lesson l INNER JOIN 
+        course_has_lesson chl ON l.id = chl.idLesson INNER JOIN course c ON c.id = chl.idCourse
+         WHERE c.id = ?");*/
+         $sql = $this->db->prepare("SELECT l.id as id_lesson, l.title as title_lesson, l.description as description_lesson, c.id as id_content, c.title as title_content FROM lesson l INNER JOIN lesson_has_content lhc ON lhc.idLesson = l.id INNER JOIN content c ON c.id = lhc.idContent INNER JOIN course_has_lesson chl ON chl.idLesson = l.id INNER JOIN course cc ON cc.id = chl.idCourse WHERE cc.id = ?");
+        $sql->bindValue(1, $idCourse);
+        $sql->execute();
+
+        if($sql->rowCount() > 0) {
+            return $sql->fetchAll(PDO::FETCH_ASSOC);
+        } 
     }
 }

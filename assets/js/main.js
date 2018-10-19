@@ -103,4 +103,28 @@ function callRecoveryTrash(event,url,parent,name) {
         callActionUrl(url);
     }
 }
+
+$('.btn-register').on('click', function(){
+    let ids = this.getAttribute("data-ids");
+    $.ajax({
+        url: BASE_URL+'course/registerCourse/'+ids,
+        type: 'GET',
+        beforeSend: function() { $('.btn-register').prop('disabled', true) },
+        success: function() { window.location.href = BASE_URL+'course/myCourses' }
+    });    
+});
+
+// salva a aba selecionada para não ser perdida ao dar refresh na página
+$('a[data-toggle="pill"]').on('show.bs.tab', function (e) {
+    localStorage.setItem('activeTab', $(e.target).attr('href'));
+ }); 
+ 
+ //Obtém os dados da localStorage
+ var activeTab = localStorage.getItem('activeTab');
+ 
+ console.log(activeTab);
+ 
+ if (activeTab) {
+    $('a[href="' + activeTab + '"]').tab('show');
+ }
  

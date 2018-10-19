@@ -188,10 +188,45 @@ class courseController extends Controller {
         $c = new Course();        
         $u->setLoggedUser();
         $data['nameUser'] = $u->getName();
-        $data['permission'] = $u->getTypeUser();
-        $data['myCourses'] = $c->getMyCourses();      
+        $data['permission'] = $u->getTypeUser();             
+        $data['myCourses'] = $c->getMyCourses();        
         $this->loadTemplate('myCourses', $data);
     }
 
+    public function registerCourse($class, $course) {
+        $u = new Users();
+        $c = new Course();        
+        $u->setLoggedUser();
+        $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();
 
+        if(isset($class) && isset($course)) {
+            $c->registerCourse($class, $course);
+        }
+
+        header("location: ". BASE_URL.'course/myCourses');
+    }
+
+    public function newCourses() {
+        $u = new Users();
+        $c = new Course();        
+        $u->setLoggedUser();
+        $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();             
+        $data['myCourses'] = $c->getNewCourses();        
+        $this->loadTemplate('newCourses', $data);
+    }
+
+    /* Página aonde será exibido o conteúdo do curso aberto */
+    
+    public function open($idCourse, $idLesson) {
+        $u = new Users();
+        $c = new Course();        
+        $u->setLoggedUser();
+        $data['nameUser'] = $u->getName();
+        $data['permission'] = $u->getTypeUser();             
+        $data['courseOpen'] = $c->getCourseOpen($idCourse); //dados do curso aberto
+        $data['getLessonCourse'] = $c->getLessonCourse($idCourse);        
+        $this->loadTemplate('courseOpen', $data);
+    }
 }

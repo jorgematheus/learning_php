@@ -1,1 +1,6 @@
-*.jpg
+img/*
+config.php
+node_modules
+*.json
+.idea
+.vscode

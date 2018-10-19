@@ -12,7 +12,7 @@
             <div class="btn-home">
                 <div class="btn-home-content">
                     <i class="fas fa-graduation-cap fa-4x"></i><br>
-                    <a id="btn-courses-on" href=""> Novos Cursos</a>
+                    <a id="btn-courses-on" href="<?=BASE_URL?>course/newCourses"> Novos Cursos</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<h3>Meus Cursos</h3>
+<h3>Novos Cursos</h3>
 <div class="row">
     <?php if($myCourses != null): ?>
         <?php foreach($myCourses as $rs): ?>
@@ -8,15 +8,15 @@
                     src="<?=BASE_URL?>img/courses/<?=$rs['image']?>" alt="Curso">
                     <div class="card-body">
                         <span class="card-text"><strong>Curso:</strong> 
-                            <span><?=$rs['title_course']?></span>
+                            <span class="title-modal"><?=$rs['title_course']?></span>
                          </span> <br>
                        <span class="card-text"><strong>Turma:</strong> 
                             <?=$rs['title_class']?> 
                        </span><br><br>
-                       <a  href="<?=BASE_URL?>course/open/<?=$rs['id_course']?>/#/"
-                         class="btn-open btn btn-outline-primary float-right">                                                      
-                            <i class="fas fa-angle-double-right fa-fw"></i> Entrar                             
-                        </a>
+                       <button data-ids="<?=$rs['id_class']?>/<?=$rs['id_course']?>"
+                         class="btn-register btn btn-outline-primary float-right">                                                      
+                            <i class="fas fa-lock fa-fw"></i> Matricule-se                             
+                        </button>
                     </div>                    
                 </div> <br>
             </div> 

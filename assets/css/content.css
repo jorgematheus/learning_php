@@ -16,3 +16,9 @@ li.menu-content i, li.menu-content a, .content-color { color: #339AF0; } /* Cont
 
 .table-contents tr td.title-table-contents { word-wrap: break-word; max-width: 240px; }
 .table-contents tr td.description-table-contents { word-wrap: break-word;  max-width: 350px; }
+
+/*Course Open*/
+.navbar-left {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
